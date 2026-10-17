@@ -38,6 +38,11 @@ self.Ultraviolet.prototype.rewriteImport=function(base,specifier){return this.re
       if(String(value).startsWith('blob:'))return this.blobUrls?.get(String(value))||String(value);
       return super.rewriteUrl(self.__tembyUpstreamURL?self.__tembyUpstreamURL(value,meta,this.prefix):value,meta);
     }
+    rewriteCSS(value,meta=this.meta){
+      // Dynamic style properties/cssText must follow the same original-origin
+      // resource policy as HTML images. Requests still pass through our worker.
+      return this.sourceCSS(super.rewriteCSS(value,meta),meta);
+    }
     sourceUrl(value,meta=this.meta){
       const text=String(value||'');
       if(!text.startsWith(String(meta.origin||'')+this.prefix))return text;
