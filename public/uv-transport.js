@@ -38,6 +38,10 @@
       }
       const binary=relay.headers.get('content-type')?.startsWith('application/x-temby-binary');
       const wire=binary?await readBinary(relay):await relay.json();
+      const cookieContext=self.__tembyRelayCookieContexts?.get(options.headers);
+      try{
+        if(cookieContext&&wire.headers['set-cookie']?.length&&self.__tembyApplyResponseCookies)await self.__tembyApplyResponseCookies(cookieContext,wire.headers['set-cookie']);
+      }catch(error){if(binary)await wire.body.cancel().catch(()=>{});throw error;}
       const empty=[101,204,205,304].includes(wire.status)||options.method==='HEAD';
       if(empty&&binary)await wire.body.cancel();
       const response=new Response(empty?null:binary?wire.body:Uint8Array.from(atob(wire.body),x=>x.charCodeAt(0)),{status:wire.status,headers:Object.entries(wire.headers).filter(([k])=>k!=='set-cookie')});

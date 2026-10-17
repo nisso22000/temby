@@ -6,6 +6,15 @@ import {once} from 'node:events';
 import {createServers} from '../src/server.js';
 import type {Transport} from '../src/transport.js';
 
+test('response handoff waits for cookie commitment without changing Set-Cookie metadata',async()=>{
+  let release!:()=>void,started!:()=>void,delivered=false;const gate=new Promise<void>(resolve=>{release=resolve;});const ready=new Promise<void>(resolve=>{started=resolve;});
+  const headers={};const cookieContext={};const cookies=['owned=fresh; Secure; HttpOnly'];
+  const self:any={location:{origin:'http://localhost:3001'},Ultraviolet:{},__tembyRelayCookieContexts:new WeakMap([[headers,cookieContext]]),fetch:async()=>Response.json({status:200,headers:{'set-cookie':cookies},body:btoa('owned')}),__tembyApplyResponseCookies:async(uv:unknown,values:string[])=>{assert.equal(uv,cookieContext);assert.deepEqual(Array.from(values),cookies);started();await gate;}};
+  vm.runInNewContext(await readFile(new URL('../public/uv-transport.js',import.meta.url),'utf8'),{self,URL,Response,ReadableStream,Uint8Array,DataView,TextDecoder,atob,btoa});
+  const pending=new self.Ultraviolet.BareClient().fetch('https://fixture.temby.invalid/owned',{headers}).then((response:Response)=>{delivered=true;return response;});
+  await ready;assert.equal(delivered,false);release();const response:any=await pending;assert.equal(await response.text(),'owned');assert.deepEqual(Array.from(response.rawHeaders['set-cookie']),cookies);
+});
+
 test('client forwards read cancellation without adding cancellation to mutating requests',async()=>{
   const signal=new AbortController().signal;const headers={};const self:any={location:{origin:'http://localhost:3001'},Ultraviolet:{},__tembyRelaySignals:new WeakMap([[headers,signal]]),fetch:async(_url:string,options:any)=>{
     const method=JSON.parse(options.body).method;assert.equal(options.signal,method==='GET'?signal:undefined);

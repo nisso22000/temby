@@ -20,18 +20,21 @@ self.Ultraviolet.prototype.rewriteImport=function(base,specifier){return this.re
       this.html.on('text',(text,type)=>{if(type==='rewrite'&&text.element.tagName==='style')text.value=this.sourceCSS(text.value);});
       if(self.__tembyInlineHelpers){
         const create=this.createHtmlInject;
-        this.createHtmlInject=(...args)=>create(...args).map(node=>{
-          const src=node.attrs?.find(attr=>attr.name==='src')?.value;
-          const code=self.__tembyInlineHelpers[src];
-          if(code){
-            let cached=escapedHelpers.get(src);
-            if(cached?.source!==code){cached={source:code,safe:code.replace(/<\/script/gi,'<\\/script')};escapedHelpers.set(src,cached);}
-            node.attrs=node.attrs.filter(attr=>attr.name!=='src');node.childNodes=[{nodeName:'#text',value:cached.safe,skip:true}];
-          }
-          node.namespaceURI='http://www.w3.org/1999/xhtml';
-          for(const child of node.childNodes||[]){child.parentNode=node;if(child.nodeName==='#text'&&!code)child.value=child.value.replace(/<\/script/gi,'<\\/script');}
-          return node;
-        });
+        this.createHtmlInject=(...args)=>{
+          if(this.__tembyResponseCookieString!==undefined)args[4]=this.__tembyResponseCookieString;
+          return create(...args).map(node=>{
+            const src=node.attrs?.find(attr=>attr.name==='src')?.value;
+            const code=self.__tembyInlineHelpers[src];
+            if(code){
+              let cached=escapedHelpers.get(src);
+              if(cached?.source!==code){cached={source:code,safe:code.replace(/<\/script/gi,'<\\/script')};escapedHelpers.set(src,cached);}
+              node.attrs=node.attrs.filter(attr=>attr.name!=='src');node.childNodes=[{nodeName:'#text',value:cached.safe,skip:true}];
+            }
+            node.namespaceURI='http://www.w3.org/1999/xhtml';
+            for(const child of node.childNodes||[]){child.parentNode=node;if(child.nodeName==='#text'&&!code)child.value=child.value.replace(/<\/script/gi,'<\\/script');}
+            return node;
+          });
+        };
       }
     }
     rewriteUrl(value,meta=this.meta){
@@ -46,7 +49,8 @@ self.Ultraviolet.prototype.rewriteImport=function(base,specifier){return this.re
     sourceUrl(value,meta=this.meta){
       const text=String(value||'');
       if(!text.startsWith(String(meta.origin||'')+this.prefix))return text;
-      return super.sourceUrl(text,meta);
+      const source=super.sourceUrl(text,meta);
+      return self.__tembyUpstreamURL?self.__tembyUpstreamURL(source,meta,this.prefix):source;
     }
   };
 }
@@ -57,6 +61,6 @@ if(self.UVClient&&self.navigator?.serviceWorker?.controller){
   const cookieURL=decodeURIComponent(location.pathname.slice('/uv-service/'.length));
   const Client=self.UVClient;
   self.UVClient=class extends Client{
-    constructor(...args){super(...args);self.__tembyConfigureClientNetwork?.(this,args[0]);self.__tembyConfigureNavigation?.(args[0]);this.document.on('setCookie',event=>send({tembyCookieWrite:{url:cookieURL,cookie:event.data.value}}));}
+    constructor(...args){super(...args);self.__tembyConfigureClientNetwork?.(this,args[0]);self.__tembyConfigureNavigation?.(args[0]);this.document.on('setCookie',event=>send({tembyCookieWrite:{url:args[0]?.__uv?.meta?.url?.href||cookieURL,cookie:event.data.value}}));}
   };
 }

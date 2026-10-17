@@ -24,4 +24,12 @@ test('real UV CSS rewriting preserves permitted resource origins for dynamic sty
     const rewritten=uv.rewriteCSS(css,{context:'value',...meta});assert.ok(rewritten.includes(expected),rewritten);assert.ok(!rewritten.includes('localhost'));
   }
   const declaration=uv.rewriteCSS('.owned{background-image:url(/owned.png)}');assert.ok(declaration.includes('https://www.temu.com/owned.png'));assert.ok(!declaration.includes('localhost'));
+  self.__tembyInlineHelpers={};
+  vm.runInContext(await readFile(new URL('../public/uv-url.js',import.meta.url),'utf8'),context);
+  const documentUV=new self.Ultraviolet(config);documentUV.meta=meta;documentUV.__tembyResponseCookieString='owned=fresh';
+  const injected=documentUV.createHtmlInject('handler','bundle','client','config','owned=stale','referrer');
+  const text=injected.flatMap((node:any)=>(node.childNodes||[]).map((child:any)=>child.value||'')).join('\n');assert.ok(text.includes('owned=fresh'));assert.ok(!text.includes('owned=stale'));
+  const search='https://www.temu.com/search_result.html?search_key=pc';const physical=meta.origin+'/uv-service/'+encodeURIComponent(search);
+  const login='https://www.temu.com/login.html?from='+encodeURIComponent(physical);
+  const decoded=documentUV.sourceUrl(meta.origin+'/uv-service/'+encodeURIComponent(login));assert.equal(new URL(decoded).searchParams.get('from'),search);
 });

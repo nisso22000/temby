@@ -1,6 +1,7 @@
 importScripts('/uv/request.js','/uv/bundle.js','/uv/config.js','/uv/worker.js');
 const engine=new UVServiceWorker();
 self.__tembyRelaySignals=new WeakMap();
+self.__tembyRelayCookieContexts=new WeakMap();
 const workerContexts=self.__tembyWorkerContexts(location.origin);
 let pendingContexts=Promise.resolve();
 const contextKey=value=>location.origin+'/_worker-context/'+encodeURIComponent(value);
@@ -40,8 +41,19 @@ const getHelpers=()=>inlineHelpers||=(async()=>{
 engine.on('request',event=>{
   event.data.headers['x-temby-request-destination']=event.data.request.destination||'empty';
   self.__tembyRelaySignals.set(event.data.headers,event.data.request.signal);
+  self.__tembyRelayCookieContexts.set(event.data.headers,event.data.ultraviolet);
 });
 let pendingCookies=Promise.resolve();
+self.__tembyApplyResponseCookies=(uv,cookies)=>{
+  pendingCookies=pendingCookies.catch(()=>{}).then(async()=>{
+    const db=await uv.cookie.db();await uv.cookie.setCookies(cookies,db,uv.meta);
+    uv.__tembyResponseCookieString=uv.cookie.serialize((await uv.cookie.getCookies(db))||[],uv.meta,true);
+    uv.__tembyResponseCookiesCommitted=true;
+    // Notify other tabs only after the committed state is available.
+    try{for(const client of await self.clients.matchAll())client.postMessage({msg:'updateCookies',url:uv.meta.url.href});}catch{}
+  });
+  return pendingCookies;
+};
 self.addEventListener('message',event=>{
   if(event.data?.tembyWorkerContext){
     pendingContexts=pendingContexts.catch(()=>{}).then(async()=>{
@@ -63,6 +75,9 @@ self.addEventListener('message',event=>{
   }catch{}
 });
 engine.on('beforemod',event=>{
+  // The transport already awaited this write; suppress UV's fire-and-forget
+  // duplicate, which otherwise races newer cookie updates.
+  if(event.data.ultraviolet?.__tembyResponseCookiesCommitted)delete event.data.headers['set-cookie'];
   if(event.data.request.request.integrity||event.data.request.request.destination==='style'||event.data.request.url.href==='https://fixture.temby.invalid/native-navigation.js'){
     const raw=event.data.raw;
     event.respondWith(new Response(raw.body,{status:raw.status,statusText:raw.statusText,headers:raw.headers}));return;

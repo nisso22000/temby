@@ -50,3 +50,15 @@ test('inline helper script serialization preserves JavaScript operators and clos
   context.self.__tembyInlineHelpers['/owned-helper.js']='const updated="</script>";';
   const refreshed=new context.self.Ultraviolet().createHtmlInject();assert.equal(refreshed[0].childNodes[0].value,'const updated="<\\/script>";','cached escaping invalidates changed helper content');
 });
+
+test('document initialization uses committed response cookies and script writes follow virtual navigation',async()=>{
+  let injected:unknown[]=[];const messages:any[]=[];let write:Function|undefined;
+  class Engine {attrs={isForbidden:()=>true};html={on(){}};createHtmlInject(...args:unknown[]){injected=args;return [];}}
+  class Client {document={on(_type:string,callback:Function){write=callback;}};}
+  const self:any={Ultraviolet:Engine,UVClient:Client,__tembyInlineHelpers:{},navigator:{serviceWorker:{controller:{postMessage(value:any){messages.push(value);}}}}};
+  vm.runInNewContext(await readFile(new URL('../public/uv-config.js',import.meta.url),'utf8'),{self,location:{pathname:'/uv-service/'+encodeURIComponent('https://www.temu.com/')},encodeURIComponent,decodeURIComponent});
+  const uv=new self.Ultraviolet();uv.__tembyResponseCookieString='owned=fresh';uv.createHtmlInject('handler','bundle','client','config','owned=stale','referrer');assert.equal(injected[4],'owned=fresh');
+  const page={__uv:{meta:{url:new URL('https://www.temu.com/dz/owned-page')}}};new self.UVClient(page);write!({data:{value:'owned=updated; Path=/'}});
+  assert.equal(messages[0].tembyCookieWrite.url,'https://www.temu.com/dz/owned-page');
+  page.__uv.meta.url=new URL('https://www.temu.com/search_result.html');write!({data:{value:'owned=deleted; Max-Age=0'}});assert.equal(messages[1].tembyCookieWrite.url,'https://www.temu.com/search_result.html');
+});

@@ -108,7 +108,10 @@ export async function engineRelay(req:IncomingMessage,res:ServerResponse,s:Sessi
       if(at>0 && name!=='temby_sid' && /^[!#$%&'*+.^_`|~0-9A-Za-z-]+$/.test(name))cookies.set(name,part.slice(at+1).trim());
     }
     const virtualCookies=cookies.size;
-    for(const c of stored)if(c.httpOnly||!cookies.has(c.key))cookies.set(c.key,c.value);
+    // UV owns script-visible cookie expiry/deletion. Reintroducing a cookie
+    // absent from its current header resurrects stale browser state. Retain
+    // server authority for HttpOnly cookies and legacy-engine compatibility.
+    for(const c of stored)if(c.httpOnly||(input.engine!=='ultraviolet'&&!cookies.has(c.key)))cookies.set(c.key,c.value);
     if(cookies.size)h.cookie=[...cookies].map(([k,v])=>`${k}=${v}`).join('; ');
     const cacheKey=staticCache.key(url,method,String(input.destination||''),h);
     const cached=staticCache.get(cacheKey);

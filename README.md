@@ -12,6 +12,8 @@ Version 22 streams successful image/font bodies without waiting for complete ups
 
 The user reports successful browsing, infinite loading, account creation and reaching the checkout page. A completed purchase has not been established. No DZD bubble, real cart extraction, local payment checkout or purchasing workflow is implemented.
 
+Version 24 corrects nested localhost login return URLs, awaits response-cookie commitment before page initialization, uses the current virtual page URL for cookie writes and respects script-cookie deletion instead of restoring stale server copies. These are tested proxy corrections, not a claim that merchant token-touch HTTP424 or login requirements have been eliminated. Open the launcher and refresh documents after updates; restarting the server still clears in-memory server cookies.
+
 This is a tested UV development baseline, not a public-production certification. The server is still loopback-only, capped at 100 in-memory sessions, with local diagnostics that must not be exposed as-is. Public hosting, durable sessions and multi-user origin/isolation design remain separate work. The v22 browser automation runtime was unavailable; fresh real-browser validation remains pending despite passing functional HTTP/client tests.
 
 ## Development checks
