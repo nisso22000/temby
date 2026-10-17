@@ -8,6 +8,9 @@ import { temu } from './cart.js';
 import { parse } from 'parse5';
 import { createHash } from 'node:crypto';
 import { responseMetadata } from './diagnostics.js';
+import { StaticCache } from './static-cache.js';
+const staticCache=new StaticCache();
+const binaryResponses=new WeakSet<ServerResponse>();
 
 // Rate limiting belongs to a request, not to the entire browsing session.
 // Retain the original response during its cooldown rather than retrying it or
@@ -55,11 +58,18 @@ export async function engineAsset(path:string,res:ServerResponse,appOrigin='http
   res.writeHead(200,{'content-type':asset[1], 'cache-control':'no-store','service-worker-allowed':'/','x-content-type-options':'nosniff'});res.end(data);return true;
 }
 function wire(res:ServerResponse,status:number,headers:Record<string,string|string[]>,body:Buffer|string){
+  if(binaryResponses.has(res)){
+    const metadata=Buffer.from(JSON.stringify({status,statusText:'',headers}));
+    const prefix=Buffer.alloc(4);prefix.writeUInt32BE(metadata.length);
+    res.writeHead(200,{'content-type':'application/x-temby-binary','cache-control':'no-store','x-content-type-options':'nosniff'});
+    res.write(prefix);res.write(metadata);res.end(body);return;
+  }
   res.writeHead(200,{'content-type':'application/json','cache-control':'no-store','x-content-type-options':'nosniff'});
   res.end(JSON.stringify({status,statusText:'',headers,body:Buffer.from(body).toString('base64')}));
 }
 function denied(res:ServerResponse,reason:string,status=403){wire(res,status,{'content-type':'text/html'},`<!doctype html><title>Temby boundary</title><h1>Temby proxy boundary</h1><p>${reason}</p>`);}
 export async function engineRelay(req:IncomingMessage,res:ServerResponse,s:Session,transport:Transport=upstream){
+  if(req.headers['x-temby-wire']==='binary-v1')binaryResponses.add(res);
   if(req.method!=='POST'){res.writeHead(405);res.end();return;}
   let input:any;let url:URL;
   try{input=JSON.parse((await readBody(req))!.toString());url=new URL(input.url);}catch{return denied(res,'Invalid relay request',400);}
@@ -105,6 +115,9 @@ export async function engineRelay(req:IncomingMessage,res:ServerResponse,s:Sessi
     const virtualCookies=cookies.size;
     for(const c of stored)if(c.httpOnly||!cookies.has(c.key))cookies.set(c.key,c.value);
     if(cookies.size)h.cookie=[...cookies].map(([k,v])=>`${k}=${v}`).join('; ');
+    const cacheKey=staticCache.key(url,method,String(input.destination||''),h);
+    const cached=staticCache.get(cacheKey);
+    if(cached){wire(res,200,cached.headers,cached.body);return;}
     const started=Date.now();const response=await transport(url,method,h,input.body?Buffer.from(input.body,'base64'):undefined);
     const data=await boundedBody(response);const type=response.headers.get('content-type')||'application/octet-stream';
     const challenge=temu.challenge(/html|javascript/.test(type)?data.toString():'',response.status);
@@ -137,6 +150,7 @@ export async function engineRelay(req:IncomingMessage,res:ServerResponse,s:Sessi
     const headers:Record<string,string|string[]>={};
     for(const [k,v]of response.headers)if(!['content-encoding','content-length','transfer-encoding','connection','set-cookie'].includes(k))headers[k]=v;
     headers['set-cookie']=response.headers.getSetCookie();
+    staticCache.put(cacheKey,response.status,headers,data);
     if(response.status===429){
       const retry=response.headers.get('retry-after');
       const seconds=retry&&/^\d+$/.test(retry)?Number(retry):null;
