@@ -1,5 +1,5 @@
 import type { IncomingMessage,ServerResponse } from 'node:http';
-import { readBody } from './proxy.js';
+import { readBody } from './http.js';
 import { boundedBody,type Transport } from './transport.js';
 import { record,type Session } from './sessions.js';
 

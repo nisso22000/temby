@@ -1,14 +1,13 @@
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { Sessions, record } from './sessions.js';
-import { proxy, message, readBody } from './proxy.js';
-import { fixture, fixtureCart } from './fixture.js';
+import { message, readBody } from './http.js';
 import { upstream, type Transport } from './transport.js';
 import { engineAsset, engineRelay } from './engine.js';
 import { recoverNavigation } from './navigation.js';
 import { forwardCspReport } from './reports.js';
 
-export function createServers(port = 3000, merchantPort = 3001, transport: Transport = upstream) {
+export function createServers(port = 3000, merchantPort = 3001, transport: Transport = upstream, options:{ownedFixtures?:boolean}={}) {
   const sessions = new Sessions();
   const appOrigin = `http://localhost:${port}`; const merchantOrigin = `http://localhost:${merchantPort}`;
   function guard(req: IncomingMessage, res: ServerResponse, expected: number) {
@@ -24,9 +23,8 @@ export function createServers(port = 3000, merchantPort = 3001, transport: Trans
       const s = sessions.get(req,res); const url=new URL(req.url || '/',appOrigin);
       if (merchant) {
         if (await engineAsset(url.pathname,res,appOrigin)) return;
-        if(url.pathname.startsWith('/plain/'))return message(res,503,'Transport diagnostic worker not ready','Open /plain-launch/ first.');
-        if (url.pathname==='/_state') {res.writeHead(200,{'content-type':'application/json'});res.end(JSON.stringify({cart:s.cart,events:s.events,halted:s.halted}));return;}
-        if (url.pathname==='/_relay') return await engineRelay(req,res,s,transport);
+        if (url.pathname==='/_state') {res.writeHead(200,{'content-type':'application/json'});res.end(JSON.stringify({events:s.events}));return;}
+        if (url.pathname==='/_relay') return await engineRelay(req,res,s,transport,options.ownedFixtures===true);
         if(url.pathname==='/_runtime'){
           if(req.method!=='POST'){res.writeHead(405);res.end();return;}
           let event;try{event=JSON.parse((await readBody(req))!.toString());}catch{res.writeHead(400);res.end();return;}
@@ -40,13 +38,10 @@ export function createServers(port = 3000, merchantPort = 3001, transport: Trans
           // exists. Bootstrap in place, preserving the encoded destination.
           await engineAsset('/uv/',res,appOrigin);return;
         }
-        if (url.pathname.startsWith('/service/')||url.pathname.startsWith('/uv-service/')) return message(res,503,'Rewriting worker not ready','Open http://localhost:'+port+'/ to initialize the proxy in this browser.');
+        if (url.pathname.startsWith('/uv-service/')) return message(res,503,'Rewriting worker not ready','Open http://localhost:'+port+'/ to initialize the proxy in this browser.');
         if (url.pathname==='/favicon.ico') {res.writeHead(204);res.end();return;}
         // Browser service workers would capture later sessions on this shared origin.
         if (req.headers['service-worker']) return message(res,403,'Service worker blocked','Persistent merchant service workers are unsupported.');
-        if (url.pathname.startsWith('/_fixture/')) return await fixture(req,res,s,appOrigin);
-        if (url.pathname==='/_blocked') return message(res,403,'Navigation blocked','Destination is outside the reviewed merchant allowlist.');
-        if(url.pathname.startsWith('/_p/'))return await proxy(req,res,s,transport);
         if(await forwardCspReport(req,res,s,transport))return;
         if(['GET','HEAD','POST','PUT','PATCH','DELETE','OPTIONS'].includes(req.method||'')){
           // 307 retains the method/body for escaped API and CSP-report POSTs.
@@ -64,7 +59,7 @@ export function createServers(port = 3000, merchantPort = 3001, transport: Trans
       if(url.pathname==='/api/health'){res.writeHead(200,{'content-type':'application/json'});res.end(JSON.stringify({failures:sessions.health()}));return;}
       if (url.pathname==='/api/state') {
         res.writeHead(200,{'content-type':'application/json','x-content-type-options':'nosniff'});
-        res.end(JSON.stringify({cart:url.searchParams.get('mode')==='fixture'?fixtureCart(s):s.cart, events:s.events, halted:s.halted, mode:url.searchParams.get('mode')==='fixture'?'fixture':'temu'})); return;
+        res.end(JSON.stringify({events:s.events})); return;
       }
       const file = {'/diagnostics':'diagnostics.html','/diagnostics.js':'diagnostics.js'}[url.pathname];
       if (!file) {res.writeHead(404);res.end();return;}

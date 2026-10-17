@@ -1,10 +1,9 @@
 import { randomBytes } from 'node:crypto';
 import { CookieJar } from 'tough-cookie';
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { unavailable, type Cart } from './cart.js';
 
 export interface Event { time: string; host: string; method: string; status: number; type: string; bytes: number; outcome: string; cookiesSent?: number; virtualCookies?: number; setCookies?: number; destination?: string; omittedHeaders?: string[]; route?:string; errorCode?:number; applicationFailed?:boolean; elapsedMs?:number; }
-export interface Session { jar: CookieJar; touched: number; events: Event[]; failures:Event[]; cart: Cart; fixture: { quantity: number; color: string; stage: string }; halted: string | null; }
+export interface Session { jar: CookieJar; touched: number; events: Event[]; failures:Event[]; }
 export class Sessions {
   private entries = new Map<string, Session>();
   constructor(private ttl = 30 * 60 * 1000) {}
@@ -16,7 +15,7 @@ export class Sessions {
     if (!session) {
       if (this.entries.size >= 100) throw new Error('SESSION_CAPACITY');
       id = randomBytes(32).toString('hex');
-      session = { jar: new CookieJar(), touched: now, events: [], failures:[],cart: unavailable(), fixture: { quantity: 0, color: 'Black', stage: 'cart' }, halted: null };
+      session = { jar: new CookieJar(), touched: now, events: [], failures:[] };
       this.entries.set(id, session);
     }
     // Keep the browser cookie lifetime aligned with the sliding server TTL.

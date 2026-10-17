@@ -18,7 +18,7 @@ test('full engine relay preserves challenge bytes, limits destinations, isolates
     if(url.pathname==='/limited')return new Response('{"error":"owned-rate-limit"}',{status:429,headers:{'content-type':'application/json','retry-after':'120'}}) as any;
     return new Response(url.pathname==='/challenge'?challenge:'<h1>Owned relay response</h1>',{headers:{'content-type':'text/html','set-cookie':'private=test; Secure; HttpOnly; Path=/'}}) as any;
   };
-  const {app,merchant}=createServers(3920,3921,transport);
+  const {app,merchant}=createServers(3920,3921,transport,{ownedFixtures:true});
   app.listen(3920,'127.0.0.1');merchant.listen(3921,'127.0.0.1');await Promise.all([once(app,'listening'),once(merchant,'listening')]);
   const origin='http://localhost:3921';
   try{
@@ -52,7 +52,7 @@ test('full engine relay preserves challenge bytes, limits destinations, isolates
     const limited=await relay('https://www.temu.com/limited');assert.equal(limited.status,429);assert.equal(limited.headers['retry-after'],'120');
     const limitedCount=seen.length;const held=await relay('https://www.temu.com/limited');assert.equal(held.status,429);assert.equal(held.body,limited.body);assert.equal(seen.length,limitedCount,'do not retry the rate-limited endpoint during Retry-After');
     assert.equal((await relay('https://www.temu.com/next')).status,200);assert.equal(seen.length,limitedCount+1,'unrelated requests remain usable after a 429');
-    const script=await fetch(origin+'/engine/sw.js');assert.equal(script.status,200);assert.equal(script.headers.get('service-worker-allowed'),'/');
+    const script=await fetch(origin+'/uv/sw.js');assert.equal(script.status,200);assert.equal(script.headers.get('service-worker-allowed'),'/');
     const clientConfig=await(await fetch(origin+'/uv/config.js')).text();assert.ok(clientConfig.includes('self.Ultraviolet.BareClient=RelayClient'));assert.ok(clientConfig.indexOf('self.Ultraviolet.BareClient=RelayClient')<clientConfig.indexOf('self.UVClient=class'));
     let count=seen.length;assert.equal((await fetch(origin+'/.well-known/appspecific/com.chrome.devtools.json')).status,404);assert.equal(seen.length,count);
     const escaped=await fetch(origin+'/search_result.html?search_key=blue%20shoes',{redirect:'manual',headers:{referer:origin+'/uv-service/'+encodeURIComponent('https://www.temu.com/')}});
@@ -69,7 +69,7 @@ test('full engine relay preserves challenge bytes, limits destinations, isolates
     const runtime=await fetch(origin+'/_runtime',{method:'POST',headers:{origin,cookie,'content-type':'application/json'},body:JSON.stringify({phase:'page-error',error:'TypeError',message:'private-do-not-record',cookie:'secret'})});assert.equal(runtime.status,204);
     const submission=await fetch(origin+'/_relay',{method:'POST',headers:{origin,cookie,'content-type':'application/json'},body:JSON.stringify({url:'https://www.temu.com/register?private=not-recorded',method:'POST'})});
     assert.equal((await submission.json()).status,200);
-    const state=await(await fetch('http://localhost:3920/api/state',{headers:{cookie}})).json();assert.equal(state.cart.total,null);
+    const state=await(await fetch('http://localhost:3920/api/state',{headers:{cookie}})).json();assert.equal('cart' in state,false);
     assert.ok(!JSON.stringify(state.events).includes('private=test'));
     assert.ok(state.events.some((event:{outcome:string})=>event.outcome==='page-error: TypeError'));assert.ok(!JSON.stringify(state.events).includes('private-do-not-record'));
     assert.ok(!JSON.stringify(state.events).includes('Local sensitive-workflow rule'));assert.ok(!JSON.stringify(state.events).includes('not-recorded'));

@@ -1,7 +1,6 @@
 import dns from 'node:dns';
 import ipaddr from 'ipaddr.js';
 
-export const hosts = new Set(['www.temu.com', 'temu.com', 'static.kwcdn.com', 'img.kwcdn.com', 'aimg.kwcdn.com', 'eu.pftk.temu.com']);
 const integrations=new Set(['accounts.google.com','connect.facebook.net','appleid.cdn-apple.com']);
 export function hostAllowed(hostname:string):boolean {
   return ['temu.com','kwcdn.com'].some(domain=>hostname===domain||hostname.endsWith('.'+domain))||integrations.has(hostname);
@@ -23,17 +22,3 @@ export const safeLookup: typeof dns.lookup = ((hostname: string, options: any, c
     if (options?.all) callback(null, candidates); else callback(null, candidates[0].address, candidates[0].family);
   });
 }) as typeof dns.lookup;
-
-export function toProxy(value: string, base: URL): string {
-  if (value.startsWith('#')) return value;
-  try {
-    const url = new URL(value, base);
-    return targetAllowed(url) ? `/_p/${url.hostname}${url.pathname}${url.search}${url.hash}` : '/_blocked';
-  } catch { return '/_blocked'; }
-}
-export function fromProxy(path: string): URL {
-  const match = path.match(/^\/_p\/([^/]+)(\/.*)?$/);
-  const url = match ? new URL(`https://${match[1]}${match[2] || '/'}`) : new URL(path, 'https://www.temu.com');
-  if (!targetAllowed(url)) throw new Error('TARGET_DENIED');
-  return url;
-}

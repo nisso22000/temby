@@ -7,14 +7,12 @@
     "dev": "tsx src/main.ts",
     "start": "tsx src/main.ts",
     "test": "tsx --test tests/*.test.ts",
-    "typecheck": "tsc --noEmit",
-    "probe": "tsx scripts/probe.ts"
+    "typecheck": "tsc --noEmit"
   },
   "engines": {
     "node": ">=22.19.0"
   },
   "dependencies": {
-    "@mercuryworkshop/scramjet": "^2.0.67-alpha.2",
     "@titaniumnetwork-dev/ultraviolet": "^3.2.10",
     "ipaddr.js": "^2.5.0",
     "parse5": "^8.0.1",

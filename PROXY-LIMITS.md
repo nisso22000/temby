@@ -19,6 +19,6 @@ The default entry redirects to the Ultraviolet rewriting relay. It injects only 
 - Request-object cloning retains native method/body behavior rather than passing through UV URL stringification. Dynamic srcset properties retain upstream image URLs for CSP. Cross-origin resource remapping uses the actual controlled client URL as the physical referrer so UV can reconstruct virtual page context after browser referrer reduction.
 - /api/health exposes bounded local-only failure aggregates across the current local server's sessions: redacted API names, numeric codes, statuses and counts. It contains no query values, bodies or session identifiers. HTTP 200 alone is not treated as application success; explicit success=false is recorded as an application failure. This endpoint must not be exposed unchanged in a public multi-user deployment.
 
-## Archived comparison paths
+## Removed implementations
 
-The repository still contains the earlier /_p, /engine and /plain diagnostic implementations and synthetic fixtures. They are not the default browsing flow and have different compatibility behavior. The legacy /_p implementation still has older workflow/challenge guards. Do not use it to assess the current /uv-service relay. The old business-oriented UI is no longer served.
+The old Scramjet and plain transport experiments, /_p relay, cart/payment demo and old probing scripts have been removed from the working tree and dependency graph. UV is the only active engine. Synthetic UV regression fixtures remain test-only and require explicit server configuration; they are disabled with normal npm start. Dated historical reports are retained as evidence, not active configuration.
