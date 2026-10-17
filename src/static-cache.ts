@@ -15,13 +15,20 @@ export class StaticCache {
     this.entries.delete(key);this.entries.set(key,entry);
     return {...entry,headers:{...entry.headers,age:String(Number(entry.headers.age||0)+Math.floor((this.now()-entry.storedAt)/1000))}};
   }
-  put(key:string|null,status:number,headers:Record<string,string|string[]>,body:Buffer){
+  private freshness(headers:Record<string,string|string[]>){
     const control=String(headers['cache-control']||'');
     const seconds=Number(/(?:^|,)\s*max-age\s*=\s*"?(\d+)/i.exec(control)?.[1]||0);
     const date=Date.parse(String(headers.date||''));
     const age=Math.max(Number(headers.age||0),Number.isFinite(date)?Math.max(0,Math.floor((this.now()-date)/1000)):0);
-    if(!key||status!==200||!/(?:^|,)\s*public\s*(?:,|$)/i.test(control)||/no-cache|no-store|private/i.test(control)||headers.vary||headers['set-cookie']?.length||!Number.isFinite(age)||age<0||seconds<=age||body.length>this.limit||!body.length)return;
-    if(!/^(image\/|font\/|text\/css|(?:application|text)\/(?:javascript|x-javascript|woff))/i.test(String(headers['content-type']||'')))return;
+    return {control,seconds,age};
+  }
+  eligible(key:string|null,status:number,headers:Record<string,string|string[]>){
+    const {control,seconds,age}=this.freshness(headers);
+    return !!key&&status===200&&/(?:^|,)\s*public\s*(?:,|$)/i.test(control)&&!/no-cache|no-store|private/i.test(control)&&!headers.vary&&!headers['set-cookie']?.length&&Number.isFinite(age)&&age>=0&&seconds>age&&/^(image\/|font\/|text\/css|(?:application|text)\/(?:javascript|x-javascript|woff))/i.test(String(headers['content-type']||''));
+  }
+  put(key:string|null,status:number,headers:Record<string,string|string[]>,body:Buffer){
+    if(!key||!this.eligible(key,status,headers)||body.length>this.limit||!body.length)return;
+    const {seconds,age}=this.freshness(headers);
     const previous=this.entries.get(key);if(previous){this.bytes-=previous.body.length;this.entries.delete(key);}
     while((this.bytes+body.length>this.limit||this.entries.size>=256)&&this.entries.size){const oldest=this.entries.keys().next().value!;this.bytes-=this.entries.get(oldest)!.body.length;this.entries.delete(oldest);}
     this.entries.set(key,{until:this.now()+Math.min(seconds-age,3600)*1000,storedAt:this.now(),headers:{...headers,age:String(age)},body});this.bytes+=body.length;

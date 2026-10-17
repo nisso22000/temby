@@ -6,6 +6,15 @@ import {once} from 'node:events';
 import {createServers} from '../src/server.js';
 import type {Transport} from '../src/transport.js';
 
+test('client forwards read cancellation without adding cancellation to mutating requests',async()=>{
+  const signal=new AbortController().signal;const headers={};const self:any={location:{origin:'http://localhost:3001'},Ultraviolet:{},__tembyRelaySignals:new WeakMap([[headers,signal]]),fetch:async(_url:string,options:any)=>{
+    const method=JSON.parse(options.body).method;assert.equal(options.signal,method==='GET'?signal:undefined);
+    return Response.json({status:204,headers:{},body:''});
+  }};
+  vm.runInNewContext(await readFile(new URL('../public/uv-transport.js',import.meta.url),'utf8'),{self,URL,Response,ReadableStream,Uint8Array,DataView,TextDecoder,atob,btoa});
+  const client=new self.Ultraviolet.BareClient();await client.fetch('https://fixture.temby.invalid/read',{headers,method:'GET'});await client.fetch('https://fixture.temby.invalid/write',{headers,method:'POST',signal});
+});
+
 test('binary client handles split metadata, byte bodies, cookies, errors and legacy servers',async()=>{
   const code=await readFile(new URL('../public/uv-transport.js',import.meta.url),'utf8');
   for(const legacy of [false,true])for(const status of [200,204,403,429]){

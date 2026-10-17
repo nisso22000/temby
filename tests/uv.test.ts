@@ -47,4 +47,6 @@ test('inline helper script serialization preserves JavaScript operators and clos
   const tree:any=parse(html);const scripts:any[]=[];
   const visit=(n:any)=>{if(n.tagName==='script')scripts.push(n);for(const c of n.childNodes||[])visit(c);};visit(tree);
   assert.equal(scripts.length,1);new vm.Script(scripts[0].childNodes[0].value);
+  context.self.__tembyInlineHelpers['/owned-helper.js']='const updated="</script>";';
+  const refreshed=new context.self.Ultraviolet().createHtmlInject();assert.equal(refreshed[0].childNodes[0].value,'const updated="<\\/script>";','cached escaping invalidates changed helper content');
 });

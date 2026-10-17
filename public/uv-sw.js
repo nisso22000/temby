@@ -1,5 +1,6 @@
 importScripts('/uv/request.js','/uv/bundle.js','/uv/config.js','/uv/worker.js');
 const engine=new UVServiceWorker();
+self.__tembyRelaySignals=new WeakMap();
 const workerContexts=self.__tembyWorkerContexts(location.origin);
 let pendingContexts=Promise.resolve();
 const contextKey=value=>location.origin+'/_worker-context/'+encodeURIComponent(value);
@@ -32,11 +33,14 @@ const getHelpers=()=>inlineHelpers||=(async()=>{
   const entries=await Promise.all(['/uv/bundle.js','/uv/client.js','/uv/config.js','/uv/handler.js'].map(async path=>{
     const response=await fetch(path);if(!response.ok)throw new Error('Local helper unavailable');
     const code=(await response.text()).replace(/^[ \t]*\/\/[#@]\s*sourceMappingURL=.*(?:\r?\n|$)/gm,'');
-    return [path,code.replace(/<\/script/gi,'<\\/script')];
+    return [path,code];
   }));
   self.__tembyInlineHelpers=Object.fromEntries(entries);
-})();
-engine.on('request',event=>{event.data.headers['x-temby-request-destination']=event.data.request.destination||'empty';});
+})().catch(error=>{inlineHelpers=undefined;throw error;});
+engine.on('request',event=>{
+  event.data.headers['x-temby-request-destination']=event.data.request.destination||'empty';
+  self.__tembyRelaySignals.set(event.data.headers,event.data.request.signal);
+});
 let pendingCookies=Promise.resolve();
 self.addEventListener('message',event=>{
   if(event.data?.tembyWorkerContext){

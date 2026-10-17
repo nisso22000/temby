@@ -53,6 +53,8 @@ test('full engine relay preserves challenge bytes, limits destinations, isolates
     const limitedCount=seen.length;const held=await relay('https://www.temu.com/limited');assert.equal(held.status,429);assert.equal(held.body,limited.body);assert.equal(seen.length,limitedCount,'do not retry the rate-limited endpoint during Retry-After');
     assert.equal((await relay('https://www.temu.com/next')).status,200);assert.equal(seen.length,limitedCount+1,'unrelated requests remain usable after a 429');
     const script=await fetch(origin+'/uv/sw.js');assert.equal(script.status,200);assert.equal(script.headers.get('service-worker-allowed'),'/');
+    const validated=await fetch(origin+'/uv/sw.js',{headers:{'if-none-match':script.headers.get('etag')!}});assert.equal(validated.status,304);assert.equal(await validated.text(),'');
+    const head=await fetch(origin+'/uv/sw.js',{method:'HEAD'});assert.equal(head.status,200);assert.equal(await head.text(),'');
     const clientConfig=await(await fetch(origin+'/uv/config.js')).text();assert.ok(clientConfig.includes('self.Ultraviolet.BareClient=RelayClient'));assert.ok(clientConfig.indexOf('self.Ultraviolet.BareClient=RelayClient')<clientConfig.indexOf('self.UVClient=class'));
     let count=seen.length;assert.equal((await fetch(origin+'/.well-known/appspecific/com.chrome.devtools.json')).status,404);assert.equal(seen.length,count);
     const escaped=await fetch(origin+'/search_result.html?search_key=blue%20shoes',{redirect:'manual',headers:{referer:origin+'/uv-service/'+encodeURIComponent('https://www.temu.com/')}});

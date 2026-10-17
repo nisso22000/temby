@@ -8,7 +8,11 @@ Node 22.19 or newer is required. Dependencies are installed with `npm ci --ignor
 
 Ultraviolet 3.2.10 is the only installed rewriting engine. Its browser helpers keep navigation, requests, cookies, storage and workers in the virtual merchant context. The local Node relay preserves page-generated end-to-end headers and server cookies. Binary response transport removes response base64 encoding, with the JSON protocol retained for older open clients. A bounded public-static CDN cache stores eligible resources (32 MB / 256 entries, maximum one hour within upstream freshness). Account/cart/search APIs are excluded.
 
+Version 22 streams successful image/font bodies without waiting for complete upstream downloads, propagates abandoned GET/HEAD cancellation, reuses helper packaging with file-change invalidation and ETag validation, and caches safe helper escaping. Executable/document rewriting and mutating requests retain the conservative paths. Only complete public streamed bodies up to 2 MiB are collected for caching; larger assets stream without accumulating a full cache copy. Limits and original response bytes remain enforced.
+
 The user reports successful browsing, infinite loading, account creation and reaching the checkout page. A completed purchase has not been established. No DZD bubble, real cart extraction, local payment checkout or purchasing workflow is implemented.
+
+This is a tested UV development baseline, not a public-production certification. The server is still loopback-only, capped at 100 in-memory sessions, with local diagnostics that must not be exposed as-is. Public hosting, durable sessions and multi-user origin/isolation design remain separate work. The v22 browser automation runtime was unavailable; fresh real-browser validation remains pending despite passing functional HTTP/client tests.
 
 ## Development checks
 

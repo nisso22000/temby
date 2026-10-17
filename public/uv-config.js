@@ -6,6 +6,7 @@ self.Ultraviolet.prototype.rewriteImport=function(base,specifier){return this.re
 // Integrity-protected resources are returned byte-for-byte by our worker.
 {
   const Original=self.Ultraviolet;
+  const escapedHelpers=new Map();
   const security=new Set(['integrity','nonce','crossorigin','sandbox','http-equiv']);
   self.Ultraviolet=class extends Original{
     constructor(...args){
@@ -22,9 +23,13 @@ self.Ultraviolet.prototype.rewriteImport=function(base,specifier){return this.re
         this.createHtmlInject=(...args)=>create(...args).map(node=>{
           const src=node.attrs?.find(attr=>attr.name==='src')?.value;
           const code=self.__tembyInlineHelpers[src];
-          if(code){node.attrs=node.attrs.filter(attr=>attr.name!=='src');node.childNodes=[{nodeName:'#text',value:code,skip:true}];}
+          if(code){
+            let cached=escapedHelpers.get(src);
+            if(cached?.source!==code){cached={source:code,safe:code.replace(/<\/script/gi,'<\\/script')};escapedHelpers.set(src,cached);}
+            node.attrs=node.attrs.filter(attr=>attr.name!=='src');node.childNodes=[{nodeName:'#text',value:cached.safe,skip:true}];
+          }
           node.namespaceURI='http://www.w3.org/1999/xhtml';
-          for(const child of node.childNodes||[]){child.parentNode=node;if(child.nodeName==='#text')child.value=child.value.replace(/<\/script/gi,'<\\/script');}
+          for(const child of node.childNodes||[]){child.parentNode=node;if(child.nodeName==='#text'&&!code)child.value=child.value.replace(/<\/script/gi,'<\\/script');}
           return node;
         });
       }

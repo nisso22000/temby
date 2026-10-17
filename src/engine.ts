@@ -1,5 +1,6 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { readFile } from 'node:fs/promises';
+import { helperAsset } from './helper-assets.js';
+import { binaryHead,streamBinary } from './relay-stream.js';
 import { targetAllowed } from './policy.js';
 import { readBody } from './http.js';
 import { boundedBody, upstream, type Transport } from './transport.js';
@@ -39,18 +40,17 @@ const assetFiles: Record<string,[string,string]> = {
   '/uv/handler.js':['node_modules/@titaniumnetwork-dev/ultraviolet/dist/uv.handler.js','text/javascript'],
   '/uv/worker.js':['node_modules/@titaniumnetwork-dev/ultraviolet/dist/uv.sw.js','text/javascript'],
 };
-export async function engineAsset(path:string,res:ServerResponse,appOrigin='http://localhost:3000') {
+export async function engineAsset(path:string,res:ServerResponse,req?:IncomingMessage) {
   const asset=assetFiles[path]; if(!asset)return false;
-  let data=await readFile(new URL('../'+asset[0],import.meta.url));
-  if(path==='/uv/config.js')data=Buffer.concat([await readFile(new URL('../public/uv-transport.js',import.meta.url)),Buffer.from('\n'),await readFile(new URL('../public/uv-network.js',import.meta.url)),Buffer.from('\n'),await readFile(new URL('../public/uv-url.js',import.meta.url)),Buffer.from('\n'),await readFile(new URL('../public/uv-navigation.js',import.meta.url)),Buffer.from('\n'),data,Buffer.from('\n'),await readFile(new URL('../public/uv-diagnostics.js',import.meta.url))]);
-  res.writeHead(200,{'content-type':asset[1], 'cache-control':'no-store','service-worker-allowed':'/','x-content-type-options':'nosniff'});res.end(data);return true;
+  const files=path==='/uv/config.js'?['public/uv-transport.js','public/uv-network.js','public/uv-url.js','public/uv-navigation.js',asset[0],'public/uv-diagnostics.js']:[asset[0]];
+  const {data,etag}=await helperAsset(files.map(file=>new URL('../'+file,import.meta.url)));
+  const headers={'content-type':asset[1],'cache-control':'no-cache',etag,'service-worker-allowed':'/','x-content-type-options':'nosniff'};
+  const unchanged=['GET','HEAD'].includes(req?.method||'GET')&&req?.headers['if-none-match']?.split(',').some(value=>value.trim().replace(/^W\//,'')===etag||value.trim()==='*');
+  res.writeHead(unchanged?304:200,headers);res.end(unchanged||req?.method==='HEAD'?undefined:data);return true;
 }
 function wire(res:ServerResponse,status:number,headers:Record<string,string|string[]>,body:Buffer|string){
   if(binaryResponses.has(res)){
-    const metadata=Buffer.from(JSON.stringify({status,statusText:'',headers}));
-    const prefix=Buffer.alloc(4);prefix.writeUInt32BE(metadata.length);
-    res.writeHead(200,{'content-type':'application/x-temby-binary','cache-control':'no-store','x-content-type-options':'nosniff'});
-    res.write(prefix);res.write(metadata);res.end(body);return;
+    binaryHead(res,status,headers);res.end(body);return;
   }
   res.writeHead(200,{'content-type':'application/json','cache-control':'no-store','x-content-type-options':'nosniff'});
   res.end(JSON.stringify({status,statusText:'',headers,body:Buffer.from(body).toString('base64')}));
@@ -73,6 +73,10 @@ export async function engineRelay(req:IncomingMessage,res:ServerResponse,s:Sessi
   const limited=limits?.get(rateKey);
   if(limited&&limited.until>Date.now())return wire(res,429,limited.headers,limited.body);
   limits?.delete(rateKey);
+  const abort=new AbortController();
+  const disconnect=()=>{if(!res.writableFinished)abort.abort();};
+  const cancellable=['GET','HEAD'].includes(method);
+  if(cancellable){req.once('aborted',disconnect);res.once('close',disconnect);if(res.destroyed)abort.abort();}
   try{
     const h:Record<string,string>={'user-agent':req.headers['user-agent']||'Temby-Local-Proxy/0.2','accept-encoding':'gzip, deflate, br'};
     // Preserve end-to-end headers produced by the actual page, including
@@ -94,7 +98,7 @@ export async function engineRelay(req:IncomingMessage,res:ServerResponse,s:Sessi
       if(key==='origin'&&value==='null'){h.origin='null';continue;}
       try{const source=new URL(value);if(targetAllowed(source))h[key]=key==='origin'?source.origin:source.href;}catch{}
     }
-    // Scramjet supplies cookies written by the proxied page's document.cookie.
+    // The engine supplies cookies written by the proxied page's document.cookie.
     // Preserve server-set HttpOnly values if a page attempts to shadow them.
     const stored=await s.jar.getCookies(url.href);
     const cookies=new Map<string,string>();
@@ -109,9 +113,19 @@ export async function engineRelay(req:IncomingMessage,res:ServerResponse,s:Sessi
     const cacheKey=staticCache.key(url,method,String(input.destination||''),h);
     const cached=staticCache.get(cacheKey);
     if(cached){wire(res,200,cached.headers,cached.body);return;}
-    const started=Date.now();const response=await transport(url,method,h,input.body?Buffer.from(input.body,'base64'):undefined);
-    const data=await boundedBody(response);const type=response.headers.get('content-type')||'application/octet-stream';
+    const started=Date.now();const response=await transport(url,method,h,input.body?Buffer.from(input.body,'base64'):undefined,cancellable?abort.signal:undefined);
+    const type=response.headers.get('content-type')||'application/octet-stream';
     const destination=['document','iframe','script','style','image','font','empty','worker','sharedworker','serviceworker'].includes(input.destination)?input.destination:'unknown';
+    const headers:Record<string,string|string[]>={};
+    for(const [k,v]of response.headers)if(!['content-encoding','content-length','transfer-encoding','connection','set-cookie'].includes(k))headers[k]=v;
+    headers['set-cookie']=response.headers.getSetCookie();
+    for(const c of response.headers.getSetCookie())await s.jar.setCookie(c,url.href,{ignoreError:true});
+    if(binaryResponses.has(res)&&method==='GET'&&response.status===200&&((destination==='image'&&/^image\//i.test(type))||(destination==='font'&&/^(font\/|application\/(?:font|x-font|vnd\.ms-fontobject|octet-stream))/i.test(type)))){
+      const streamed=await streamBinary(res,response as unknown as Response,headers,abort.signal,staticCache.eligible(cacheKey,response.status,headers));
+      if(streamed.body)staticCache.put(cacheKey,response.status,headers,streamed.body);
+      record(s,{host:url.hostname,method,status:response.status,type,bytes:streamed.bytes,destination,elapsedMs:Date.now()-started,outcome:'Binary static stream'});return;
+    }
+    const data=await boundedBody(response);
     // Custom header names can also be opaque; don't retain them in metadata.
     const omittedHeaders=[...new Set(Object.keys(input.headers||{}).map(x=>x.toLowerCase()).filter(x=>!(x in h)&&!['origin','referer','cookie','user-agent'].includes(x)).map(x=>blocked.has(x)&&['host','connection','authorization','proxy-authorization','content-length','accept-encoding'].includes(x)?x:'custom-or-hop-by-hop'))].slice(0,10);
     record(s,{host:url.hostname,method,status:response.status,type,bytes:data.length,cookiesSent:cookies.size,virtualCookies,setCookies:response.headers.getSetCookie().length,destination,omittedHeaders,...responseMetadata(url,type,data),elapsedMs:Date.now()-started,outcome:'Rewriting engine relay'});
@@ -119,7 +133,6 @@ export async function engineRelay(req:IncomingMessage,res:ServerResponse,s:Sessi
     // navigation, login pages, assets or unrelated API calls.
     // Cookie processing is independent of whether the body can be rewritten.
     // In particular, a verification fetch may set the navigation's cookie.
-    for(const c of response.headers.getSetCookie())await s.jar.setCookie(c,url.href,{ignoreError:true});
     // Fetch/XHR HTML is data, not a document being rewritten. Its CSP/SRI
     // declarations must not cause us to discard the original response.
     if(!['empty','script','style','image','font'].includes(destination)&&type.includes('text/html')){
@@ -137,9 +150,6 @@ export async function engineRelay(req:IncomingMessage,res:ServerResponse,s:Sessi
         return denied(res,'Merchant document declares '+kind+'. Rewriting this protected document is unsupported.',412);
       }
     }
-    const headers:Record<string,string|string[]>={};
-    for(const [k,v]of response.headers)if(!['content-encoding','content-length','transfer-encoding','connection','set-cookie'].includes(k))headers[k]=v;
-    headers['set-cookie']=response.headers.getSetCookie();
     staticCache.put(cacheKey,response.status,headers,data);
     if(response.status===429){
       const retry=response.headers.get('retry-after');
@@ -156,5 +166,10 @@ export async function engineRelay(req:IncomingMessage,res:ServerResponse,s:Sessi
     }
     if(headers.location){const dest=new URL(String(headers.location),url);if(!targetAllowed(dest))return denied(res,'Redirect destination outside merchant allowlist.');}
     wire(res,response.status,headers,data);
-  }catch{record(s,{host:url.hostname,method,status:502,type:'',bytes:0,outcome:'Local relay upstream transport failure'});return denied(res,'Upstream transport failure (details omitted to protect session data).',502);}
+  }catch{
+    if(abort.signal.aborted){if(!res.destroyed)res.destroy();return;}
+    record(s,{host:url.hostname,method,status:502,type:'',bytes:0,outcome:'Local relay upstream transport failure'});
+    if(res.headersSent||res.destroyed){res.destroy();return;}
+    return denied(res,'Upstream transport failure (details omitted to protect session data).',502);
+  }finally{req.removeListener('aborted',disconnect);res.removeListener('close',disconnect);}
 }

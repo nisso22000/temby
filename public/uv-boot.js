@@ -10,9 +10,14 @@
       sessionStorage.setItem('temby-worker-recovery',String(Date.now()));
     }
     if(!navigator.serviceWorker)throw new Error('Service workers are unavailable in this browser. Open the link in Chrome or Edge with site storage enabled.');
-    const registration=await navigator.serviceWorker.register('/uv/sw.js?v=21',{scope:'/uv-service/',updateViaCache:'none'});
+    const registration=await navigator.serviceWorker.register('/uv/sw.js?v=22',{scope:'/uv-service/',updateViaCache:'none'});
     const worker=registration.installing||registration.waiting;
-    if(worker&&worker.state!=='activated')await new Promise((resolve,reject)=>worker.addEventListener('statechange',()=>{if(worker.state==='activated')resolve();if(worker.state==='redundant')reject(new Error('Worker installation failed'));}));
+    if(worker&&worker.state!=='activated')await new Promise((resolve,reject)=>{
+      const finish=error=>{clearTimeout(timer);worker.removeEventListener('statechange',changed);error?reject(error):resolve();};
+      const changed=()=>{if(worker.state==='activated')finish();else if(worker.state==='redundant')finish(new Error('Worker installation failed'));};
+      const timer=setTimeout(()=>finish(new Error('Proxy worker installation timed out. Reload the launcher to try again.')),15000);
+      worker.addEventListener('statechange',changed);changed();
+    });
     if(recovering){
       const controlled=()=>navigator.serviceWorker.controller?.scriptURL===registration.active?.scriptURL;
       if(!controlled())await new Promise((resolve,reject)=>{

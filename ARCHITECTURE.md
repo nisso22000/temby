@@ -10,7 +10,7 @@ The active path is browser -> UV service worker -> local Node relay -> Temu/CDN.
 - Service worker: request interception, context mapping and response transformation.
 - Relay adapter: binary response decoding, legacy compatibility and local transport.
 
-These are runtime dependencies of the current architecture, not shopping business logic. Removing them breaks proxy behavior. Production still needs an engine runtime, but its packaging, compatibility and security isolation need further work. Diagnostic logging is opt-in and records bounded metadata only. Owned regression fixtures are disabled in the normal server.
+These are runtime dependencies of the current architecture, not shopping business logic. Removing them breaks proxy behavior. Helper files/composed configuration are memoized with file-signature invalidation and SHA-256 ETags; HTTP revalidation can return 304 without retransmitting unchanged bytes. Safe inline helper escaping is cached separately from per-document initialization. Failed local helper initialization can recover on a later request instead of poisoning the worker. Packaging preserves script order, CSP enforcement and executable semantics. Diagnostic logging is opt-in and records bounded metadata only. Owned regression fixtures are disabled in the normal server.
 
 ## Relay and security semantics
 
@@ -20,7 +20,9 @@ Original response CSP and integrity checks remain enforced. Integrity resources 
 
 ## Transport and caching
 
-The negotiated binary envelope is a four-byte big-endian metadata length, UTF-8 JSON status/header metadata, and unencoded response bytes. The client exposes the body as a stream. Node still downloads the bounded upstream body fully before response processing; this is not end-to-end streaming.
+The negotiated binary envelope is a four-byte big-endian metadata length, UTF-8 JSON status/header metadata, and unencoded response bytes. Successful GET image/font responses stream from upstream through Node and the worker with backpressure and decoded-byte limits. Only complete eligible streamed bodies up to 2 MiB are accumulated for caching; larger bodies are not accumulated. HTML, scripts, styles, error responses, legacy transport and mutating requests retain full bounded-body processing. Cookie headers are processed before body delivery.
+
+UV does not pass request signals to its transport. A worker-local WeakMap associates each request's header object with its native signal without introducing an upstream header. The relay adapter forwards it only for reads. Node aborts GET/HEAD upstream work on client disconnect, combining cancellation with the existing timeout; writes are not newly canceled by this mechanism. A failed stream closes the local body rather than appending an error envelope to already delivered bytes. Partial bodies never enter the public cache.
 
 A process-wide cache reuses only explicitly public, fresh successful kwcdn image/style/script/font responses, excluding cookies, authorization, Vary, ranges and APIs. It is capped at 32 MB of body data and 256 entries, respecting Age/Date/max-age with a one-hour maximum. Server sessions remain separate from this public cache.
 

@@ -30,7 +30,8 @@
       const bytes=options.body?new Uint8Array(await new Response(options.body).arrayBuffer()):null;
       const body=bytes?btoa(Array.from(bytes,x=>String.fromCharCode(x)).join('')):null;
       const headers={...options.headers};const destination=headers['x-temby-request-destination']||'unknown';delete headers['x-temby-request-destination'];
-      const relay=await nativeFetch(relayURL,{method:'POST',credentials:'same-origin',headers:{'content-type':'application/json','x-temby-wire':'binary-v1'},body:JSON.stringify({url:String(url),method:options.method||'GET',headers,body,destination,engine:'ultraviolet'})});
+      const signal=['GET','HEAD'].includes(options.method||'GET')?(self.__tembyRelaySignals?.get(options.headers)||options.signal):undefined;
+      const relay=await nativeFetch(relayURL,{method:'POST',credentials:'same-origin',signal,headers:{'content-type':'application/json','x-temby-wire':'binary-v1'},body:JSON.stringify({url:String(url),method:options.method||'GET',headers,body,destination,engine:'ultraviolet'})});
       if(!relay.ok){
         await nativeFetch(runtimeURL,{method:'POST',credentials:'same-origin',headers:{'content-type':'application/json'},body:JSON.stringify({phase:'relay-refused'})}).catch(()=>{});
         throw new Error('Local relay refused request');

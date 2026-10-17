@@ -1,9 +1,10 @@
 import { Agent, fetch } from 'undici';
 import { safeLookup, targetAllowed } from './policy.js';
 export const dispatcher = new Agent({ connect: { lookup: safeLookup, timeout: 15000 }, headersTimeout: 20000, bodyTimeout: 20000 });
-export async function upstream(url: URL, method: string, headers: Record<string, string>, body?: Buffer) {
+export async function upstream(url: URL, method: string, headers: Record<string, string>, body?: Buffer, signal?:AbortSignal) {
   if (!targetAllowed(url)) throw new Error('TARGET_DENIED');
-  return fetch(url, { dispatcher, method, headers, body: body as any, redirect: 'manual', signal: AbortSignal.timeout(25000) });
+  const timeout=AbortSignal.timeout(25000);
+  return fetch(url, { dispatcher, method, headers, body: body as any, redirect: 'manual', signal: signal?AbortSignal.any([timeout,signal]):timeout });
 }
 export type Transport = typeof upstream;
 export async function boundedBody(response: Awaited<ReturnType<Transport>>, max = 12 * 1024 * 1024): Promise<Buffer> {

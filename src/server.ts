@@ -22,7 +22,7 @@ export function createServers(port = 3000, merchantPort = 3001, transport: Trans
     try {
       const s = sessions.get(req,res); const url=new URL(req.url || '/',appOrigin);
       if (merchant) {
-        if (await engineAsset(url.pathname,res,appOrigin)) return;
+        if (await engineAsset(url.pathname,res,req)) return;
         if (url.pathname==='/_state') {res.writeHead(200,{'content-type':'application/json'});res.end(JSON.stringify({events:s.events}));return;}
         if (url.pathname==='/_relay') return await engineRelay(req,res,s,transport,options.ownedFixtures===true);
         if(url.pathname==='/_runtime'){
@@ -36,7 +36,7 @@ export function createServers(port = 3000, merchantPort = 3001, transport: Trans
         if(url.pathname.startsWith('/uv-service/')&&req.method==='GET'&&(req.headers['sec-fetch-dest']==='document'||req.headers.accept?.includes('text/html'))){
           // Bookmarks and fresh browser profiles may arrive before a worker
           // exists. Bootstrap in place, preserving the encoded destination.
-          await engineAsset('/uv/',res,appOrigin);return;
+          await engineAsset('/uv/',res,req);return;
         }
         if (url.pathname.startsWith('/uv-service/')) return message(res,503,'Rewriting worker not ready','Open http://localhost:'+port+'/ to initialize the proxy in this browser.');
         if (url.pathname==='/favicon.ico') {res.writeHead(204);res.end();return;}
