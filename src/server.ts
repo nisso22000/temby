@@ -6,6 +6,7 @@ import { upstream, type Transport } from './transport.js';
 import { engineAsset, engineRelay } from './engine.js';
 import { recoverNavigation } from './navigation.js';
 import { forwardCspReport } from './reports.js';
+import { companionMail } from './companion-mail.js';
 
 export function createServers(port = 3000, merchantPort = 3001, transport: Transport = upstream, options:{ownedFixtures?:boolean}={}) {
   const sessions = new Sessions();
@@ -22,6 +23,7 @@ export function createServers(port = 3000, merchantPort = 3001, transport: Trans
     try {
       const s = sessions.get(req,res); const url=new URL(req.url || '/',appOrigin);
       if (merchant) {
+        if(url.pathname==='/_companion/mail')return await companionMail(req,res,s,merchantOrigin);
         if (await engineAsset(url.pathname,res,req)) return;
         if (url.pathname==='/_state') {res.writeHead(200,{'content-type':'application/json'});res.end(JSON.stringify({events:s.events}));return;}
         if (url.pathname==='/_relay') return await engineRelay(req,res,s,transport,options.ownedFixtures===true);

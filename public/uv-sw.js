@@ -1,3 +1,4 @@
+// Companion release v26: local inbox bridge and final packaged companion helpers.
 importScripts('/uv/request.js','/uv/bundle.js','/uv/config.js','/uv/worker.js');
 const engine=new UVServiceWorker();
 self.__tembyRelaySignals=new WeakMap();
@@ -55,6 +56,21 @@ self.__tembyApplyResponseCookies=(uv,cookies)=>{
   return pendingCookies;
 };
 self.addEventListener('message',event=>{
+  if(event.data?.tembyMail){
+    const port=event.ports?.[0];if(!port)return;
+    event.waitUntil((async()=>{
+      try{
+        const source=event.source?.id?await self.clients.get(event.source.id):null;
+        const prefix=location.origin+'/uv-service/';
+        if(!source?.url.startsWith(prefix)||!['GET','POST'].includes(event.data.tembyMail))throw Error('Invalid companion client');
+        const target=new URL(decodeURIComponent(source.url.slice(prefix.length)));
+        if(target.protocol!=='https:'||!/(^|\.)temu\.com$/.test(target.hostname))throw Error('Invalid companion client');
+        const response=await fetch('/_companion/mail',{method:event.data.tembyMail,credentials:'same-origin',headers:{'x-temby-companion':'1'}});
+        const data=await response.json();port.postMessage(response.ok?{ok:true,data}:{ok:false,error:data.error});
+      }catch{port.postMessage({ok:false,error:'Local inbox connection failed. Reopen localhost:3000 and try again.'});}
+      finally{port.close();}
+    })());return;
+  }
   if(event.data?.tembyWorkerContext){
     pendingContexts=pendingContexts.catch(()=>{}).then(async()=>{
       const source=event.source?.id?await self.clients.get(event.source.id):null;
