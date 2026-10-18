@@ -1,105 +1,119 @@
-// Runs as a local UV helper, outside merchant source rewriting.
 self.__tembyConfigureCompanion=page=>{
   if(page!==page.top||page.__tembyCompanionStarted)return;
   page.__tembyCompanionStarted=true;
-  const core=self.__tembyCompanionCore;
-  const controller=page.navigator.serviceWorker?.controller;
-  const send=controller?.postMessage.bind(controller);
+  const core=self.__tembyCompanionCore,adapter=self.__tembyCart;
+  const workerContainer=page.navigator.serviceWorker;
+  const post=page.ServiceWorker?.prototype?.postMessage;
+  const send=(message,ports)=>{const worker=workerContainer?.controller;if(!worker||!post)throw Error('worker-unavailable');post.call(worker,message,ports);};
   const nativeSet=Object.getOwnPropertyDescriptor(page.HTMLInputElement.prototype,'value').set;
+  // Keep companion preferences separate from UV's virtual merchant storage.
+  const storage=page.sessionStorage;
+  const storageGet=storage.getItem.bind(storage),storageSet=storage.setItem.bind(storage),storageRemove=storage.removeItem.bind(storage);
   const start=()=>{
-    const url=page.__uv?.meta?.url;
-    if(!url||!/(^|\.)temu\.com$/.test(url.hostname))return;
-    const doc=page.document;
-    const host=doc.createElement('div');host.id='temby-companion';
-    host.style.cssText='all:initial;font:14px/1.5 Arial,sans-serif;color:#18304c;position:fixed;bottom:20px;left:16px;z-index:2147483646;direction:ltr;';
+    if(!/(^|\.)temu\.com$/.test(page.__uv?.meta?.url?.hostname||''))return;
+    const doc=page.document,ar=/^ar/i.test(doc.documentElement.lang||'');
+    const fr={open:'Ouvrir votre compagnon',close:'Fermer',hello:'On fait \u00e7a ensemble ?',intro:'Choisissez vos articles. Je m\u2019occupe du calcul en dinars.',cart:'Votre panier',empty:'Votre panier vous attend',emptyText:'Ajoutez vos coups de c\u0153ur sur Temu. Le montant appara\u00eetra ici.',unavailable:'Ouvrons votre panier pour retrouver le montant.',browse:'Choisir mes articles',openCart:'Ouvrir mon panier',next:'Continuer',detail:'Voir le calcul',converted:'Articles en dinars',service:'Service \u00b7 8 %',estimate:'Estimation, service compris',items:'article(s) s\u00e9lectionn\u00e9(s)',account:'Pr\u00e9parons votre compte',accountText:'Connectez-vous sur Temu pour garder votre panier.',test:'Utiliser un e-mail de test',own:'J\u2019ai d\u00e9j\u00e0 un compte',testNote:'Adresse temporaire, r\u00e9serv\u00e9e aux essais.',fill:'Utiliser cette adresse sur Temu',filled:'Adresse ajout\u00e9e. Continuez sur Temu.',needField:'Ouvrez d\u2019abord la connexion Temu.',keep:'Votre adresse est d\u00e9j\u00e0 saisie. Je la garde.',checking:'Je regarde si le code est arriv\u00e9\u2026',checkCode:'Voir mon code',noCode:'Pas encore de message. R\u00e9essayez dans quelques secondes.',mailError:'Le courrier est indisponible. R\u00e9essayez dans un instant.',shipping:'O\u00f9 livrer votre commande ?',shippingText:'Ajoutez votre adresse sur Temu, puis v\u00e9rifiez qu\u2019elle est bien s\u00e9lectionn\u00e9e.',delivery:'Choisir mon adresse sur Temu',confirmed:'J\u2019ai v\u00e9rifi\u00e9 mon adresse',review:'Votre r\u00e9capitulatif',reviewText:'Le paiement sera disponible apr\u00e8s la v\u00e9rification compl\u00e8te de la commande.',back:'Retour',changed:'Votre panier a chang\u00e9. V\u00e9rifions-le \u00e0 nouveau.',problem:'Certains articles ont besoin d\u2019\u00eatre v\u00e9rifi\u00e9s sur Temu.',detailsPending:'Les d\u00e9tails des articles ne sont pas encore confirm\u00e9s.',minimum:'Le minimum demand\u00e9 par Temu n\u2019est pas encore atteint.',card:'CIB / Edahabia \u00b7 2 %',total:'Total estim\u00e9',paymentUnavailable:'Paiement pas encore disponible'};
+    const arabic={open:'\u0627\u0641\u062a\u062d \u0645\u0633\u0627\u0639\u062f \u0627\u0644\u062a\u0633\u0648\u0642',close:'\u0625\u063a\u0644\u0627\u0642',hello:'\u0646\u0639\u0627\u0648\u0646\u0643 \u062a\u0637\u0644\u0628 \u0628\u0633\u0647\u0648\u0644\u0629',intro:'\u0627\u062e\u062a\u0627\u0631 \u0648\u0627\u0634 \u0639\u062c\u0628\u0643\u060c \u0648\u0646\u062d\u0633\u0628\u0648\u0644\u0643 \u0627\u0644\u0633\u0639\u0631 \u0628\u0627\u0644\u062f\u064a\u0646\u0627\u0631.',cart:'\u0633\u0644\u0629 \u0645\u0634\u062a\u0631\u064a\u0627\u062a\u0643',empty:'\u0633\u0644\u062a\u0643 \u062a\u0633\u062a\u0646\u0651\u0627\u0643',emptyText:'\u0632\u064a\u062f \u0627\u0644\u0645\u0646\u062a\u062c\u0627\u062a \u0627\u0644\u0644\u064a \u0639\u062c\u0628\u062a\u0643 \u0641\u064a Temu\u060c \u0648\u0627\u0644\u0633\u0639\u0631 \u064a\u0628\u0627\u0646 \u0647\u0646\u0627.',unavailable:'\u0646\u0641\u062a\u062d\u0648 \u0627\u0644\u0633\u0644\u0629 \u0628\u0627\u0634 \u0646\u062a\u0623\u0643\u062f\u0648 \u0645\u0646 \u0627\u0644\u0633\u0639\u0631.',browse:'\u0646\u062e\u062a\u0627\u0631 \u0627\u0644\u0645\u0646\u062a\u062c\u0627\u062a',openCart:'\u0646\u0641\u062a\u062d \u0633\u0644\u062a\u064a',next:'\u0646\u0643\u0645\u0644',detail:'\u062a\u0641\u0627\u0635\u064a\u0644 \u0627\u0644\u062d\u0633\u0627\u0628',converted:'\u0627\u0644\u0645\u0646\u062a\u062c\u0627\u062a \u0628\u0627\u0644\u062f\u064a\u0646\u0627\u0631',service:'\u0627\u0644\u062e\u062f\u0645\u0629 \u00b7 8 \u066a',estimate:'\u0633\u0639\u0631 \u062a\u0642\u062f\u064a\u0631\u064a\u060c \u064a\u0634\u0645\u0644 \u0627\u0644\u062e\u062f\u0645\u0629',items:'\u0645\u0646\u062a\u062c \u0645\u062d\u062f\u062f',account:'\u0646\u0648\u062c\u062f\u0648 \u062d\u0633\u0627\u0628\u0643',accountText:'\u0633\u062c\u0651\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0641\u064a Temu \u0628\u0627\u0634 \u062a\u062d\u062a\u0627\u0641\u0638 \u0628\u0633\u0644\u062a\u0643.',test:'\u0646\u0633\u062a\u0639\u0645\u0644 \u0628\u0631\u064a\u062f \u0644\u0644\u062a\u062c\u0631\u0628\u0629',own:'\u0639\u0646\u062f\u064a \u062d\u0633\u0627\u0628',testNote:'\u0628\u0631\u064a\u062f \u0645\u0624\u0642\u062a\u060c \u0644\u0644\u062a\u062c\u0631\u0628\u0629 \u0641\u0642\u0637.',fill:'\u0646\u0633\u062a\u0639\u0645\u0644 \u0647\u0630\u0627 \u0627\u0644\u0628\u0631\u064a\u062f \u0641\u064a Temu',filled:'\u0627\u0644\u0628\u0631\u064a\u062f \u0631\u0627\u0647\u0648 \u0645\u0643\u062a\u0648\u0628. \u0643\u0645\u0651\u0644 \u0641\u064a Temu.',needField:'\u0627\u0641\u062a\u062d \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0641\u064a Temu \u0623\u0648\u0644\u0627\u064b.',keep:'\u0627\u0644\u0628\u0631\u064a\u062f \u0631\u0627\u0647\u0648 \u0645\u0643\u062a\u0648\u0628\u060c \u0646\u062e\u0644\u064a\u0647 \u0643\u064a\u0645\u0627 \u0631\u0627\u0647.',checking:'\u0646\u0634\u0648\u0641\u0648 \u0625\u0630\u0627 \u0648\u0635\u0644 \u0631\u0645\u0632 \u0627\u0644\u062a\u0623\u0643\u064a\u062f\u2026',checkCode:'\u0646\u0634\u0648\u0641 \u0631\u0645\u0632 \u0627\u0644\u062a\u0623\u0643\u064a\u062f',noCode:'\u0645\u0627 \u0648\u0635\u0644 \u062d\u062a\u0649 \u0628\u0631\u064a\u062f \u0628\u0639\u062f. \u0639\u0627\u0648\u062f \u0628\u0639\u062f \u0634\u0648\u064a\u0629.',mailError:'\u0627\u0644\u0628\u0631\u064a\u062f \u0645\u0627 \u0631\u0627\u0647\u0648\u0634 \u0645\u062a\u0627\u062d. \u0639\u0627\u0648\u062f \u0628\u0639\u062f \u0634\u0648\u064a\u0629.',shipping:'\u0648\u064a\u0646 \u0646\u0648\u0635\u0651\u0644\u0648 \u0637\u0644\u0628\u0643\u061f',shippingText:'\u0632\u064a\u062f \u0639\u0646\u0648\u0627\u0646\u0643 \u0641\u064a Temu\u060c \u0648\u062a\u0623\u0643\u062f \u0628\u0644\u064a \u0647\u0648 \u0627\u0644\u0639\u0646\u0648\u0627\u0646 \u0627\u0644\u0645\u062d\u062f\u062f \u0644\u0644\u0637\u0644\u0628.',delivery:'\u0646\u062e\u062a\u0627\u0631 \u0639\u0646\u0648\u0627\u0646\u064a \u0641\u064a Temu',confirmed:'\u062a\u0623\u0643\u062f\u062a \u0645\u0646 \u0639\u0646\u0648\u0627\u0646\u064a',review:'\u0645\u0644\u062e\u0635 \u0637\u0644\u0628\u0643',reviewText:'\u0627\u0644\u062f\u0641\u0639 \u064a\u062a\u0648\u0641\u0631 \u0628\u0639\u062f \u0627\u0644\u062a\u0623\u0643\u062f \u0645\u0646 \u062a\u0641\u0627\u0635\u064a\u0644 \u0627\u0644\u0637\u0644\u0628 \u0643\u0627\u0645\u0644\u0629.',back:'\u0631\u062c\u0648\u0639',changed:'\u0627\u0644\u0633\u0644\u0629 \u062a\u0628\u062f\u0644\u062a\u060c \u0646\u0639\u0627\u0648\u062f\u0648 \u0646\u062a\u0623\u0643\u062f\u0648 \u0645\u0646\u0647\u0627.',problem:'\u0643\u0627\u064a\u0646 \u0645\u0646\u062a\u062c\u0627\u062a \u0644\u0627\u0632\u0645 \u062a\u062a\u0623\u0643\u062f \u0645\u0646\u0647\u0627 \u0641\u064a Temu.',detailsPending:'\u062a\u0641\u0627\u0635\u064a\u0644 \u0627\u0644\u0645\u0646\u062a\u062c\u0627\u062a \u0645\u0627 \u062a\u0623\u0643\u062f\u062a\u0634 \u0628\u0639\u062f.',minimum:'\u0645\u0627 \u0648\u0635\u0644\u062a\u0634 \u0644\u0644\u062d\u062f \u0627\u0644\u0623\u062f\u0646\u0649 \u062a\u0627\u0639 Temu.',card:'CIB / \u0627\u0644\u0630\u0647\u0628\u064a\u0629 \u00b7 2 \u066a',total:'\u0627\u0644\u0645\u062c\u0645\u0648\u0639 \u0627\u0644\u062a\u0642\u062f\u064a\u0631\u064a',paymentUnavailable:'\u0627\u0644\u062f\u0641\u0639 \u0645\u0627\u0632\u0627\u0644 \u0645\u0627 \u062a\u0648\u0641\u0631\u0634'};
+    const t=ar?arabic:fr;
+    const host=doc.createElement('div');host.id='temby-companion';host.style.cssText='all:initial;font:14px/1.5 Segoe UI,Tahoma,Arial,sans-serif;position:fixed;bottom:20px;left:16px;z-index:2147483646;color:#203d4b;';
     const root=host.attachShadow({mode:'open'});
     root.innerHTML=`<style>
-      :host{font:14px/1.5 Arial,sans-serif;color:#18304c}*{box-sizing:border-box}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #83baff;outline-offset:2px}[hidden]{display:none!important}
-      .bubble{border:0;border-radius:24px;background:#1464df;color:white;box-shadow:0 6px 24px #123e7360;padding:11px 17px;display:grid;gap:2px;min-width:108px;text-align:center}.bubble b{font-size:17px}.bubble small{font-size:11px;color:#dbeaff}
-      .panel{width:min(370px,calc(100vw - 32px));max-height:calc(100dvh - 120px);overflow:auto;background:#f5f8fc;border:1px solid #d9e4f1;border-radius:20px;box-shadow:0 12px 48px #15375b45;margin-bottom:12px}.head{padding:18px 20px;background:#1464df;color:white;display:flex;justify-content:space-between;align-items:center}.head strong{font-size:18px}.head small{display:block;color:#dae8ff}.close{background:none;border:0;color:white;font-size:25px}.body{padding:16px}.card{background:white;border:1px solid #e0e8f1;border-radius:13px;padding:14px;margin-bottom:12px}h2{font-size:14px;margin:0 0 8px}p{margin:7px 0}small,.muted{font-size:12px;color:#526980}.amount{font-size:28px;font-weight:700;letter-spacing:-1px;margin:8px 0}.row{display:flex;justify-content:space-between;gap:12px;margin:6px 0}.total{border-top:1px solid #dfe7f0;padding-top:9px;font-weight:700}.action{background:#eaf2ff;color:#1157c0;border:0;border-radius:8px;padding:9px 11px;margin:4px 4px 0 0}.primary{background:#1464df;color:white}.status{color:#8a5700;font-size:12px}.ok{color:#127348}label{display:block;margin:7px 0}input{width:100%;border:1px solid #c6d5e6;border-radius:7px;padding:8px;margin-top:3px}input[type=checkbox]{width:auto}summary{cursor:pointer;font-weight:600}.notice{font-size:12px;background:#fff5de;padding:9px;border-radius:8px}.inbox{white-space:pre-wrap;overflow-wrap:anywhere;max-height:180px;overflow:auto}button:disabled{opacity:.5;cursor:default}ol{padding-left:19px;margin:7px 0}li{margin:7px 0}.foot{font-size:11px;text-align:center;color:#61768d}
-    </style>
-    <section class="panel" id="panel" role="region" aria-label="TEMBY shopping companion" hidden>
-      <header class="head"><div><strong>TEMBY</strong><small>Your shopping companion</small></div><button class="close" id="close" aria-label="Close companion">\u00d7</button></header>
-      <div class="body"><div class="card"><h2>Your cart in dinars</h2><div id="amount" class="amount">\u2014 DZD</div><p id="status" class="status" role="status">Reading Temu\u2019s cart\u2026</p><div id="breakdown" hidden></div><p class="muted">Estimate includes our 8% service fee. The 2% card fee is shown separately. Shipping and other checkout charges are not yet validated.</p><button class="action" id="cart">Open Temu cart</button></div>
-      <div class="card"><h2>Get ready to order</h2><ol><li><strong>Cart</strong><div id="cartstep" class="muted">Waiting for a readable subtotal</div><div id="items" class="muted"></div></li><li><strong>Account</strong><div id="accountstep" class="muted">Not verified</div><button class="action" id="account">Sign in / register on Temu</button></li><li><strong>Delivery</strong><div class="muted">Enter and select your address in Temu checkout.</div><button class="action" id="shipping">Continue to Temu checkout</button><label class="muted"><input type="checkbox" id="delivery"> I checked the selected delivery address</label><div id="deliverystep" class="muted">Not confirmed</div></li></ol><button disabled class="action primary">Payment integration coming later</button></div>
-      <div class="card"><details><summary>Account setup tools</summary><p class="muted">Use an email you control, or try a disposable inbox for testing. Complete verification and registration yourself on Temu.</p><label>Email for registration<input id="email" type="email" autocomplete="off" placeholder="you@example.com"></label><button class="action" id="fillEmail">Fill email on Temu</button><p class="notice">Catchmail test inboxes are public to anyone who knows the address. Messages expire after 7 days. Avoid using them for personal orders.</p><button class="action" id="newInbox">Create test inbox</button><button class="action" id="checkInbox">Check test inbox</button><p id="mailstatus" class="muted" role="status"></p><div id="messages" class="inbox"></div><button class="action" id="password">Generate password</button><label hidden id="passwordrow">Generated password<input id="generated" type="text" readonly autocomplete="off"></label><button class="action" id="fillPassword" hidden>Fill generated password on Temu</button><p class="muted">Generated passwords stay in this page\u2019s memory. Save yours before leaving. TEMBY does not read existing passwords or hand credentials to an operator.</p></details></div>
-      <div class="card"><details><summary>Local test rates</summary><p class="muted">Example rates for this browser session; not a payment quote.</p><label>1 USD in DZD<input id="usd" type="number" min="0.01" max="10000" step="0.01" value="250"></label><label>1 EUR in DZD<input id="eur" type="number" min="0.01" max="10000" step="0.01" value="275"></label><button class="action" id="rates">Apply rates</button><p id="ratestatus" class="muted"></p></details></div><div class="foot">Local prototype \u00b7 no payment is taken</div></div>
-    </section><button class="bubble" id="bubble" aria-label="Open TEMBY companion" aria-expanded="false" aria-controls="panel"><span>\u25c9 TEMBY</span><b id="badge">\u2014 DZD</b><small>incl. service \u00b7 excl. card</small></button>`;
-    doc.documentElement.append(host);
+      *{box-sizing:border-box}button,summary{cursor:pointer}button{font:inherit}button:focus-visible,summary:focus-visible{outline:3px solid #92c5e6;outline-offset:4px}[hidden]{display:none!important}
+      .launcher{display:flex;align-items:center;gap:7px;width:max-content;border:0;padding:0;background:transparent;color:white;filter:drop-shadow(0 5px 12px #073b6530)}.orb{width:58px;height:58px;border-radius:50%;background:#075da6;padding:4px;display:grid;place-items:center;transition:transform .2s}.orb img{width:50px;height:50px;border-radius:50%;display:block}.tag{background:#075da6;border-radius:10px;padding:8px 14px;min-width:104px;font-size:16px;font-weight:700;letter-spacing:.1px;direction:ltr}.launcher:hover .orb{transform:translateY(-2px)}
+      .panel{width:min(360px,calc(100vw - 32px));max-height:calc(100dvh - 110px);overflow:auto;overscroll-behavior:contain;background:#fffdf9;border:1px solid #e8e9e4;border-radius:24px;box-shadow:0 12px 44px #24445b29;margin-bottom:14px;transform-origin:bottom left;animation:arrive .22s ease-out}.head{padding:20px 22px 14px;display:flex;align-items:center;gap:10px}.head img{width:34px;height:34px;border-radius:50%}.wordmark{font-size:12px;letter-spacing:1.7px;font-weight:700;color:#075da6}.close{margin-inline-start:auto;background:transparent;border:0;color:#7b8d93;font-size:25px;width:32px;height:32px}.content{padding:4px 22px 22px}h2{font-size:23px;line-height:1.3;letter-spacing:-.5px;margin:9px 0 10px;font-weight:700}p{color:#718187;font-size:13px;line-height:1.65;margin:0 0 16px}.pricebox{background:#f0f6fa;border-radius:17px;padding:17px;margin:16px 0}.price{font-size:29px;font-weight:700;color:#075da6;letter-spacing:-1px;direction:ltr}.hint{font-size:11px;color:#79909d;margin-top:4px}.count{font-size:12px;color:#5d7889;margin-bottom:4px}.primary{width:100%;background:#075da6;border:0;border-radius:13px;color:#fff;min-height:46px;padding:12px 14px;font-weight:700;transition:background .2s,transform .2s}.primary:hover{background:#236dac;transform:translateY(-1px)}.secondary{width:100%;background:transparent;border:0;color:#236dac;padding:11px;font-size:12px}.secondary:hover{text-decoration:underline}button:disabled{cursor:default;opacity:.55;transform:none!important}.steps{display:flex;gap:5px;margin:3px 0 16px}.steps span{height:3px;width:23px;background:#e8edef;border-radius:4px}.steps .active{background:#d9af43}.steps .done{background:#075da6}.details{margin:8px 0 16px;font-size:12px;color:#668095}summary{list-style:none;color:#52778e;font-size:12px}summary::after{content:' +';color:#075da6}.row{display:flex;justify-content:space-between;gap:12px;margin:9px 0;font-size:12px}.row strong{direction:ltr}.list{padding:0;margin:14px 0;list-style:none}.item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #eef0ee}.item img{width:42px;height:48px;object-fit:cover;border-radius:9px;background:#edf2f5}.item div{min-width:0;flex:1}.name{font-size:12px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.spec{font-size:10px;color:#7c8d95;margin-top:3px}.qty{font-size:12px;color:#547185}.notice{font-size:12px;color:#866c3f;background:#fff6df;border-radius:12px;padding:10px;margin-bottom:12px}.address{font-size:11px;color:#57748b;word-break:break-all;margin:8px 0}.mail{white-space:pre-wrap;max-height:140px;overflow:auto;font-size:12px;color:#395b70}.message{font-size:12px;color:#637f8b;margin:10px 0}.pop{animation:amount .28s ease-out}.review{border-top:1px solid #e7ecef;padding-top:10px}
+      @keyframes arrive{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}@keyframes amount{50%{opacity:.65;transform:translateY(-2px)}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+    </style><section class="panel" id="panel" role="region" hidden><header class="head"><img class="logo" alt=""><div class="wordmark">TEMBY</div><button id="close" class="close">\u00d7</button></header><div class="content"><div class="steps" aria-hidden="true"><span></span><span></span><span></span></div><h2 id="title"></h2><p id="intro"></p><div id="pricebox" class="pricebox"><div class="count" id="count"></div><div id="amount" class="price">\u2014 DZD</div><div class="hint" id="estimate"></div></div><ul id="items" class="list" hidden></ul><details id="details" class="details" hidden><summary id="detailLabel"></summary><div class="row"><span id="convertedLabel"></span><strong id="converted"></strong></div><div class="row"><span id="serviceLabel"></span><strong id="service"></strong></div></details><div id="accountTools" hidden><p id="testNote" class="notice" hidden></p><div id="address" class="address" hidden></div><button id="code" class="secondary" hidden></button><div id="mail" class="mail"></div></div><div id="review" class="review" hidden><div class="row"><span id="method"></span><strong id="fee"></strong></div><div class="row"><span id="totalLabel"></span><strong id="total"></strong></div></div><div id="message" class="message" role="status"></div><button id="primary" class="primary"></button><button id="secondary" class="secondary" hidden></button><button id="back" class="secondary" hidden></button></div></section><button id="bubble" class="launcher" aria-expanded="false" aria-controls="panel"><span class="orb"><img class="logo" alt=""></span><span class="tag" id="badge">\u2014 DZD</span></button>`;
     const $=id=>root.getElementById(id);
-    const dzd=n=>new Intl.NumberFormat('fr-DZ',{minimumFractionDigits:2,maximumFractionDigits:2}).format(n/100)+' DZD';
-    let rates={USD:25000,EUR:27500};
-    let opened=false,previous='',stableSince=0,latest=null,lastRender='';
-    try{const saved=JSON.parse(page.sessionStorage.getItem('temby-rates')||'null');if(saved){core.quote(0,'USD',saved);core.quote(0,'EUR',saved);rates=saved;}}catch{}
-    $('usd').value=String(rates.USD/100);$('eur').value=String(rates.EUR/100);
-    const toggle=value=>{opened=value;$('panel').hidden=!value;$('bubble').setAttribute('aria-expanded',String(value));if(value)$('close').focus();else $('bubble').focus();};
-    $('bubble').onclick=()=>toggle(!opened);$('close').onclick=()=>toggle(false);
-    root.addEventListener('keydown',event=>{if(event.key==='Escape'&&opened){event.stopPropagation();toggle(false);}});
-    const visible=el=>el&&el.getClientRects().length>0&&page.getComputedStyle(el).visibility!=='hidden';
-    function readCart(){
+    root.querySelectorAll('.logo').forEach(el=>el.src=self.__tembyCompanionIcon);
+    $('panel').dir=ar?'rtl':'ltr';$('panel').lang=ar?'ar':'fr';$('panel').setAttribute('aria-label',t.open);$('bubble').setAttribute('aria-label',t.open);$('close').setAttribute('aria-label',t.close);doc.documentElement.append(host);
+    let rates={USD:25000,EUR:27500};try{const r=JSON.parse(storageGet('temby-rates')||'null');if(r){core.quote(0,'USD',r);core.quote(0,'EUR',r);rates=r;}}catch{}
+    const dzd=n=>new Intl.NumberFormat('fr-DZ',{minimumFractionDigits:0,maximumFractionDigits:2}).format(n/100)+' DZD';
+    let opened=false,step='cart',intent=false,latest=null,cached=[],previous='',stableSince=0,lastRender='',mailAddress='',setup=false,requested=false;
+    const filled=new WeakSet();try{setup=storageGet('temby-test-setup')==='1';}catch{}
+    const visible=el=>!!el&&el.getClientRects().length>0&&page.getComputedStyle(el).visibility!=='hidden'&&!el.closest('[aria-hidden="true"]');
+    function readDOM(){
       const checkout=doc.getElementById('SidebarCheckout');
-      if(!checkout||!visible(checkout)){
-        if(!/\/shopping_cart\.html$/.test(page.__uv?.meta?.url?.pathname||''))return null;
-        const summary=doc.querySelector('.g_p_sum_wr');
-        const button=summary?.querySelector('.checkoutButton');
-        const total=summary?.querySelector('.g_p_sum')?.nextElementSibling?.firstElementChild;
-        if(!button||!total||!visible(button))return null;
-        const nodes=[...total.querySelectorAll('*')].filter(el=>visible(el)&&!el.closest('[aria-hidden="true"]')&&core.money(el.textContent)&&![...el.children].some(child=>core.money(child.textContent)));
-        return core.consensus(nodes.map(el=>el.textContent),button.getAttribute('aria-label'));
+      if(checkout&&visible(checkout)){
+        const scope=checkout.parentElement?.parentElement;if(!scope?.querySelector('.Sidebar-itemList'))return null;
+        const labels=[...scope.querySelectorAll('[role="group"][aria-label]')].filter(visible).map(el=>el.getAttribute('aria-label')).filter(v=>/subtotal|sous.total|\u0627\u0644\u0645\u062c\u0645\u0648\u0639 \u0627\u0644\u0641\u0631\u0639\u064a/i.test(v));
+        return core.consensus(labels,checkout.getAttribute('aria-label'));
       }
-      const scope=checkout.parentElement?.parentElement;
-      if(!scope||!scope.querySelector('.Sidebar-itemList'))return null;
-      const groups=[...scope.querySelectorAll('[role="group"][aria-label]')].filter(visible).map(el=>el.getAttribute('aria-label')).filter(label=>/subtotal|sous.total|\u0627\u0644\u0645\u062c\u0645\u0648\u0639 \u0627\u0644\u0641\u0631\u0639\u064a/i.test(label));
-      return core.consensus(groups,checkout.getAttribute('aria-label'));
+      if(!/\/shopping_cart\.html$/.test(page.__uv?.meta?.url?.pathname||''))return null;
+      const summary=doc.querySelector('.g_p_sum_wr'),button=summary?.querySelector('.checkoutButton'),total=summary?.querySelector('.g_p_sum')?.nextElementSibling?.firstElementChild;
+      if(!visible(button)||!total)return null;
+      const nodes=[...total.querySelectorAll('*')].filter(el=>visible(el)&&core.money(el.textContent)&&![...el.children].some(c=>core.money(c.textContent)));
+      return core.consensus(nodes.map(el=>el.textContent),button.getAttribute('aria-label'));
+    }
+    const signIn=()=>[...doc.querySelectorAll('[role="button"],button')].find(el=>visible(el)&&/sign in.*register|\u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644\s*\/\s*\u0625\u0646\u0634\u0627\u0621 \u062d\u0633\u0627\u0628|connexion.*inscri/i.test(el.getAttribute('aria-label')||el.textContent));
+    const emailField=()=>{
+      const inputs=[...doc.querySelectorAll('input')].filter(el=>visible(el)&&!el.disabled&&!el.readOnly&&['text','email'].includes(el.type)&&/email|e-mail|\u0627\u0644\u0628\u0631\u064a\u062f \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a/i.test([el.type==='email'?'email':'',el.getAttribute('aria-label'),el.placeholder,el.name,el.autocomplete].join(' ')));
+      return inputs.length===1?inputs[0]:null;
+    };
+    function fillEmail(){
+      const el=emailField();if(!el){$('message').textContent=t.needField;return false;}
+      if(el.value&&el.value!==mailAddress){$('message').textContent=t.keep;return false;}
+      if(!filled.has(el)){nativeSet.call(el,mailAddress);el.dispatchEvent(new page.Event('input',{bubbles:true}));el.dispatchEvent(new page.Event('change',{bubbles:true}));filled.add(el);}
+      $('message').textContent=t.filled;return true;
+    }
+    const toggle=value=>{opened=value;$('panel').hidden=!value;$('bubble').setAttribute('aria-expanded',String(value));if(value){update();$('close').focus();}else $('bubble').focus();};
+    $('bubble').onclick=()=>toggle(!opened);$('close').onclick=()=>toggle(false);root.addEventListener('keydown',e=>{if(e.key==='Escape'&&opened){e.stopPropagation();toggle(false);}});
+    function activate(selector){const el=[...doc.querySelectorAll(selector)].find(visible);if(!el)return false;el.click();toggle(false);return true;}
+    function openCart(){if(!activate('.Sidebar-GotoCartBtn'))$('message').textContent=t.unavailable;}
+    function openLogin(){const el=signIn();if(el){el.click();toggle(false);}else if(emailField())toggle(false);else $('message').textContent=t.needField;}
+    function view(){
+      const q=latest?core.quote(latest.minor,latest.currency,rates):null;
+      $('pricebox').hidden=step==='account'||step==='shipping';$('estimate').textContent=t.estimate;$('count').textContent=latest?latest.quantity+' '+t.items:'';
+      $('details').hidden=!q||step!=='cart';$('items').hidden=!latest?.items?.length||step!=='cart';$('detailLabel').textContent=t.detail;$('convertedLabel').textContent=t.converted;$('serviceLabel').textContent=t.service;
+      if(q){$('converted').textContent=dzd(q.converted);$('service').textContent=dzd(q.service);}
+      $('accountTools').hidden=step!=='account';$('review').hidden=step!=='review';$('secondary').hidden=true;$('back').hidden=step==='cart';$('back').textContent=t.back;$('primary').disabled=false;
+      root.querySelectorAll('.steps span').forEach((el,i)=>{const at={cart:0,account:1,shipping:2,review:3}[step];el.className=i<at?'done':i===at?'active':'';});
+      if(step==='cart'){
+        $('title').textContent=latest?.quantity?t.cart:latest?t.empty:t.hello;$('intro').textContent=latest?.quantity?t.intro:latest?t.emptyText:t.unavailable;$('primary').textContent=latest?.quantity?t.next:latest?t.browse:t.openCart;
+        $('items').replaceChildren(...(latest?.items||[]).filter(i=>i.selection!==false).map(item=>{const li=doc.createElement('li');li.className='item';if(item.image){const img=doc.createElement('img');img.alt='';img.src=item.image;li.append(img);}const body=doc.createElement('div'),name=doc.createElement('div'),spec=doc.createElement('div'),qty=doc.createElement('span');name.className='name';name.textContent=item.name;spec.className='spec';spec.textContent=item.specs;qty.className='qty';qty.textContent='\u00d7'+item.quantity;body.append(name,spec);li.append(body,qty);return li;}));
+      }else if(step==='account'){
+        $('title').textContent=t.account;$('intro').textContent=t.accountText;$('primary').textContent=mailAddress?t.fill:t.test;$('secondary').hidden=false;$('secondary').textContent=t.own;
+        $('testNote').hidden=!mailAddress;$('testNote').textContent=t.testNote;$('address').hidden=!mailAddress;$('address').textContent=mailAddress;$('code').hidden=!mailAddress;$('code').textContent=t.checkCode;
+      }else if(step==='shipping'){
+        $('title').textContent=t.shipping;$('intro').textContent=t.shippingText;$('primary').textContent=t.delivery;$('secondary').hidden=false;$('secondary').textContent=t.confirmed;
+      }else{
+        $('title').textContent=t.review;$('intro').textContent=t.reviewText;$('method').textContent=t.card;$('fee').textContent=q?dzd(q.card):'\u2014';$('totalLabel').textContent=t.total;$('total').textContent=q?dzd(q.total):'\u2014';$('primary').textContent=t.paymentUnavailable;$('primary').disabled=true;
+      }
     }
     function update(){
-      const cart=readCart();const signature=JSON.stringify(cart);
-      if(signature!==previous){previous=signature;stableSince=Date.now();$('delivery').checked=false;$('deliverystep').textContent='Not confirmed';}
-      latest=cart&&Date.now()-stableSince>=900?cart:null;
-      const key=JSON.stringify([latest,rates]);
-      if(key!==lastRender){
-        lastRender=key;
-        $('breakdown').hidden=!latest;
-        if(latest){
-          const q=core.quote(latest.minor,latest.currency,rates);
-          $('amount').textContent=$('badge').textContent=dzd(q.bubble);
-          $('status').textContent=`${latest.quantity} selected item(s) \u00b7 live Temu cart total`;
-          $('status').className='status ok';
-          $('cartstep').textContent=latest.quantity?'Subtotal detected; product details still need validation':'No selected items';
-          const rows=[['Temu cart total',`${(latest.minor/100).toFixed(2)} ${latest.currency}`],['Exchange rate',`1 ${latest.currency} = ${q.rate/100} DZD`],['Converted cart',dzd(q.converted)],['Service fee \u00b7 8%',dzd(q.service)],['Estimate before card fee',dzd(q.bubble)],['Card fee \u00b7 2%',dzd(q.card)],['Estimate with card',dzd(q.total)]];
-          $('breakdown').replaceChildren(...rows.map(([label,value],i)=>{const row=doc.createElement('div');row.className='row'+(i===6?' total':'');const a=doc.createElement('span'),b=doc.createElement('strong');a.textContent=label;b.textContent=value;row.append(a,b);return row;}));
-        }else{
-          $('amount').textContent=$('badge').textContent='\u2014 DZD';$('status').className='status';
-          $('status').textContent=cart?'Cart updating\u2026':'Cart subtotal unavailable. Open the cart; no amount is being assumed.';
-          $('cartstep').textContent='Waiting for a stable, readable cart';
-        }
-      }
-      const signIn=[...doc.querySelectorAll('[role="button"][aria-label]')].some(el=>visible(el)&&/sign in.*register|sign in.*account|\u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644\s*\/\s*\u0625\u0646\u0634\u0627\u0621 \u062d\u0633\u0627\u0628|connexion.*inscri/i.test(el.getAttribute('aria-label')));
-      $('accountstep').textContent=signIn?'Temu is asking you to sign in':'Account status not verified \u2014 check on Temu';
+      const dom=readDOM(),current=adapter.select(cached,dom)||dom;
+      const signature=JSON.stringify(current&&[current.currency,current.minor,current.quantity,current.items]);
+      if(signature!==previous){if(previous&&latest&&current&&step!=='cart'){$('message').textContent=t.changed;step='cart';intent=false;}previous=signature;stableSince=Date.now();}
+      latest=current&&Date.now()-stableSince>=900?current:null;
+      if(/\/login\.html$/.test(page.__uv?.meta?.url?.pathname||'')||emailField())step='account';
+      if(intent&&latest?.login===1&&!signIn()){step='shipping';intent=false;}
+      const amount=latest?dzd(core.quote(latest.minor,latest.currency,rates).bubble):'\u2014 DZD';
+      if($('badge').textContent!==amount){$('badge').textContent=$('amount').textContent=amount;$('badge').classList.remove('pop');void $('badge').offsetWidth;$('badge').classList.add('pop');}
+      const key=JSON.stringify([latest,step,mailAddress]);if(key!==lastRender){lastRender=key;view();}
+      if(setup&&emailField()){if(!mailAddress&&!requested){requested=true;void getTestEmail(false);}else if(mailAddress&&!filled.has(emailField()))fillEmail();}
     }
-    const clickMerchant=selector=>{const el=[...doc.querySelectorAll(selector)].find(visible);if(el){el.click();toggle(false);return true;}return false;};
-    $('cart').onclick=()=>{if(!clickMerchant('.Sidebar-GotoCartBtn'))$('status').textContent='Use Temu\u2019s cart button to open your cart.';};
-    $('shipping').onclick=()=>{if(!latest?.quantity){$('deliverystep').textContent='Select items in your cart first.';return;}if(!clickMerchant('#SidebarCheckout,.g_p_sum_wr .checkoutButton'))$('deliverystep').textContent='Open checkout from Temu\u2019s cart.';};
-    $('account').onclick=()=>{const buttons=[...doc.querySelectorAll('[role="button"],button')];const el=buttons.find(el=>visible(el)&&/sign in.*register|\u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644\s*\/\s*\u0625\u0646\u0634\u0627\u0621 \u062d\u0633\u0627\u0628|connexion.*inscri/i.test(el.getAttribute('aria-label')||el.textContent));if(el){el.click();toggle(false);}else $('accountstep').textContent='Open Orders & account on Temu to sign in or register.';};
-    $('delivery').onchange=()=>{$('deliverystep').textContent=$('delivery').checked?'Confirmed by you for this page; not independently verified':'Not confirmed';};
-    $('rates').onclick=()=>{try{const next={USD:Math.round(Number($('usd').value)*100),EUR:Math.round(Number($('eur').value)*100)};core.quote(0,'USD',next);core.quote(0,'EUR',next);rates=next;try{page.sessionStorage.setItem('temby-rates',JSON.stringify(rates));}catch{}lastRender='';update();$('ratestatus').textContent='Rates applied.';}catch{$('ratestatus').textContent='Enter rates between 0.01 and 10,000 DZD.';}};
-    function fill(selector,value){const fields=[...doc.querySelectorAll(selector)].filter(visible);if(fields.length!==1){$('mailstatus').textContent='Open the matching Temu registration field first. Fill it yourself if more than one field is shown.';return;}nativeSet.call(fields[0],value);fields[0].dispatchEvent(new page.Event('input',{bubbles:true}));fields[0].dispatchEvent(new page.Event('change',{bubbles:true}));$('mailstatus').textContent='Filled on Temu. Review it before continuing.';}
-    $('fillEmail').onclick=()=>{if(!$('email').checkValidity()||!$('email').value){$('mailstatus').textContent='Enter a valid email address.';return;}fill('input[type="email"],input[autocomplete="email"]',$('email').value);};
-    $('password').onclick=()=>{const bytes=page.crypto.getRandomValues(new Uint8Array(24));const alphabet='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#%';$('generated').value='Aa9!'+Array.from(bytes,b=>alphabet[b%alphabet.length]).join('');$('passwordrow').hidden=$('fillPassword').hidden=false;};
-    $('fillPassword').onclick=()=>fill('input[type="password"]',$('generated').value);
-    async function mail(path,method='GET'){
-      if(!send)throw Error('Reopen the local proxy to connect the inbox.');
-      return await new Promise((resolve,reject)=>{
-        const channel=new page.MessageChannel();
-        const timer=page.setTimeout(()=>{channel.port1.close();reject(Error('Inbox request timed out. Try again later.'));},25000);
-        channel.port1.onmessage=event=>{page.clearTimeout(timer);channel.port1.close();const result=event.data;if(result?.ok)resolve(result.data);else reject(Error(result?.error||'Mailbox unavailable'));};
-        send({tembyMail:method},[channel.port2]);
-      });
+    $('primary').onclick=()=>{
+      $('message').textContent='';
+      if(step==='cart'){
+        if(!latest)return openCart();if(!latest.quantity){toggle(false);return;}
+        if(latest.invalid>0){$('message').textContent=t.problem;return;}
+        if(latest.minimum&&latest.minor<latest.minimum){$('message').textContent=t.minimum;return;}
+        if(!latest.items||!latest.selectionKnown){openCart();$('message').textContent=t.detailsPending;return;}
+        intent=true;step=latest.login===1&&!signIn()?'shipping':'account';view();
+      }else if(step==='account'){if(mailAddress){if(!fillEmail())openLogin();}else void getTestEmail(true);}
+      else if(step==='shipping'){if(!activate('#SidebarCheckout,.g_p_sum_wr .checkoutButton'))openCart();}
+    };
+    $('secondary').onclick=()=>{if(step==='account'){setup=false;try{storageRemove('temby-test-setup');}catch{}openLogin();}else if(step==='shipping'){if(!latest){$('message').textContent=t.unavailable;return;}step='review';view();}};
+    $('back').onclick=()=>{step='cart';intent=false;$('message').textContent='';view();};
+    function mail(method='GET'){
+      return new Promise((resolve,reject)=>{const channel=new page.MessageChannel(),timer=page.setTimeout(()=>{channel.port1.close();reject(Error('timeout'));},25000);channel.port1.onmessage=e=>{page.clearTimeout(timer);channel.port1.close();e.data?.ok?resolve(e.data.data):reject(Error('worker-response'));};try{send({tembyMail:method},[channel.port2]);}catch{page.clearTimeout(timer);channel.port1.close();channel.port2.close();reject(Error('worker-unavailable'));}});
     }
-    async function mailAction(button,action){button.disabled=true;try{await action();}catch(error){$('mailstatus').textContent=error.message;}finally{button.disabled=false;}}
-    $('newInbox').onclick=()=>mailAction($('newInbox'),async()=>{const data=await mail('','POST');$('email').value=data.address;$('messages').textContent='';$('mailstatus').textContent='Test inbox created for this local session. Use Fill email on Temu.';});
-    $('checkInbox').onclick=()=>mailAction($('checkInbox'),async()=>{const data=await mail('');if(!$('email').value)$('email').value=data.address;$('mailstatus').textContent=data.address?'Checked '+data.address:'';$('messages').textContent=data.messages.length?data.messages.map(m=>`${m.from}\n${m.subject}\n${m.text}`).join('\n\n'):'No email received yet. Check again after Temu sends a code.';});
-    // No full-page text scans, network interception, or password listeners.
+    async function getTestEmail(navigate){
+      $('primary').disabled=true;
+      try{const data=await mail('POST');mailAddress=data.address;setup=true;try{storageSet('temby-test-setup','1');}catch{}view();if(!fillEmail()&&navigate)openLogin();}
+      catch(error){host.setAttribute('data-mail-error',error.message);$('message').textContent=t.mailError;}finally{$('primary').disabled=false;}
+    }
+    $('code').onclick=async()=>{$('code').disabled=true;$('message').textContent=t.checking;try{const data=await mail();$('mail').textContent=data.messages.map(m=>m.subject+'\n'+m.text).join('\n\n');$('message').textContent=data.messages.length?'':t.noCode;}catch{$('message').textContent=t.mailError;}finally{$('code').disabled=false;}};
+    adapter.observe(page,entries=>{cached=entries;update();},meta=>host.setAttribute('data-cart-cache',JSON.stringify(meta)));
     update();page.setInterval(()=>{if(!doc.hidden)update();},500);
   };
   if(page.document.readyState==='loading')page.document.addEventListener('DOMContentLoaded',start,{once:true});else start();

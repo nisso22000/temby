@@ -42,7 +42,7 @@ const assetFiles: Record<string,[string,string]> = {
 };
 export async function engineAsset(path:string,res:ServerResponse,req?:IncomingMessage) {
   const asset=assetFiles[path]; if(!asset)return false;
-  const files=path==='/uv/config.js'?['public/uv-transport.js','public/uv-network.js','public/uv-url.js','public/uv-navigation.js','public/companion-core.js','public/companion.js',asset[0],'public/uv-diagnostics.js']:[asset[0]];
+  const files=path==='/uv/config.js'?['public/uv-transport.js','public/uv-network.js','public/uv-url.js','public/uv-navigation.js','public/companion-core.js','public/companion-cart.js','public/companion-icon.js','public/companion.js',asset[0],'public/uv-diagnostics.js']:[asset[0]];
   const {data,etag}=await helperAsset(files.map(file=>new URL('../'+file,import.meta.url)));
   const headers={'content-type':asset[1],'cache-control':'no-cache',etag,'service-worker-allowed':'/','x-content-type-options':'nosniff'};
   const unchanged=['GET','HEAD'].includes(req?.method||'GET')&&req?.headers['if-none-match']?.split(',').some(value=>value.trim().replace(/^W\//,'')===etag||value.trim()==='*');

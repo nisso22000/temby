@@ -37,5 +37,10 @@
     if((quantity===0)!==(first.minor===0))return null;
     return {...first,quantity};
   }
-  self.__tembyCompanionCore={money,quote,consensus,normalize};
+  const paymentRates={card:200,baridimob:50};
+  function paymentFee(amount,method){
+    if(!Number.isSafeInteger(amount)||amount<0||!Object.hasOwn(paymentRates,method))throw Error('Invalid payment estimate');
+    return Number((BigInt(amount)*BigInt(paymentRates[method])+5000n)/10000n);
+  }
+  self.__tembyCompanionCore={money,quote,consensus,normalize,paymentFee};
 })();

@@ -5,6 +5,12 @@ import vm from 'node:vm';
 const context:any={self:{}};
 vm.runInNewContext(await readFile(new URL('../public/companion-core.js',import.meta.url),'utf8'),context);
 const {money,quote,consensus}=context.self.__tembyCompanionCore;
+test('payment fees are separately configured for final review',()=>{
+  const {paymentFee}=context.self.__tembyCompanionCore;
+  assert.equal(paymentFee(2700000,'card'),54000);
+  assert.equal(paymentFee(2700000,'baridimob'),13500);
+  assert.throws(()=>paymentFee(100,'unknown'));
+});
 test('cart money parsing supports Temu bilingual formats and rejects ambiguous prices',()=>{
   for(const value of ['Subtotal €1,234.56','المجموع الفرعي ؜١٢٣٤٫٥٦€','Sous-total 1.234,56 EUR','€1 234,56'])assert.equal(money(value).minor,123456,value);
   for(const value of ['€1.2','€1.2345','€-1.00','€2.00 €3.00','CAD $2.00','£2.00','2.00','€1,23,456','€1.00 USD', '€1.00 (2)'])assert.equal(money(value),null,value);

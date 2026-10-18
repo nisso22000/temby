@@ -1,4 +1,4 @@
-// Companion release v26: local inbox bridge and final packaged companion helpers.
+// Companion release v27: quiet UI, active-worker inbox and read-only scdb.
 importScripts('/uv/request.js','/uv/bundle.js','/uv/config.js','/uv/worker.js');
 const engine=new UVServiceWorker();
 self.__tembyRelaySignals=new WeakMap();
