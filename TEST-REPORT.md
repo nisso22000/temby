@@ -1,4 +1,12 @@
-# Latest executed report — 15 October 2026
+# V25 local release — 18 October 2026
+
+All 38 functional tests and `npm run typecheck` pass. URL normalization now skips absolute parsing when no colon can occur in an absolute URL, and skips login-return parsing when no literal `from` query parameter is present. Regression coverage retains nested proxy/login returns, raw query bytes, whitespace and dot-segment behavior, ordinary product links and CDN URLs. V24 cookie handling and previous transport/cache/streaming behavior remain unchanged.
+
+Added `Start proxy.cmd` as a foreground launcher with dependency checks and the normal localhost entry URL. No business logic, alternate engines or timing observers are loaded by normal startup. Public deployment and uninterrupted merchant compatibility are not certified. Earlier v23/v24 browser comparison loads were affected by blank/loading pages, merchant API errors and redirects to login; the isolated CPU results identify normalization overhead, not proof of a fixed live storefront or a page-load percentage gain.
+
+The dated reports below are historical and do not override these current limitations.
+
+# Historical report — 15 October 2026
 
 ## Current result
 

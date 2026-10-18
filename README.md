@@ -1,5 +1,9 @@
 # Localhost Temu proxy
 
+Current release: **v25**, proxy only. Double-click **Start proxy.cmd**, then open **http://localhost:3000/**. Keep the terminal window open while browsing; press Ctrl+C to stop. Alternatively use `npm start`.
+
+V25 avoids repeated URL parsing on ordinary links while retaining v24's login-return and cookie-continuity fixes. All 38 functional checks and TypeScript validation pass. There are no benchmark observers, comparison switches or shopping business features in the normal runtime.
+
 Run `npm start` from this directory and open http://localhost:3000/. The entry opens the UV launcher on localhost:3001; browsing stays under /uv-service/. There is no outer iframe, remote browser or system proxy.
 
 Node 22.19 or newer is required. Dependencies are installed with `npm ci --ignore-scripts`. Stop with Ctrl+C. Restart after server-source changes; restarting clears the in-memory server cookie jars. Ports default to 3000/3001, with PORT and MERCHANT_PORT overrides. Both listeners bind to loopback.
@@ -14,7 +18,7 @@ The user reports successful browsing, infinite loading, account creation and rea
 
 Version 24 corrects nested localhost login return URLs, awaits response-cookie commitment before page initialization, uses the current virtual page URL for cookie writes and respects script-cookie deletion instead of restoring stale server copies. These are tested proxy corrections, not a claim that merchant token-touch HTTP424 or login requirements have been eliminated. Open the launcher and refresh documents after updates; restarting the server still clears in-memory server cookies.
 
-This is a tested UV development baseline, not a public-production certification. The server is still loopback-only, capped at 100 in-memory sessions, with local diagnostics that must not be exposed as-is. Public hosting, durable sessions and multi-user origin/isolation design remain separate work. The v22 browser automation runtime was unavailable; fresh real-browser validation remains pending despite passing functional HTTP/client tests.
+This is a local-use release, not a public-production certification. The server is still loopback-only, capped at 100 in-memory sessions, with local diagnostics that must not be exposed as-is. Public hosting, durable sessions and multi-user origin/isolation design remain separate work. Live comparison testing encountered blank/loading pages, merchant API failures and login redirects in both v23 and v24; tests do not establish uninterrupted storefront compatibility or completed purchases.
 
 ## Development checks
 

@@ -1,5 +1,7 @@
 # Active proxy behavior and remaining limits
 
+V25 is the consolidated local-use release. It optimizes the URL-normalization common path without removing the narrow login-return repair or changing cookie authority. It does not promise full Temu compatibility or public-hosting readiness.
+
 The default entry redirects to the Ultraviolet rewriting relay. It injects only engine helpers, not cart extraction, a payment button, storefront replacements, or business workflows. No active path-name login/order filter or session-wide denial latch remains. The relay contains no instruction to navigate to login; upstream redirects and page JavaScript can do that. This does not prove all unexpected authentication behavior is upstream: cookie/header/origin compatibility still needs verification.
 
 ## Local controls still present
