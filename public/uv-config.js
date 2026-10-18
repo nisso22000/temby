@@ -61,6 +61,6 @@ if(self.UVClient&&self.navigator?.serviceWorker?.controller){
   const cookieURL=decodeURIComponent(location.pathname.slice('/uv-service/'.length));
   const Client=self.UVClient;
   self.UVClient=class extends Client{
-    constructor(...args){super(...args);self.__tembyConfigureClientNetwork?.(this,args[0]);self.__tembyConfigureNavigation?.(args[0]);self.__tembyConfigureCompanion?.(args[0]);this.document.on('setCookie',event=>send({tembyCookieWrite:{url:args[0]?.__uv?.meta?.url?.href||cookieURL,cookie:event.data.value}}));}
+    constructor(...args){super(...args);self.__tembyConfigureClientNetwork?.(this,args[0]);self.__tembyConfigureNavigation?.(args[0]);self.__tembyConfigureCompanion?.(args[0],this.idb);this.document.on('setCookie',event=>send({tembyCookieWrite:{url:args[0]?.__uv?.meta?.url?.href||cookieURL,cookie:event.data.value}}));}
   };
 }

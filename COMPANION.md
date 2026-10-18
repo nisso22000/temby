@@ -1,35 +1,68 @@
-# Companion v27 — local prototype
+# Companion v28 — implementation and verification
 
-Open http://localhost:3000/ to update the worker; reload an existing proxied tab once if it still contains the previous helper bundle.
+Open http://localhost:3000/ to update the worker. Reload an existing proxied tab once if its document still contains older helpers. No new database or backend dependency was introduced.
 
-## Customer interface
+## Where the data comes from
 
-- Uploaded circular icon, blue #075da6, rectangular DZD amount only. The amount includes service, excludes payment fees. Warm white panel, one current step, French/Arabic copy based on merchant document language. Small opening/amount animations respect reduced-motion preferences.
-- Removed the manual email field, rate inputs, password tools and all-at-once checklist. Calculation details remain collapsed during shopping. Card fees appear only on the final review screen. Payment remains disabled.
-- Default example rates: USD 250 DZD, EUR 275 DZD. Existing per-tab test rates remain honored. Conversion uses integer centimes and half-up rounding: merchant amount × rate, then 8% service. Card fee = 2% of the resulting subtotal.
-- Separate payment fee configuration includes card 2% and proposed BaridiMob 0.5%; BaridiMob is not displayed or integrated yet.
+Everything is read inside the **proxied page's browser origin** (localhost:3001). The companion cannot access the separate IndexedDB belonging to direct temu.com.
 
-## Cart data
+Ultraviolet prefixes merchant database names: opening `scdb` from merchant code creates/opens `https://www.temu.com@scdb`. The previous reader searched only for an exact `scdb` name, then used UV's wrapped open method; passing an already prefixed name could prefix it twice. v28 receives the original `client.idb.open` method before UV installs its hooks, enumerates existing databases and opens the exact scoped name through that original method. A legacy unprefixed database is considered only if no scoped database exists. Upgrade transactions are aborted rather than creating a new cache.
 
-- The existing DOM summary reader remains a fallback. It samples every 500 ms and waits 900 ms for a stable amount. It is not full cart validation.
-- New read-only adapter looks for an existing `scdb` database on the proxy origin, never the separate database belonging to direct temu.com. It does not create or modify merchant databases, patch IndexedDB methods, replay tokens or issue extra Temu requests.
-- Existing stores are inspected at startup, focus and every two seconds while visible, bounded to 800 records and bounded object traversal. Candidate payloads are normalized into allowlisted item/currency/amount fields only; session tokens and response keys are discarded.
-- Recognizes the user-described `goodsSkuList` / `displayList[].goodsList` structure and nested JSON cache envelopes. Extracts product/SKU IDs, quantities, names, image links, specs, unit prices, currency, order amount, login flag and threshold/invalid-item hints. Unfamiliar structures are not guessed.
-- A candidate must have a timestamp in its cache key, be less than two minutes old, have a supported explicit ISO currency, and match the visible cart amount, currency and selected quantity. Conflicting candidates, malformed prices, duplicate SKU IDs and inconsistent lists are rejected. USD-specific amounts are never interpreted as EUR amounts.
-- Selected flags are respected when supplied. When absent, full-list quantities must match the visible selection count. This assumption needs live verification against Temu's count semantics.
-- Until product details are matched, the UI may show a DOM estimate but does not advance as though a complete cart has been verified. Source/cache metadata is exposed only as sanitized counters in `data-cart-cache`; no raw cache records, tokens or account identifiers are logged.
+The `entries` store is preferred. Reads use readonly transactions and reverse cursors, bounded to 800 records. Cache envelopes and nested JSON strings are decoded with bounded traversal. Only normalized price/item/account facts leave the adapter. Tokens, raw response keys, passwords and addresses are not retained or logged. Sanitized cache counters and record field names appear in the host element's `data-cart-cache` attribute for debugging.
 
-## Account guidance
+## Money and discounts
 
-- Real Temu email field observed: `input[type=text]` with an Arabic email `aria-label`. The previous email-only selector missed it. The new matcher uses field semantics, requires exactly one visible matching input, and uses the native value setter plus input/change events.
-- Verified live: customer-initiated test-email creation filled that real field successfully. No registration/terms submission was performed.
-- Test address comes from the existing session-bound Catchmail endpoint. There is no companion email input. The generated address is displayed only after requesting a test email; customer can explicitly fill it and check incoming messages. Existing nonempty email input is not overwritten.
-- A tab-local opt-in marker can resume filling after login navigation. Choosing an existing account clears that opt-in. No password capture/generation/storage or credential handoff.
-- Account and shipping progression is preliminary. Cache login flags are not independently established as an authoritative authentication signal. Delivery confirmation is customer-reported; address extraction and a saved immutable order are not implemented. Final payment remains unavailable.
+| Fact | Source/rule |
+| --- | --- |
+| Currency | Explicit `currency` / `ckCartCcy`, or an explicit USD/EUR suffix in the cache key; cross-checked against visible amounts |
+| Merchant net | `orderAmount`; USD-only `orderAmountUsd` fallback when the local field is absent, never when it is malformed |
+| Merchant gross | `totalGoodsAmount`; `totalGoodsAmountUsd` is accepted only for USD |
+| Discounts | `goodsDiscountAmount` plus order-level `discountAmount` / USD-only `discountAmountUsd` |
+| Green saving | Shown only when explicit gross is at least net and supplied discounts reconcile with gross minus net |
+| Excluded from payable discount | `marketPrice` and `totalSaveAmount`, which may describe reference/list-price savings |
 
-## Verification and limits
+Amounts must be integer minor units. EUR 2092 means EUR 20.92. Currency is never inferred from a USD-named amount field for a EUR record. Money in checkout URL parameters is not used as a price source.
 
-- 47 tests passed, including cache extraction, stale/conflicting data, currency safety, quantities/selection, credential exclusion and separate payment fees. Typecheck passed.
-- Live proxied session rendered the new panel and filled Temu's real email input. Home/cart navigation repeatedly returned to login; no `scdb` database existed in that test browser session.
-- Thus the `scdb` structure is implemented against the user's field description, not yet verified against an actual proxied nonempty cart. No reliability percentage, full checkout, OTP delivery or shipping completion is established.
-- No Supabase, real payment integration or purchasing automation added.
+The supplied real `sc_cache` shape is handled explicitly under `d.result`: currency comes from `cartListInfo.checkoutExtendMap.ckCartCcy` and `cartTransferMap.currency`; monetary values come from `discountInfo.orderAmountDto`. Its net is checked against `cartTransferMap.orderAmount` (which may be an integer string) and `orderAmountOrderCcy` when present. Failed responses and contradictory currencies/totals are rejected without recursively salvaging their children. `discountInfo.amountRocVo` is a separate USD representation and is excluded from this path. The supplied EUR values reconcile as 2899 − 807 = 2092; `totalSaveAmount: 3060` is not this discount.
+
+Items use `baseGoodsInfo` for product identity/name and `skuInfo` for SKU, specs, `skuPrice` and **`amount` (selected quantity)**. `skuQuantity` is not used as ordered quantity. Missing/invalid item details preserve a valid monetary summary without inventing quantities. UV accessors are skipped using data-descriptor reads, and serialized secondary snapshots are excluded.
+
+The DOM fallback now searches for explicit final-total labels on both `shopping_cart.html` and `bgt_order_checkout.html`, excluding crossed-out originals and aria-hidden animation copies. It no longer takes the first price row in the full-cart summary. Conflicting final totals, or a subtotal-only full cart, remain unavailable. On other pages the sidebar subtotal can be reconciled to an explicit cached gross/net pair. A conflicting cached net prevents blindly falling back to a larger sidebar subtotal.
+
+Cache records can be at most 30 minutes old and must match the visible currency and amount (or a reconciled, explicitly labelled gross subtotal). Missing item-selection metadata no longer blocks preparing an account/address. Item details and monetary validity are separate; a summary estimate is not a saved, validated payable order.
+
+DZD uses example rates USD 250, EUR 275; existing per-tab test-rate settings remain honored. Integer centimes with half-up rounding are used. The bubble is converted **net** plus 8% service. When a reconciled discount exists, the crossed-out amount and green saving compare gross/net DZD quotes including the corresponding 8% fees. Expanded detail shows converted gross, converted discount and service calculated on net. Payment-method fees stay on final review only. Card is 2%; proposed BaridiMob 0.5% is configuration only, not an available integration.
+
+## Timing and the previous empty-value flash
+
+| Activity | Timing |
+| --- | --- |
+| DOM / interface check | Every 500 ms while the document is visible |
+| IndexedDB scan | Startup, window focus, then every 2 seconds while visible |
+| Accepting a changed amount | After it stays stable for 300 ms (previously 900 ms) |
+| Short unreadable transition | Keep the last accepted estimate for up to 2 seconds, dim it and mark it updating; then clear it |
+| Cross-tab setup signal | Native localStorage event, with cache rescans providing independent evidence |
+| Catchmail message check | One customer-initiated request; no periodic polling and no WebSocket |
+
+The cached estimate shown during an update is not treated as a new confirmed price. Continue is held while updating. Actual payments remain disabled.
+
+## Account, email and address flow
+
+`نكمل` starts setup; it no longer requires a verified SKU list, opens checkout, or resets setup whenever item metadata changes. Account readiness comes from the freshest unambiguous `ckCartLoginStatus` fact, independently of whether a cart amount parsed. Only status/evidence timestamp and customer-reported address readiness are shared across tabs. No email, OTP, credential, address contents or cart snapshot is stored in that shared signal. A newly served login form overrides older positive evidence. A later positive signal from another tab offers refresh in a stale login tab instead of generating another inbox. This is provisional browser evidence, not an authorization mechanism.
+
+Address setup opens Temu's `/address.html` directly. That route was verified in Temu's shipped account-menu module (`Addresses`, href `/address.html`). The panel reopens after the navigation. No setup action clicks `SidebarCheckout` or navigates to merchant payment. On the address-book page the customer can confirm they checked the address. This remains explicitly customer-reported; address extraction and an immutable order/address snapshot are not implemented.
+
+The test-email action requests a random session-bound address from the local server, then fills Temu's actual visible field. The field is `type=text` with an email aria-label, not `type=email`. Exactly one visible matching field is required; an existing different value is not overwritten. Native setter and input/change events notify Temu's form. Only a tab-local opt-in resumes filling after navigation. Choosing an existing account clears that opt-in.
+
+Catchmail addresses are catch-all names: the local generation action chooses an address, it does not create an inbox through a provider API call. Checking messages goes page → service worker → local server → Catchmail. The server requests the latest message list and, if present, its plain-text details. Provider calls are serialized with at least 1.1 seconds between starts; each browser session has a 5-second check cooldown. Requests time out, bodies are bounded, email HTML is not rendered, and codes are not automatically submitted. The address association lives in server memory; restarting the server or losing the local session loses it. Public inbox/recovery limitations remain. No password capture/storage/handoff.
+
+## Interface
+
+The outer launcher is explicitly LTR and anchored 8px from the left edge: circle left, DZD rectangle right. Opening the RTL Arabic panel does not move the launcher to the opposite side. Only the panel's contents use Arabic direction. Colors, uploaded icon, warm panel and reduced-motion-aware animation remain.
+
+## Evidence and remaining limits
+
+- 53 functional tests passed and TypeScript passed. Added coverage includes the supplied nested EUR shape, selected quantity versus stock, getter avoidance, contradictory summaries, scoped/native DB access, readonly entries reads, net/gross reconciliation, EUR/USD separation, account facts independent of SKU parsing and malformed-price rejection.
+- Seven real-browser DOM regressions passed for gross-before-net cart layouts, checkout totals, Arabic split prices, crossed-out originals, hidden duplicates, subtotal-only pages and conflicting totals. Run the explicitly labelled internal harness with `node --experimental-strip-types scripts/companion-reader-check.ts`; it uses an ephemeral loopback port and is never started by `npm start`.
+- Live browser: the corrected reader reaches the actual scoped database and `entries` store. That test browser's store is empty, and home/cart navigation returns it to login. A sanitized regression based on the supplied EUR structure passes; a populated customer cart, cross-tab completed signup and saved address still require live comparison in the user's signed-in proxied session.
+- No complete merchant checkout, payment, Supabase, purchasing automation, durable order storage or account handoff is implemented. No 100% compatibility/error-rate guarantee is established.
