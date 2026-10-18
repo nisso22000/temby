@@ -1,4 +1,4 @@
-# Companion v28 — implementation and verification
+# Companion v29 — implementation and verification
 
 Open http://localhost:3000/ to update the worker. Reload an existing proxied tab once if its document still contains older helpers. No new database or backend dependency was introduced.
 
@@ -29,9 +29,9 @@ Items use `baseGoodsInfo` for product identity/name and `skuInfo` for SKU, specs
 
 The DOM fallback now searches for explicit final-total labels on both `shopping_cart.html` and `bgt_order_checkout.html`, excluding crossed-out originals and aria-hidden animation copies. It no longer takes the first price row in the full-cart summary. Conflicting final totals, or a subtotal-only full cart, remain unavailable. On other pages the sidebar subtotal can be reconciled to an explicit cached gross/net pair. A conflicting cached net prevents blindly falling back to a larger sidebar subtotal.
 
-Cache records can be at most 30 minutes old and must match the visible currency and amount (or a reconciled, explicitly labelled gross subtotal). Missing item-selection metadata no longer blocks preparing an account/address. Item details and monetary validity are separate; a summary estimate is not a saved, validated payable order.
+Cache records can be at most 30 minutes old. When an explicit visible total exists, it must match the cached currency and amount (or a reconciled, explicitly labelled gross subtotal). When no visible total exists, including on address pages and some checkout layouts, an unambiguous successful canonical `sc_cache` response may supply a **labelled cached estimate** (`data-price-source="scdb-estimate"`). Generic nested money records cannot supply this fallback; visible disagreements never bypass validation. This fixes the previous requirement that every page expose a cart summary. Missing item-selection metadata no longer blocks preparing an account/address. Item details and monetary validity are separate; a summary estimate is not a saved, validated payable order.
 
-DZD uses example rates USD 250, EUR 275; existing per-tab test-rate settings remain honored. Integer centimes with half-up rounding are used. The bubble is converted **net** plus 8% service. When a reconciled discount exists, the crossed-out amount and green saving compare gross/net DZD quotes including the corresponding 8% fees. Expanded detail shows converted gross, converted discount and service calculated on net. Payment-method fees stay on final review only. Card is 2%; proposed BaridiMob 0.5% is configuration only, not an available integration.
+DZD uses example rates USD 250, EUR 275; existing per-tab test-rate settings remain honored. Integer centimes with half-up rounding are used. The bubble is converted **net** plus 8% service. When a reconciled discount exists, the crossed-out amount and green saving compare gross/net DZD quotes including the corresponding 8% fees. Expanded detail shows the cart currency, actual configured exchange rate, Temu net in that currency and DZD, gross and discount in both currencies, service calculated on net, and the DZD estimate total. Details remain accessible during setup. Payment-method fees stay on final review only. Card is 2%; proposed BaridiMob 0.5% is configuration only, not an available integration.
 
 ## Timing and the previous empty-value flash
 
@@ -40,7 +40,7 @@ DZD uses example rates USD 250, EUR 275; existing per-tab test-rate settings rem
 | DOM / interface check | Every 500 ms while the document is visible |
 | IndexedDB scan | Startup, window focus, then every 2 seconds while visible |
 | Accepting a changed amount | After it stays stable for 300 ms (previously 900 ms) |
-| Short unreadable transition | Keep the last accepted estimate for up to 2 seconds, dim it and mark it updating; then clear it |
+| Short unreadable transition | Keep the last accepted estimate for up to 8 seconds, dim only the amount text and mark it updating; then clear it |
 | Cross-tab setup signal | Native localStorage event, with cache rescans providing independent evidence |
 | Catchmail message check | One customer-initiated request; no periodic polling and no WebSocket |
 
@@ -58,11 +58,20 @@ Catchmail addresses are catch-all names: the local generation action chooses an 
 
 ## Interface
 
-The outer launcher is explicitly LTR and anchored 8px from the left edge: circle left, DZD rectangle right. Opening the RTL Arabic panel does not move the launcher to the opposite side. Only the panel's contents use Arabic direction. Colors, uploaded icon, warm panel and reduced-motion-aware animation remain.
+The outer launcher is explicitly LTR and anchored 8px from the left edge: circle left, DZD rectangle right. Opening the RTL Arabic panel does not move the launcher to the opposite side. Only the panel's contents use Arabic direction. Colors, uploaded icon, warm panel and reduced-motion-aware animation remain. The panel is bounded to 560px and viewport height. Long item lists scroll independently (130px cap, 96px when calculations are expanded), with thin custom scrollbar styling. Header and action footer stay outside the content scroller; short viewports/expanded details retain a body-scroll fallback. The amount text fades during updates; its blue rectangle and icon remain solid. Back permits inspecting the cart even from address/review context instead of being immediately overridden by the next detector tick.
+
+## Reported browser/network errors
+
+`/.well-known/appspecific/com.chrome.devtools.json` is Chrome DevTools workspace discovery, not a merchant cart/search API. Its CSP rejection does not establish a broken cart. Merchant CSP remains unchanged.
+
+The reported `__uv$setSource` SecurityError concerns UV's rewritten property access on a cross-origin Window. UV source rewrites member `location`, `top` and `parent` accesses using that helper. The existing native iframe-getter safeguard does not cover all rewritten member expressions. The user's exact click could not be reproduced; no broad suppression or cross-origin security weakening was added, and this report remains unresolved.
+
+Relay health metadata confirmed upstream HTTP 429 on search endpoints and HTTP 200 cart responses with numeric error 40002. Status 429 is rate limiting/refusal, not a failed local internet connection. The later challenge is consistent with merchant verification, but these observations do not determine which signal triggered it or exclude proxy involvement. The companion's IDB/DOM scans send no Temu HTTP requests. Existing relay cooldowns replay the same 429 for that session/method/URL until `Retry-After`, or 60 seconds when absent; no automatic merchant request retry was added.
 
 ## Evidence and remaining limits
 
-- 53 functional tests passed and TypeScript passed. Added coverage includes the supplied nested EUR shape, selected quantity versus stock, getter avoidance, contradictory summaries, scoped/native DB access, readonly entries reads, net/gross reconciliation, EUR/USD separation, account facts independent of SKU parsing and malformed-price rejection.
+- 54 functional tests passed and TypeScript passed. Added coverage includes cache-only canonical estimates, rejection of stale/contradictory/generic cache fallbacks, the supplied nested EUR shape, selected quantity versus stock, getter avoidance, contradictory summaries, scoped/native DB access, readonly entries reads, net/gross reconciliation, EUR/USD separation, account facts independent of SKU parsing and malformed-price rejection.
 - Seven real-browser DOM regressions passed for gross-before-net cart layouts, checkout totals, Arabic split prices, crossed-out originals, hidden duplicates, subtotal-only pages and conflicting totals. Run the explicitly labelled internal harness with `node --experimental-strip-types scripts/companion-reader-check.ts`; it uses an ephemeral loopback port and is never started by `npm start`.
+- The harness also provides `/preview?page=cart` and `/preview` (address context), visibly labelled synthetic UI tests on a separate origin. A 20-item list was bounded, calculations matched EUR/DZD figures, and Continue remained outside scrolling content. Address context displayed a cache estimate without any visible cart total; signed-in state skipped account setup, and customer confirmation advanced to disabled-payment review. A deliberate 4-second cache gap passed with no blank amount and amount-only dimming.
 - Live browser: the corrected reader reaches the actual scoped database and `entries` store. That test browser's store is empty, and home/cart navigation returns it to login. A sanitized regression based on the supplied EUR structure passes; a populated customer cart, cross-tab completed signup and saved address still require live comparison in the user's signed-in proxied session.
 - No complete merchant checkout, payment, Supabase, purchasing automation, durable order storage or account handoff is implemented. No 100% compatibility/error-rate guarantee is established.

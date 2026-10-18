@@ -69,7 +69,7 @@
           strongThreshold:result.checkoutLayerTrackInfo?.strongThreshold};
         const detailed=normalize({k:String(time),v:{...common,goodsSkuList:mapped}});
         const parsed=detailed.length?detailed:normalize({k:String(time),v:common});
-        found.push(...parsed);return;
+        found.push(...parsed.map(cart=>({...cart,canonical:true})));return;
       }
       if(!Array.isArray(value)&&(Array.isArray(value.goodsSkuList)||Array.isArray(value.displayList)||Object.hasOwn(value,'orderAmount')||Object.hasOwn(value,'orderAmountUsd'))){
         const objects=[];
@@ -108,9 +108,12 @@
     walk(record,stamp(key),0,keyCurrency(key));
     return found;
   }
-  function select(candidates,dom,now=Date.now()){
-    // A historical cache entry alone never establishes the current cart.
-    const fresh=candidates.filter(c=>c.time>0&&now-c.time>=-10000&&now-c.time<(dom?1800000:120000));
+  function select(candidates,dom,now=Date.now(),options={}){
+    // Without a visible total, only an explicit successful cart response may
+    // supply an estimate. Never promote that estimate to a payable quote.
+    const cacheOnly=!dom&&options.allowCacheOnly===true;
+    if(!dom&&!cacheOnly)return null;
+    const fresh=candidates.filter(c=>c.time>0&&now-c.time>=-10000&&now-c.time<1800000&&(!cacheOnly||c.canonical===true));
     if(!fresh.length)return null;
     fresh.sort((a,b)=>b.time-a.time);const newest=fresh[0].time;
     const atTime=fresh.filter(c=>c.time===newest);
@@ -119,13 +122,13 @@
     if(new Set(detailed.map(c=>JSON.stringify(c.items))).size>1)return null;
     const c=detailed[0]||atTime[0];
     const matches=dom&&(dom.minor===c.minor||(dom.role==='subtotal'&&c.beforeMinor!==null&&dom.minor===c.beforeMinor));
-    if(!dom||dom.currency!==c.currency||!matches)return null;
+    if(!cacheOnly&&(!dom||dom.currency!==c.currency||!matches))return null;
     const known=c.items.every(i=>i.selection!==null);
     const selected=known?c.items.filter(i=>i.selection):c.items;
     const units=selected.reduce((n,i)=>n+i.quantity,0);
-    const countMatches=dom.quantity==null||dom.quantity===units||dom.quantity===selected.length;
-    const selectionKnown=c.items.length>0&&countMatches&&(known||dom.quantity===units||dom.quantity===c.items.length);
-    return {...c,items:selectionKnown?c.items:[],quantity:dom.quantity??(selectionKnown?units:null),selectionKnown,source:'scdb'};
+    const countMatches=dom?.quantity==null||dom.quantity===units||dom.quantity===selected.length;
+    const selectionKnown=c.items.length>0&&countMatches&&(known||dom?.quantity===units||dom?.quantity===c.items.length);
+    return {...c,items:selectionKnown?c.items:[],quantity:dom?.quantity??(selectionKnown?units:null),selectionKnown,source:cacheOnly?'scdb-estimate':'scdb'};
   }
   function authFacts(record,key){
     record=clean(record);

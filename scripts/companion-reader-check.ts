@@ -1,7 +1,7 @@
 // Internal DOM regression harness. This is never a merchant/storefront page.
 import {createServer} from 'node:http';
 import {readFile} from 'node:fs/promises';
-const source=await Promise.all(['companion-core.js','companion-cart.js'].map(file=>readFile(new URL('../public/'+file,import.meta.url),'utf8')));
+const assetFiles:Record<string,string>={'/core.js':'companion-core.js','/cart.js':'companion-cart.js','/companion.js':'companion.js','/icon.js':'companion-icon.js'};
 const checks=[
   {name:'Cart uses discounted total, not earlier subtotal',path:'/shopping_cart.html',html:'<main class="g_p_sum_wr"><div><span>Subtotal</span><b>€28.99</b></div><div><span>Discount</span><b>€8.07</b></div><div><span>Total</span><b>€20.92</b></div><button class="checkoutButton" aria-label="Checkout (4)"></button></main>',expected:2092},
   {name:'Checkout uses final EUR amount without item count',path:'/bgt_order_checkout.html',html:'<main><div><span>Order total</span><b>€20.92</b></div></main>',expected:2092},
@@ -13,6 +13,26 @@ const checks=[
 ];
 const html=`<!doctype html><meta charset="utf-8"><title>TEMBY internal DOM regression</title><style>body{font:16px Arial;margin:30px}iframe{width:400px;height:100px;position:absolute;left:-2000px}li{margin:12px 0}.pass{color:green}.fail{color:red}</style><h1>TEMBY internal DOM regression</h1><p>This page contains synthetic test cases, not Temu.</p><ol id="results"></ol><p id="summary">Running…</p><script src="/core.js"></script><script src="/cart.js"></script><script>
 (async()=>{let passed=0;for(const test of ${JSON.stringify(checks)}){const frame=document.createElement('iframe');document.body.append(frame);await new Promise(resolve=>{frame.onload=resolve;frame.srcdoc=test.html;});const child=frame.contentWindow;const reader=self.__tembyPageReader({document:child.document,getComputedStyle:child.getComputedStyle.bind(child),__uv:{meta:{url:{pathname:test.path}}}},self.__tembyCompanionCore);const result=reader();const actual=result?.minor??null;const ok=actual===test.expected;const li=document.createElement('li');li.className=ok?'pass':'fail';li.textContent=(ok?'PASS: ':'FAIL: ')+test.name+' (actual '+actual+')';document.getElementById('results').append(li);if(ok)passed++;frame.remove();}document.getElementById('summary').textContent=passed+' / '+${checks.length}+' passed';})();</script>`;
-const server=createServer((req,res)=>{const body=req.url==='/core.js'?source[0]:req.url==='/cart.js'?source[1]:req.url==='/'?html:null;if(body===null){res.writeHead(404);res.end();return;}res.writeHead(200,{'content-type':req.url==='/'?'text/html; charset=utf-8':'text/javascript; charset=utf-8','cache-control':'no-store'});res.end(body);});
+// A visibly labelled, separate-origin UI fixture. Never served by npm start.
+const preview=`<!doctype html><html lang="ar"><meta charset="utf-8"><title>TEMBY internal UI regression</title><style>body{font:16px Arial;background:#f5f7fa;margin:35px;color:#38536a}main{margin-left:420px}h1{font-size:20px}</style><main><h1>Internal companion regression</h1><p>Synthetic cart data. This is not Temu.</p><p>20 example items, EUR 20.92 net.</p></main><script src="/core.js"></script><script src="/cart.js"></script><script src="/icon.js"></script><script src="/companion.js"></script><script>
+(async()=>{
+ const path=new URL(location.href).searchParams.get('page')==='cart'?'/shopping_cart.html':'/address.html';
+ window.__uv={meta:{url:new URL('https://www.temu.com'+path)},rewriteUrl:url=>url};
+ const db=await new Promise((resolve,reject)=>{const r=indexedDB.open('https://www.temu.com@scdb',1);r.onupgradeneeded=()=>r.result.createObjectStore('entries');r.onsuccess=()=>resolve(r.result);r.onerror=reject;});
+ const row={k:Date.now()+'-test-EUR-ar',d:{success:true,result:{cartListInfo:{checkoutExtendMap:{ckCartCcy:'EUR',ckCartLoginStatus:'1'},invalidGoodsLines:0,goodsSkuList:Array.from({length:20},(_,i)=>({isSelected:1,baseGoodsInfo:{goodsId:601000000+i,goodsName:'منتج للتجربة '+(i+1)},skuInfo:{skuId:175000000+i,amount:1,skuQuantity:99,skuPrice:i===0?192:100,skuSpec:[{specKey:'اللون',specValue:'أزرق'}]}}))},cartTransferMap:{currency:'EUR',orderAmount:'2092'},discountInfo:{orderAmountDto:{totalGoodsAmount:2899,orderAmount:2092,goodsDiscountAmount:807}}}}};
+ await new Promise((resolve,reject)=>{const tx=db.transaction('entries','readwrite');tx.objectStore('entries').put(row,'sc_cache');tx.oncomplete=resolve;tx.onerror=reject;});db.close();
+ if(path==='/shopping_cart.html'){const cart=document.createElement('section');cart.className='g_p_sum_wr';cart.style.marginLeft='420px';cart.innerHTML='<div><span>Total</span><b>€20.92</b></div><button class="checkoutButton" aria-label="Checkout (20)">Internal cart count</button>';document.body.append(cart);}
+ self.__tembyConfigureCompanion(window,{open:indexedDB.open});
+ const simulation=document.createElement('button');simulation.textContent='Run 4-second cache-gap regression';simulation.style.marginLeft='420px';document.body.append(simulation);
+ simulation.onclick=async()=>{
+   simulation.disabled=true;let blank=false,dimmed=false;
+   const root=()=>document.getElementById('temby-companion')?.shadowRoot;
+   const monitor=setInterval(()=>{const r=root();if(!r)return;blank||=r.getElementById('badge').textContent.includes('—');dimmed||=getComputedStyle(r.getElementById('badge')).opacity!=='1'&&getComputedStyle(r.querySelector('.tag')).opacity==='1';},100);
+   const write=async(clear)=>{const database=await new Promise(resolve=>{const r=indexedDB.open('https://www.temu.com@scdb');r.onsuccess=()=>resolve(r.result);});await new Promise(resolve=>{const tx=database.transaction('entries','readwrite');const store=tx.objectStore('entries');if(clear)store.clear();else store.put(row,'sc_cache');tx.oncomplete=resolve;});database.close();};
+   document.querySelector('.g_p_sum_wr')?.remove();await write(true);
+   setTimeout(async()=>{row.k=Date.now()+'-test-EUR-ar';row.d.result.cartTransferMap.orderAmount='2200';row.d.result.discountInfo.orderAmountDto.orderAmount=2200;row.d.result.discountInfo.orderAmountDto.goodsDiscountAmount=699;await write(false);setTimeout(()=>{clearInterval(monitor);const ok=!blank&&dimmed&&root().getElementById('badge').textContent.includes('534');document.body.dataset.transitionResult=ok?'passed':'failed';simulation.textContent='Cache gap: '+(ok?'PASS':'FAIL')+' (blank='+blank+', amount-only dim='+dimmed+')';},3000);},4000);
+ };
+})();</script></html>`;
+const server=createServer(async(req,res)=>{const path=new URL(req.url||'/','http://localhost').pathname;const file=assetFiles[path];const body=file?await readFile(new URL('../public/'+file,import.meta.url),'utf8'):path==='/'?html:path==='/preview'?preview:null;if(body===null){res.writeHead(404);res.end();return;}res.writeHead(200,{'content-type':file?'text/javascript; charset=utf-8':'text/html; charset=utf-8','cache-control':'no-store'});res.end(body);});
 server.listen(0,'127.0.0.1',()=>{const address=server.address();if(address&&typeof address==='object')console.log('Internal DOM test: http://localhost:'+address.port+'/');});
 for(const signal of ['SIGINT','SIGTERM'] as const)process.on(signal,()=>server.close());

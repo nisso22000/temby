@@ -1,4 +1,4 @@
-// Companion release v28: net totals, native scoped cache, shared setup and anchored UI.
+// Companion release v29: cross-page cart estimates, transparent currency and bounded lists.
 importScripts('/uv/request.js','/uv/bundle.js','/uv/config.js','/uv/worker.js');
 const engine=new UVServiceWorker();
 self.__tembyRelaySignals=new WeakMap();

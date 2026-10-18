@@ -124,3 +124,15 @@ test('UV accessors and unrelated sensitive snapshots are never read',()=>{
   Object.defineProperty(row.d.result,'unrelatedAccessor',{enumerable:true,get(){reads++;throw Error('Do not evaluate');}});
   assert.equal(normalize(row).length,1);assert.equal(scope.self.__tembyCart.authFacts(row).length,1);assert.equal(reads,0);
 });
+
+test('pages without cart totals may show a labelled canonical cache estimate, never an ambiguous or stale quote',()=>{
+  const carts=normalize(canonical());
+  assert.equal(select(carts,null,now),null,'cache-only estimates require explicit opt-in');
+  const estimate=select(carts,null,now,{allowCacheOnly:true});
+  assert.equal(estimate.source,'scdb-estimate');assert.equal(estimate.minor,2092);assert.equal(estimate.quantity,2);
+  assert.equal(select(carts,null,now+1800000,{allowCacheOnly:true}),null);
+  assert.equal(select(normalize(record()),null,now,{allowCacheOnly:true}),null,'generic nested money is insufficient');
+  assert.equal(select([...carts,{...carts[0],minor:2000}],null,now,{allowCacheOnly:true}),null);
+  assert.equal(select(carts,{currency:'EUR',minor:2093},now,{allowCacheOnly:true}),null,'visible disagreement cannot bypass validation');
+  assert.equal(select(carts,{currency:'USD',minor:2092},now,{allowCacheOnly:true}),null);
+});
