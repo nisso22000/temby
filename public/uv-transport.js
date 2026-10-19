@@ -3,6 +3,7 @@
   const nativeFetch=self.fetch.bind(self);
   const relayURL=new URL('/_relay',self.location.origin).href;
   const runtimeURL=new URL('/_runtime',self.location.origin).href;
+  let requestSequence=0;
   const readBinary=async relay=>{
     const reader=relay.body.getReader();let chunk=new Uint8Array(0),offset=0;
     const take=async size=>{
@@ -27,6 +28,7 @@
   };
   class RelayClient {
     async fetch(url,options={}){
+      const started=++requestSequence;
       const bytes=options.body?new Uint8Array(await new Response(options.body).arrayBuffer()):null;
       const body=bytes?btoa(Array.from(bytes,x=>String.fromCharCode(x)).join('')):null;
       const headers={...options.headers};const destination=headers['x-temby-request-destination']||'unknown';delete headers['x-temby-request-destination'];
@@ -45,6 +47,10 @@
       const empty=[101,204,205,304].includes(wire.status)||options.method==='HEAD';
       if(empty&&binary)await wire.body.cancel();
       const response=new Response(empty?null:binary?wire.body:Uint8Array.from(atob(wire.body),x=>x.charCodeAt(0)),{status:wire.status,headers:Object.entries(wire.headers).filter(([k])=>k!=='set-cookie')});
+      if(self.__tembyCart?.responseURL(String(url))&&self.__tembyObserveCartResponse){
+        // Observe the response already requested by Temu; never request a cart.
+        try{await self.__tembyObserveCartResponse(String(url),response.clone(),started);}catch{}
+      }
       response.rawHeaders=wire.headers;response.finalURL=String(url);return response;
     }
     createWebSocket(){throw new Error('WebSockets unsupported');}

@@ -16,6 +16,7 @@ test('full engine relay preserves challenge bytes, limits destinations, isolates
     if(url.pathname==='/escape')return new Response('',{status:302,headers:{location:'https://evil.test/'}}) as any;
     if(url.pathname==='/denied')return new Response('{"error":"owned-access-denied"}',{status:403,headers:{'content-type':'application/json'}}) as any;
     if(url.pathname==='/limited')return new Response('{"error":"owned-rate-limit"}',{status:429,headers:{'content-type':'application/json','retry-after':'120'}}) as any;
+    if(url.pathname==='/limited-no-retry')return new Response('{"error":"owned-rate-limit"}',{status:429,headers:{'content-type':'application/json'}}) as any;
     return new Response(url.pathname==='/challenge'?challenge:'<h1>Owned relay response</h1>',{headers:{'content-type':'text/html','set-cookie':'private=test; Secure; HttpOnly; Path=/'}}) as any;
   };
   const {app,merchant}=createServers(3920,3921,transport,{ownedFixtures:true});
@@ -52,6 +53,7 @@ test('full engine relay preserves challenge bytes, limits destinations, isolates
     const limited=await relay('https://www.temu.com/limited');assert.equal(limited.status,429);assert.equal(limited.headers['retry-after'],'120');
     const limitedCount=seen.length;const held=await relay('https://www.temu.com/limited');assert.equal(held.status,429);assert.equal(held.body,limited.body);assert.equal(seen.length,limitedCount,'do not retry the rate-limited endpoint during Retry-After');
     assert.equal((await relay('https://www.temu.com/next')).status,200);assert.equal(seen.length,limitedCount+1,'unrelated requests remain usable after a 429');
+    const unheld=seen.length;assert.equal((await relay('https://www.temu.com/limited-no-retry')).status,429);assert.equal((await relay('https://www.temu.com/limited-no-retry')).status,429);assert.equal(seen.length,unheld+2,'do not invent a cooldown without merchant Retry-After');
     const script=await fetch(origin+'/uv/sw.js');assert.equal(script.status,200);assert.equal(script.headers.get('service-worker-allowed'),'/');
     const validated=await fetch(origin+'/uv/sw.js',{headers:{'if-none-match':script.headers.get('etag')!}});assert.equal(validated.status,304);assert.equal(await validated.text(),'');
     const head=await fetch(origin+'/uv/sw.js',{method:'HEAD'});assert.equal(head.status,200);assert.equal(await head.text(),'');

@@ -69,7 +69,7 @@
           strongThreshold:result.checkoutLayerTrackInfo?.strongThreshold};
         const detailed=normalize({k:String(time),v:{...common,goodsSkuList:mapped}});
         const parsed=detailed.length?detailed:normalize({k:String(time),v:common});
-        found.push(...parsed.map(cart=>({...cart,canonical:true})));return;
+        found.push(...parsed.map(cart=>({...cart,canonical:true,emptyConfirmed:list.length===0&&net===0})));return;
       }
       if(!Array.isArray(value)&&(Array.isArray(value.goodsSkuList)||Array.isArray(value.displayList)||Object.hasOwn(value,'orderAmount')||Object.hasOwn(value,'orderAmountUsd'))){
         const objects=[];
@@ -122,19 +122,22 @@
     if(new Set(detailed.map(c=>JSON.stringify(c.items))).size>1)return null;
     const c=detailed[0]||atTime[0];
     const matches=dom&&(dom.minor===c.minor||(dom.role==='subtotal'&&c.beforeMinor!==null&&dom.minor===c.beforeMinor));
-    if(!cacheOnly&&(!dom||dom.currency!==c.currency||!matches))return null;
+    const live=options.trustLive===true&&c.live===true&&c.canonical===true;
+    if(!cacheOnly&&!live&&(!dom||dom.currency!==c.currency||!matches))return null;
     const known=c.items.every(i=>i.selection!==null);
     const selected=known?c.items.filter(i=>i.selection):c.items;
     const units=selected.reduce((n,i)=>n+i.quantity,0);
-    const countMatches=dom?.quantity==null||dom.quantity===units||dom.quantity===selected.length;
-    const selectionKnown=c.items.length>0&&countMatches&&(known||dom?.quantity===units||dom?.quantity===c.items.length);
-    return {...c,items:selectionKnown?c.items:[],quantity:dom?.quantity??(selectionKnown?units:null),selectionKnown,source:cacheOnly?'scdb-estimate':'scdb'};
+    const visible=live?null:dom;
+    const countMatches=visible?.quantity==null||visible.quantity===units||visible.quantity===selected.length;
+    const selectionKnown=c.items.length>0&&countMatches&&(known||visible?.quantity===units||visible?.quantity===c.items.length);
+    return {...c,items:selectionKnown?c.items:[],quantity:c.emptyConfirmed?0:visible?.quantity??(selectionKnown?units:null),selectionKnown,source:live?'response':cacheOnly?'scdb-estimate':'scdb'};
   }
   function authFacts(record,key){
     record=clean(record);
     const facts=[];let nodes=0;
     const walk=(value,time,depth)=>{
       value=decode(value);if(!value||typeof value!=='object'||depth>7||++nodes>2500)return;
+      if(value.success===false||value.d?.success===false)return;
       time=stamp(value.k)||time;
       if(['0','1',0,1].includes(value.ckCartLoginStatus)&&time)facts.push({status:Number(value.ckCartLoginStatus),time});
       for(const [k,v]of Object.entries(value))if(!/token|password|cookie/i.test(k))walk(v,time,depth+1);
@@ -182,7 +185,14 @@
     const timer=page.setInterval(()=>{if(!page.document.hidden)void scan();},2000);
     return ()=>{stopped=true;page.clearInterval(timer);page.removeEventListener('focus',focus);};
   }
-  self.__tembyCart={normalize,select,observe,authFacts,accountStatus,finances};
+  const responseURL=value=>{try{const url=new URL(value);return url.protocol==='https:'&&/(^|\.)temu\.com$/.test(url.hostname)&&url.pathname.startsWith('/api/')&&/\/cart_modify\//.test(url.pathname);}catch{return false;}};
+  function responseFacts(value,time=Date.now()){
+    if(!value||value.success!==true||!value.result?.cartListInfo)return null;
+    const record={k:String(time),d:value};
+    const carts=normalize(record).filter(c=>c.canonical).map(c=>({...c,live:true}));
+    return carts.length?{carts,facts:authFacts(record)}:null;
+  }
+  self.__tembyCart={normalize,select,observe,authFacts,accountStatus,finances,responseURL,responseFacts};
 })();
 
 // Read explicit monetary labels, never the first price in a summary container.

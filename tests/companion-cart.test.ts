@@ -136,3 +136,19 @@ test('pages without cart totals may show a labelled canonical cache estimate, ne
   assert.equal(select(carts,{currency:'EUR',minor:2093},now,{allowCacheOnly:true}),null,'visible disagreement cannot bypass validation');
   assert.equal(select(carts,{currency:'USD',minor:2092},now,{allowCacheOnly:true}),null);
 });
+
+test('successful live cart responses are authoritative while the DOM and cache catch up',()=>{
+  const api=scope.self.__tembyCart;
+  const row=canonical();const result=api.responseFacts(row.d,now);
+  assert.equal(result.carts[0].live,true);assert.equal(result.carts[0].minor,2092);
+  const cart=select(result.carts,{minor:2899,currency:'EUR',quantity:99},now,{trustLive:true});
+  assert.equal(cart.minor,2092);assert.equal(cart.quantity,2);assert.equal(cart.source,'response');
+  assert.equal(api.responseFacts({...row.d,success:false},now),null);
+  assert.equal(api.authFacts({...row,d:{...row.d,success:false}}).length,0,'failed responses cannot establish login readiness');
+  assert.equal(api.responseFacts({success:true,result:{orderAmount:100}},now),null);
+  assert.equal(api.responseURL('https://www.temu.com/api/bg/bg-uranus-api/uranus_cart/cart_modify/pc_side_bar'),true);
+  assert.equal(api.responseURL('https://evil.test/api/cart_modify/pc_side_bar'),false);
+  assert.equal(api.responseURL('https://www.temu.com/api/search'),false);
+  const empty=canonical();empty.d.result.cartListInfo.goodsSkuList=[];empty.d.result.cartTransferMap.orderAmount='0';Object.assign(empty.d.result.discountInfo.orderAmountDto,{orderAmount:0,orderAmountOrderCcy:0,totalGoodsAmount:0,goodsDiscountAmount:0});
+  assert.equal(select(api.responseFacts(empty.d,now).carts,null,now,{allowCacheOnly:true,trustLive:true}).quantity,0);
+});

@@ -24,16 +24,19 @@ export async function companionMail(req:IncomingMessage,res:ServerResponse,sessi
   const reply=(status:number,value:unknown)=>{res.writeHead(status,{'content-type':'application/json','cache-control':'no-store','x-content-type-options':'nosniff'});res.end(JSON.stringify(value));};
   if(req.headers['x-temby-companion']!=='1'||(req.headers.origin&&req.headers.origin!==origin)){reply(403,{error:'Local companion request required'});return;}
   if(!['GET','POST'].includes(req.method||'')){reply(405,{error:'Method unsupported'});return;}
+  if(!mailboxes.has(session)&&session.mailbox)mailboxes.set(session,{...session.mailbox,busy:false});
   if(req.method==='POST'){
     let entry=mailboxes.get(session);
     // Reuse rather than orphaning an account's recovery inbox on repeated clicks.
     if(!entry){entry={address:'temby-'+randomBytes(18).toString('hex')+'@catchmail.io',busy:false,checked:0};mailboxes.set(session,entry);}
+    session.mailbox={address:entry.address,checked:entry.checked};
     reply(200,{address:entry.address});return;
   }
   const entry=mailboxes.get(session);
   if(!entry){reply(409,{error:'Create a test inbox first. Server restarts clear test inbox sessions.'});return;}
   if(entry.busy||Date.now()-entry.checked<5000){reply(429,{error:'Wait a few seconds before checking again.'});return;}
   entry.busy=true;entry.checked=Date.now();
+  session.mailbox={address:entry.address,checked:entry.checked};
   try{
     const mailbox=encodeURIComponent(entry.address);
     const listing=await queued('mailbox?address='+mailbox+'&page_size=1',fetcher);

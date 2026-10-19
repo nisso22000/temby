@@ -42,5 +42,19 @@
     if(!Number.isSafeInteger(amount)||amount<0||!Object.hasOwn(paymentRates,method))throw Error('Invalid payment estimate');
     return Number((BigInt(amount)*BigInt(paymentRates[method])+5000n)/10000n);
   }
-  self.__tembyCompanionCore={money,quote,consensus,normalize,paymentFee};
+  function cartState(snapshot,updating,loading=false){
+    if(updating||!snapshot&&loading)return 'loading';
+    if(!snapshot)return 'unavailable';
+    if(snapshot.quantity===0||snapshot.minor===0&&!(snapshot.quantity>0))return 'empty';
+    return 'ready';
+  }
+  function password(crypto){
+    const alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for(let attempt=0;attempt<32;attempt++){
+      let value='';while(value.length<16){const bytes=crypto.getRandomValues(new Uint8Array(32));for(const n of bytes){if(n<248&&value.length<16)value+=alphabet[n%62];}}
+      if(/[A-Z]/.test(value)&&/[a-z]/.test(value)&&/\d/.test(value))return value;
+    }
+    throw Error('Password generation unavailable');
+  }
+  self.__tembyCompanionCore={money,quote,consensus,normalize,paymentFee,cartState,password};
 })();

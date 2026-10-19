@@ -1,6 +1,25 @@
 // Resource URLs retain their upstream origin for CSP and relative-URL semantics.
 // The controlling worker intercepts their requests and uses the local relay.
 self.__tembyResourceTags=new Set(['script','link','img','image','source','track','video','audio','input','embed','object']);
+// Access UV's source helper from our own realm, rather than looking it up on
+// a cross-origin Window. Only operations the native Window permits are exposed.
+self.__tembySetSource=(target,uv)=>{
+  if(target==null)return target;
+  try{return target.__uv$setSource(uv);}catch(error){
+    if(error?.name!=='SecurityError')throw error;
+    try{if(target.window!==target)throw error;}catch{throw error;}
+    return new Proxy(Object.create(null),{
+      get(_object,key){
+        const nativeKey=({'__uv$location':'location','__uv$top':'top','__uv$parent':'parent','__uv$eval':'eval'})[key]||key;
+        const value=target[nativeKey];return nativeKey==='postMessage'?value.bind(target):value;
+      },
+      set(_object,key,value){
+        if(key==='__uv$location'){target.location=uv.rewriteUrl(value);return true;}
+        target[key]=value;return true;
+      },
+    });
+  }
+};
 self.__tembyNetworkURL=(uv,value)=>{
   const source=uv.sourceUrl(String(value));
   if(source.startsWith('blob:'))return uv.blobUrls?.get(source)||source;

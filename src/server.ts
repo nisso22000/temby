@@ -7,9 +7,11 @@ import { engineAsset, engineRelay } from './engine.js';
 import { recoverNavigation } from './navigation.js';
 import { forwardCspReport } from './reports.js';
 import { companionMail } from './companion-mail.js';
+import type {SessionStore} from './session-store.js';
 
-export function createServers(port = 3000, merchantPort = 3001, transport: Transport = upstream, options:{ownedFixtures?:boolean}={}) {
-  const sessions = new Sessions();
+export function createServers(port = 3000, merchantPort = 3001, transport: Transport = upstream, options:{ownedFixtures?:boolean;sessionStore?:SessionStore}={}) {
+  const sessions = new Sessions(undefined,options.sessionStore);
+  const flush=()=>{try{sessions.flush();}catch{console.error('Local sessions could not be saved.');}};
   const appOrigin = `http://localhost:${port}`; const merchantOrigin = `http://localhost:${merchantPort}`;
   function guard(req: IncomingMessage, res: ServerResponse, expected: number) {
     if (![`localhost:${expected}`,`127.0.0.1:${expected}`].includes(req.headers.host || '')) { res.writeHead(403); res.end('Invalid host'); return false; }
@@ -72,5 +74,6 @@ export function createServers(port = 3000, merchantPort = 3001, transport: Trans
   };
   const app=createServer(handle(false)); const merchant=createServer(handle(true));
   for (const server of [app,merchant]) { server.requestTimeout=30000; server.headersTimeout=10000; server.on('upgrade',(_,socket)=>socket.destroy()); }
-  return {app,merchant};
+  app.on('close',flush);merchant.on('close',flush);
+  return {app,merchant,flush};
 }

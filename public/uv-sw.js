@@ -1,6 +1,26 @@
-// Companion release v29: cross-page cart estimates, transparent currency and bounded lists.
+// Companion release v30: live cart facts, clear setup states and default account setup and targeted iframe messages.
 importScripts('/uv/request.js','/uv/bundle.js','/uv/config.js','/uv/worker.js');
 const engine=new UVServiceWorker();
+const lastCartSequence=new Map();
+self.__tembyObserveCartResponse=async(url,response,sequence)=>{
+  if(!self.__tembyCart.responseURL(url)||!response.ok||!response.headers.get('content-type')?.includes('json')){void response.body?.cancel().catch(()=>{});return;}
+  const reader=response.body?.getReader();if(!reader)return;
+  const chunks=[];let bytes=0;
+  try{
+    for(;;){const next=await reader.read();if(next.done)break;bytes+=next.value.length;if(bytes>2*1024*1024)return;chunks.push(next.value);}
+    const joined=new Uint8Array(bytes);let offset=0;for(const chunk of chunks){joined.set(chunk,offset);offset+=chunk.length;}
+    const facts=self.__tembyCart.responseFacts(JSON.parse(new TextDecoder().decode(joined)));
+    const merchantOrigin=new URL(url).origin;
+    if(!facts||sequence<(lastCartSequence.get(merchantOrigin)||0))return;lastCartSequence.set(merchantOrigin,sequence);
+    // All tabs of this virtual merchant already share its browser cookie state.
+    for(const client of await self.clients.matchAll({type:'window'})){
+      try{const address=new URL(client.url);if(address.origin!==location.origin||!address.pathname.startsWith('/uv-service/'))continue;
+        const merchant=new URL(decodeURIComponent(address.pathname.slice('/uv-service/'.length)));
+        if(merchant.origin===merchantOrigin)client.postMessage({tembyCartUpdate:facts});
+      }catch{}
+    }
+  }catch{}finally{void reader.cancel().catch(()=>{});}
+};
 self.__tembyRelaySignals=new WeakMap();
 self.__tembyRelayCookieContexts=new WeakMap();
 const workerContexts=self.__tembyWorkerContexts(location.origin);

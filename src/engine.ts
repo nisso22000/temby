@@ -160,10 +160,12 @@ export async function engineRelay(req:IncomingMessage,res:ServerResponse,s:Sessi
       const until=seconds!==null?Date.now()+seconds*1000:retry?Date.parse(retry):NaN;
       const entries=rateLimits.get(s)||new Map();
       for(const [key,value]of entries)if(value.until<=Date.now())entries.delete(key);
-      if(entries.size<16){
+      // Only a merchant-supplied future Retry-After establishes a cooldown.
+      // Inventing one here can replay a refusal after verification succeeded.
+      if(Number.isFinite(until)&&until>Date.now()&&entries.size<16){
         // Cookie changes have already been applied; don't replay Set-Cookie.
         const cachedHeaders={...headers};delete cachedHeaders['set-cookie'];
-        entries.set(rateKey,{until:Number.isFinite(until)?until:Date.now()+60000,headers:cachedHeaders,body:data});
+        entries.set(rateKey,{until,headers:cachedHeaders,body:data});
         rateLimits.set(s,entries);
       }
     }

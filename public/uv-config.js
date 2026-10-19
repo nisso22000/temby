@@ -11,6 +11,18 @@ self.Ultraviolet.prototype.rewriteImport=function(base,specifier){return this.re
   self.Ultraviolet=class extends Original{
     constructor(...args){
       super(...args);this.attrs.isForbidden=()=>false;
+      this.$tembySource=self.__tembySetSource;
+      this.js?.on('MemberExpression',(node,data,type)=>{
+        if(type!=='rewrite'||node.computed||node.property.name!=='postMessage'||node.object.type==='Super')return;
+        // Keep the workaround on the reproduced iframe message path. Do not
+        // change ordinary merchant window/location calls or their byte shape.
+        if(node.object.type!=='MemberExpression'||node.object.computed||node.object.property.name!=='contentWindow')return;
+        const change=data.changes.find(c=>c.start===node.property.start&&c.end===node.property.end&&typeof c.node==='string'&&c.node.startsWith('__uv$setSource(__uv).'));
+        if(!change)return;
+        change.node=change.node.slice('__uv$setSource(__uv).'.length);
+        data.changes.push({node:'__uv.$tembySource(',start:node.object.start,end:node.object.start});
+        data.changes.push({node:',__uv)',start:node.object.end,end:node.object.end});
+      });
       this.html.on('attr',(attr,type)=>{
         if(type==='rewrite'&&attr.name.startsWith('__uv-attr-')&&security.has(attr.name.slice(10)))attr.name=attr.name.slice(10);
         if(type==='rewrite'&&self.__tembyResourceTags?.has(attr.node.tagName)&&['src','href'].includes(attr.name))attr.value=self.__tembyNetworkURL(this,attr.value);

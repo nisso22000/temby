@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import vm from 'node:vm';
+import {webcrypto} from 'node:crypto';
 const context:any={self:{}};
 vm.runInNewContext(await readFile(new URL('../public/companion-core.js',import.meta.url),'utf8'),context);
 const {money,quote,consensus}=context.self.__tembyCompanionCore;
@@ -10,6 +11,23 @@ test('payment fees are separately configured for final review',()=>{
   assert.equal(paymentFee(2700000,'card'),54000);
   assert.equal(paymentFee(2700000,'baridimob'),13500);
   assert.throws(()=>paymentFee(100,'unknown'));
+});
+
+test('empty, unreadable and updating carts never advance into account setup',()=>{
+  const state=context.self.__tembyCompanionCore.cartState;
+  assert.equal(state(null,false,true),'loading');assert.equal(state(null,false,false),'unavailable');
+  for(const quantity of [0,null,undefined])assert.equal(state({minor:0,quantity},false),'empty');
+  assert.equal(state({minor:0,quantity:1},false),'ready','known selected items remain nonempty even if a promotion makes their price zero');
+  assert.equal(state({minor:2000,quantity:0},false),'empty');
+  assert.equal(state({minor:2000,quantity:null},false),'ready');
+  assert.equal(state({minor:2000,quantity:1,invalid:2,minimum:3000},false),'ready','account/address preparation remains available');
+  assert.equal(state({minor:2000,quantity:1},true),'loading');
+});
+
+test('generated passwords use browser randomness and contain required character classes',()=>{
+  const create=context.self.__tembyCompanionCore.password;
+  const values=new Set<string>();for(let i=0;i<20;i++){const password=create(webcrypto);assert.match(password,/^[A-Za-z0-9]{16}$/);assert.match(password,/[A-Z]/);assert.match(password,/[a-z]/);assert.match(password,/\d/);values.add(password);}
+  assert.equal(values.size,20);
 });
 test('cart money parsing supports Temu bilingual formats and rejects ambiguous prices',()=>{
   for(const value of ['Subtotal €1,234.56','المجموع الفرعي ؜١٢٣٤٫٥٦€','Sous-total 1.234,56 EUR','€1 234,56'])assert.equal(money(value).minor,123456,value);
