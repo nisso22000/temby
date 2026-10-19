@@ -123,11 +123,12 @@
     const c=detailed[0]||atTime[0];
     const matches=dom&&(dom.minor===c.minor||(dom.role==='subtotal'&&c.beforeMinor!==null&&dom.minor===c.beforeMinor));
     const live=options.trustLive===true&&c.live===true&&c.canonical===true&&(!dom||dom.currency===c.currency);
-    if(!cacheOnly&&!live&&(!dom||dom.currency!==c.currency||!matches))return null;
+    const trustedCache=options.trustCache===true&&c.canonical===true&&(!dom||dom.currency===c.currency);
+    if(!cacheOnly&&!live&&!trustedCache&&(!dom||dom.currency!==c.currency||!matches))return null;
     const known=c.items.every(i=>i.selection!==null);
     const selected=known?c.items.filter(i=>i.selection):c.items;
     const units=selected.reduce((n,i)=>n+i.quantity,0);
-    const visible=live?null:dom;
+    const visible=live||trustedCache?null:dom;
     const countMatches=visible?.quantity==null||visible.quantity===units||visible.quantity===selected.length;
     const selectionKnown=c.items.length>0&&countMatches&&(known||visible?.quantity===units||visible?.quantity===c.items.length);
     return {...c,items:selectionKnown?c.items:[],quantity:c.emptyConfirmed?0:visible?.quantity??(selectionKnown?units:null),selectionKnown,source:live?'response':cacheOnly?'scdb-estimate':'scdb'};

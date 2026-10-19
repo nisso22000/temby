@@ -157,3 +157,11 @@ test('live snapshots cannot override another frontend currency',()=>{
  const carts=scope.self.__tembyCart.responseFacts(canonical().d,now).carts;
  assert.equal(select(carts,{minor:2092,currency:'USD'},now,{trustLive:true}),null);
 });
+
+test('canonical cache can supply net independently of rendered subtotal',()=>{
+ const carts=normalize(canonical());
+ const cart=select(carts,{minor:2899,currency:'EUR',quantity:99,role:'final'},now,{trustCache:true});
+ assert.equal(cart.minor,2092);assert.equal(cart.quantity,2);
+ assert.equal(select(carts,{minor:2899,currency:'USD'},now,{trustCache:true}),null);
+ assert.equal(select(carts,null,now+1800000,{trustCache:true,allowCacheOnly:true}),null);
+});
