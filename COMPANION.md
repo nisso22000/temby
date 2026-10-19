@@ -58,7 +58,7 @@ Email creation chooses a catch-all name locally; it does not create an inbox thr
 
 ## Money and layout
 
-Example rates remain USD 250 / EUR 275 DZD, with existing per-tab rate settings honored. Integer minor units and half-up rounding are used. The bubble is converted Temu net plus 8% service; no payment-method fee. Expanded details expose the cart currency, actual exchange rate, gross/discount/net in merchant currency and DZD, service on net and estimate total. Green saving shows only the converted Temu discount, excluding our service-fee reduction. The extra crossed-out gross quote is hidden to avoid mixing these figures. Card 2% appears only in review; BaridiMob 0.5% remains configuration only.
+Example rates remain USD 250 / EUR 275 DZD, with existing per-tab rate settings honored. Integer minor units and half-up rounding are used. The bubble is converted Temu net plus 8% service; no payment-method fee. Expanded details expose the cart currency, actual exchange rate, net in merchant currency and DZD, service on net and estimate total. Gross, discount and savings rows are no longer displayed. The customer sees one Temu net price, its conversion and the service fee. Discount fields remain internal parser consistency checks, not inputs subtracted from the net a second time. Card 2% appears only in review; BaridiMob 0.5% remains configuration only.
 
 The launcher stays at the left edge, circle left / amount right. Product lists scroll independently inside a bounded panel, calculations remain collapsed by default, and the action footer stays outside the content scroller. Short screens and expanded details retain a body-scroll fallback. Custom thin scrollbars and reduced-motion behavior remain.
 
