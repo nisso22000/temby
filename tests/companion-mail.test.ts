@@ -20,8 +20,6 @@ test('test inboxes are session-bound and never accept arbitrary mailbox input',a
   assert.match(a.body.address,/^temby-[a-f0-9]{36}@catchmail\.io$/);
   assert.notEqual(a.body.address,b.body.address);
   assert.equal((await call(first,'POST')).body.address,a.body.address);
-  const restored={mailbox:first.mailbox} as Session;
-  assert.equal((await call(restored,'POST')).body.address,a.body.address,'restore the same inbox after server session reload');
   const urls:string[]=[];
   const checked=await call(first,'GET',{},async(url:string)=>{urls.push(url);return new Response(JSON.stringify({messages:[]}));});
   assert.equal(checked.status,200);assert.deepEqual(checked.body.messages,[]);

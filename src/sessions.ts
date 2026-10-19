@@ -1,28 +1,12 @@
 import { randomBytes } from 'node:crypto';
 import { CookieJar } from 'tough-cookie';
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import type {SessionStore} from './session-store.js';
 
 export interface Event { time: string; host: string; method: string; status: number; type: string; bytes: number; outcome: string; cookiesSent?: number; virtualCookies?: number; setCookies?: number; destination?: string; omittedHeaders?: string[]; route?:string; errorCode?:number; applicationFailed?:boolean; elapsedMs?:number; }
-export interface Session { jar: CookieJar; touched: number; events: Event[]; failures:Event[]; mailbox?:{address:string;checked:number}; }
+export interface Session { jar: CookieJar; touched: number; events: Event[]; failures:Event[]; }
 export class Sessions {
   private entries = new Map<string, Session>();
-  private timer:ReturnType<typeof setTimeout>|undefined;
-  constructor(private ttl = 24 * 60 * 60 * 1000,private store?:SessionStore) {
-    const saved=store?.load();
-    if(Array.isArray(saved))for(const row of saved.slice(0,100)){
-      if(!row||!/^[a-f0-9]{64}$/.test(row.id)||!Number.isSafeInteger(row.touched)||Date.now()-row.touched<0||Date.now()-row.touched>ttl)continue;
-      try{const session:Session={jar:CookieJar.deserializeSync(row.jar),touched:row.touched,events:[],failures:[]};
-        if(/^temby-[a-f0-9]{36}@catchmail\.io$/.test(row.mailbox?.address)&&Number.isSafeInteger(row.mailbox?.checked))session.mailbox=row.mailbox;
-        this.entries.set(row.id,session);
-      }catch{}
-    }
-  }
-  flush(){
-    if(this.timer){clearTimeout(this.timer);this.timer=undefined;}
-    this.store?.save([...this.entries].filter(([,s])=>Date.now()-s.touched<=this.ttl).map(([id,s])=>({id,touched:s.touched,jar:s.jar.serializeSync(),mailbox:s.mailbox})));
-  }
-  private persist(){if(!this.store||this.timer)return;this.timer=setTimeout(()=>{this.timer=undefined;try{this.flush();}catch{console.error('Local session persistence failed; restart continuity is unavailable.');}},150);this.timer.unref();}
+  constructor(private ttl = 60 * 60 * 1000) {}
   get(req: IncomingMessage, res: ServerResponse): Session {
     const now = Date.now();
     for (const [id, s] of this.entries) if (now - s.touched > this.ttl) this.entries.delete(id);
@@ -37,9 +21,7 @@ export class Sessions {
     // Keep the browser cookie lifetime aligned with the sliding server TTL.
     // Previously active browsing lost its cookie 30 minutes after creation.
     res.setHeader('Set-Cookie', `temby_sid=${id}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${Math.ceil(this.ttl / 1000)}`);
-    session.touched = now;
-    // Save again after response cookies or a mailbox association are committed.
-    res.once?.('finish',()=>this.persist());this.persist();return session;
+    session.touched = now; return session;
   }
   health(){
     const groups=new Map<string,{host:string;route?:string;status:number;errorCode?:number;outcome:string;count:number;lastSeen:string}>();

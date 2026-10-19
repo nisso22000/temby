@@ -48,6 +48,11 @@
     if(snapshot.quantity===0||snapshot.minor===0&&!(snapshot.quantity>0))return 'empty';
     return 'ready';
   }
+  function cartBlocker(snapshot){
+    if(snapshot?.invalid>0)return 'problem';
+    if(snapshot?.minimum!=null&&snapshot.minor<snapshot.minimum)return 'minimum';
+    return null;
+  }
   function password(crypto){
     const alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     for(let attempt=0;attempt<32;attempt++){
@@ -56,5 +61,5 @@
     }
     throw Error('Password generation unavailable');
   }
-  self.__tembyCompanionCore={money,quote,consensus,normalize,paymentFee,cartState,password};
+  self.__tembyCompanionCore={money,quote,consensus,normalize,paymentFee,cartState,cartBlocker,password};
 })();

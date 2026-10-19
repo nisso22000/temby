@@ -12,3 +12,8 @@ test('active sessions renew the same browser cookie rather than expiring at crea
   const next=sessions.get({headers:{cookie}} as IncomingMessage,response);
   assert.equal(next,first);assert.equal(header.split(';')[0],cookie);assert.match(header,/Max-Age=1800/,'renew expiration on existing-session activity');assert.match(header,/HttpOnly; SameSite=Strict/);
 });
+
+test('default session cookie expires after one hour idle',()=>{
+ let header='';new Sessions().get({headers:{}} as any,{setHeader(_name:string,value:string){header=value;}} as any);
+ assert.match(header,/Max-Age=3600/);
+});

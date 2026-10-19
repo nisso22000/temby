@@ -20,7 +20,7 @@
   }
   const minorValue=v=>typeof v==='string'&&/^\d{1,9}$/.test(v)?Number(v):v;
   function finances(objects,currency){
-    const values=keys=>[...new Set(objects.flatMap(o=>keys.filter(k=>o[k]!==undefined).map(k=>o[k])))];
+    const values=keys=>[...new Set(objects.flatMap(o=>keys.filter(k=>o[k]!==undefined).map(k=>minorValue(o[k]))))];
     const one=keys=>{const list=values(keys);return list.length===1&&cents(list[0])?list[0]:null;};
     const minor=one(['orderAmount']);
     const net=values(['orderAmount']).length?minor:(currency==='USD'?one(['orderAmountUsd']):null);
@@ -122,7 +122,7 @@
     if(new Set(detailed.map(c=>JSON.stringify(c.items))).size>1)return null;
     const c=detailed[0]||atTime[0];
     const matches=dom&&(dom.minor===c.minor||(dom.role==='subtotal'&&c.beforeMinor!==null&&dom.minor===c.beforeMinor));
-    const live=options.trustLive===true&&c.live===true&&c.canonical===true;
+    const live=options.trustLive===true&&c.live===true&&c.canonical===true&&(!dom||dom.currency===c.currency);
     if(!cacheOnly&&!live&&(!dom||dom.currency!==c.currency||!matches))return null;
     const known=c.items.every(i=>i.selection!==null);
     const selected=known?c.items.filter(i=>i.selection):c.items;

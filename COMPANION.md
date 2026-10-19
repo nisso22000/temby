@@ -44,7 +44,7 @@ The page/UI check runs every 500 ms while visible. Changes settle for 300 ms. Du
 
 A zero amount with an unknown count is handled as empty rather than falling through to account setup; explicitly selected positive quantities remain nonempty even if a promotion makes the price zero. Returning from setup stays in cart inspection until Continue is chosen again. The old generic welcome fallback is no longer used for loading/unreadable states.
 
-`strongThreshold` and `invalidGoodsLines` remain parsed diagnostic facts, but **neither blocks account/address preparation**. Their precise selected-item/minimum semantics need validation before payment rules are implemented; no automatic payment currently exists.
+Continue is blocked when Temu reports invalidGoodsLines > 0, or the cart net is below its reported strongThreshold minimum. No payment is implemented.
 
 Signed-in evidence is the freshest unambiguous `ckCartLoginStatus`, independent of item parsing. Shared browser readiness contains only account status/evidence timestamp and customer-reported address confirmation, valid for 30 minutes when loaded. A newly served visible login form can invalidate older evidence; a newer positive signal offers refresh rather than another inbox. This is browser evidence, not an authorization mechanism or proof of the account’s email/password. It does not verify the saved address or snapshot an address for an order.
 
@@ -58,17 +58,13 @@ Email creation chooses a catch-all name locally; it does not create an inbox thr
 
 ## Money and layout
 
-Example rates remain USD 250 / EUR 275 DZD, with existing per-tab rate settings honored. Integer minor units and half-up rounding are used. The bubble is converted Temu net plus 8% service; no payment-method fee. Expanded details expose the cart currency, actual exchange rate, gross/discount/net in merchant currency and DZD, service on net and estimate total. Green saving compares gross/net DZD quotes including corresponding service fees. Card 2% appears only in review; BaridiMob 0.5% remains configuration only.
+Example rates remain USD 250 / EUR 275 DZD, with existing per-tab rate settings honored. Integer minor units and half-up rounding are used. The bubble is converted Temu net plus 8% service; no payment-method fee. Expanded details expose the cart currency, actual exchange rate, gross/discount/net in merchant currency and DZD, service on net and estimate total. Green saving shows only the converted Temu discount, excluding our service-fee reduction. The extra crossed-out gross quote is hidden to avoid mixing these figures. Card 2% appears only in review; BaridiMob 0.5% remains configuration only.
 
 The launcher stays at the left edge, circle left / amount right. Product lists scroll independently inside a bounded panel, calculations remain collapsed by default, and the action footer stays outside the content scroller. Short screens and expanded details retain a body-scroll fallback. Custom thin scrollbars and reduced-motion behavior remain.
 
-## Local session continuity — intentional change
+## Server sessions
 
-Normal Windows startup now uses a **24-hour sliding idle TTL**, replacing the previous 30 minutes. Each local server request renews the HttpOnly / SameSite Strict session cookie. Merely leaving a tab open or scanning IDB does not renew it. The 100-session cap remains. Temu’s own cookie/session expiry still applies.
-
-Normal `npm start` saves session IDs, cookie jars, last-use timestamps and test-inbox address/check timestamp into `.temby/sessions.enc`. AES-256-GCM encrypts/authenticates the file; its key is protected using Windows CurrentUser DPAPI in `.temby/session-key.dpapi`. Writes are atomic and coalesced for 150 ms, with flush on normal shutdown. No OTP text, generated password, address contents, cart, diagnostic history or payment data is saved in this store. The directory is Git-ignored; never add/copy its contents into artifacts or commits.
-
-Unexpired sessions/inboxes restore after server restart on the same Windows user account. Expired sessions are not restored and disappear from disk on the next save. Browser cookies must also survive; a new browser profile cannot recover a session without its identifier. Removing the files, changing Windows account or losing the key breaks restoration. Previous already-lost in-memory sessions cannot be recovered retroactively. This is a local development store, not multi-server persistence or a backup/recovery service. Startup fails if a saved encrypted file cannot be decrypted; it does not silently replace it with plaintext or discard it. Test servers remain isolated/in-memory unless explicitly supplied a test store.
+Sessions are in memory only, with a one-hour sliding idle expiry and a 100-session cap. Server requests renew the session cookie; merely reading IndexedDB does not. Restarting the server loses merchant cookie jars and test-inbox associations. Browser virtual storage persists separately. There is no Windows key or disk session restoration.
 
 ## Rate limits and cross-origin fix
 
@@ -80,6 +76,6 @@ The Chrome DevTools `/.well-known/appspecific/com.chrome.devtools.json` warning 
 
 ## Verification
 
-62 functional tests and TypeScript pass at the latest full run. Coverage includes nested EUR fields, selection quantities, discounts, live-message isolation/order/body preservation, empty states, password generation, explicit versus invented 429 cooldowns, native window boundaries, encrypted session restore/expiry, inbox restore and actual Windows DPAPI reopening. The internal browser harness checks DOM totals, 20-item scrolling, empty-cart browsing and guided account setup without submission; synthetic pages are labelled and separate from Temu.
+Functional tests and TypeScript are checked for this revision. Coverage includes nested EUR fields, selection quantities, discounts, live-message isolation/order/body preservation, empty states, password generation, explicit versus invented 429 cooldowns, native window boundaries, one-hour session expiry and session-bound inboxes. The internal browser harness checks DOM totals, 20-item scrolling, empty-cart browsing and guided account setup without submission; synthetic pages are labelled and separate from Temu.
 
 The final targeted live check reached Temu’s rendered login form; a logged-in populated cart, completed registration, and the customer’s original failing click still need live comparison. Browser tests also verified default email/password filling on a synthetic login form, existing-account cleanup, and the timed transition from loading to unavailable. No completed real merchant purchase, actual payment, full registration, durable operator credential handoff or universal compatibility claim is made.

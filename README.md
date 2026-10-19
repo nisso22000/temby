@@ -2,11 +2,11 @@
 
 Current release: **v30**, UV proxy with the local shopping companion. Double-click **Start proxy.cmd**, then open **http://localhost:3000/**. Keep the terminal window open while browsing; press Ctrl+C to stop. Alternatively use `npm start`.
 
-V30 adds live cart-response observation, clearer cart/setup states, default test-email/password assistance, a targeted frame-message workaround and encrypted local session continuity. All 62 functional checks and TypeScript validation pass. The complete customer-state/button rules, timings, storage and limitations are documented in [COMPANION.md](COMPANION.md). Address confirmation remains manual and payment remains disabled.
+V30 adds live cart-response observation, clearer cart/setup states, default test-email/password assistance, a targeted frame-message workaround.  The complete customer-state/button rules, timings, storage and limitations are documented in [COMPANION.md](COMPANION.md). Address confirmation remains manual and payment remains disabled.
 
 Run `npm start` from this directory and open http://localhost:3000/. The entry opens the UV launcher on localhost:3001; browsing stays under /uv-service/. There is no outer iframe, remote browser or system proxy.
 
-Node 22.19 or newer is required. Dependencies are installed with `npm ci --ignore-scripts`. Stop with Ctrl+C. Restart after server-source changes; normal Windows startup restores unexpired encrypted local sessions after restart (24-hour sliding idle expiry). Ports default to 3000/3001, with PORT and MERCHANT_PORT overrides. Both listeners bind to loopback.
+Node 22.19 or newer is required. Dependencies are installed with `npm ci --ignore-scripts`. Stop with Ctrl+C. Restart after server-source changes; sessions are in memory only with a one-hour sliding idle expiry; restarting loses server sessions. Ports default to 3000/3001, with PORT and MERCHANT_PORT overrides. Both listeners bind to loopback.
 
 ## Current implementation
 
@@ -16,9 +16,9 @@ Version 22 streams successful image/font bodies without waiting for complete ups
 
 The user reports successful browsing, infinite loading, account creation and reaching the checkout page. A completed purchase has not been established. The companion reads supported real cart responses/cache and displays DZD estimates. No real local payment checkout or purchasing workflow is implemented.
 
-Version 24 corrects nested localhost login return URLs, awaits response-cookie commitment before page initialization, uses the current virtual page URL for cookie writes and respects script-cookie deletion instead of restoring stale server copies. These are tested proxy corrections, not a claim that merchant token-touch HTTP424 or login requirements have been eliminated. Open the launcher and refresh documents after updates; v30 restores unexpired server cookie jars from the local encrypted store.
+Version 24 corrects nested localhost login return URLs, awaits response-cookie commitment before page initialization, uses the current virtual page URL for cookie writes and respects script-cookie deletion instead of restoring stale server copies. These are tested proxy corrections, not a claim that merchant token-touch HTTP424 or login requirements have been eliminated. Open the launcher and refresh documents after updates; server cookie jars are lost on restart.
 
-This is a local-use release, not a public-production certification. The server is still loopback-only, capped at 100 sessions, with local diagnostics that must not be exposed as-is. Local Windows session persistence does not replace production multi-server persistence, backups or multi-user origin/isolation work. Live comparison testing encountered blank/loading pages, merchant API failures and login redirects in both v23 and v24; tests do not establish uninterrupted storefront compatibility or completed purchases.
+This is a local-use release, not a public-production certification. The server is still loopback-only, capped at 100 sessions, with local diagnostics that must not be exposed as-is. Production session persistence and multi-user isolation remain future work. Live comparison testing encountered blank/loading pages, merchant API failures and login redirects in both v23 and v24; tests do not establish uninterrupted storefront compatibility or completed purchases.
 
 ## Development checks
 

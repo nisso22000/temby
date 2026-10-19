@@ -152,3 +152,8 @@ test('successful live cart responses are authoritative while the DOM and cache c
   const empty=canonical();empty.d.result.cartListInfo.goodsSkuList=[];empty.d.result.cartTransferMap.orderAmount='0';Object.assign(empty.d.result.discountInfo.orderAmountDto,{orderAmount:0,orderAmountOrderCcy:0,totalGoodsAmount:0,goodsDiscountAmount:0});
   assert.equal(select(api.responseFacts(empty.d,now).carts,null,now,{allowCacheOnly:true,trustLive:true}).quantity,0);
 });
+
+test('live snapshots cannot override another frontend currency',()=>{
+ const carts=scope.self.__tembyCart.responseFacts(canonical().d,now).carts;
+ assert.equal(select(carts,{minor:2092,currency:'USD'},now,{trustLive:true}),null);
+});

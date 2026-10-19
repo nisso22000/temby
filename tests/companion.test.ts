@@ -20,7 +20,7 @@ test('empty, unreadable and updating carts never advance into account setup',()=
   assert.equal(state({minor:0,quantity:1},false),'ready','known selected items remain nonempty even if a promotion makes their price zero');
   assert.equal(state({minor:2000,quantity:0},false),'empty');
   assert.equal(state({minor:2000,quantity:null},false),'ready');
-  assert.equal(state({minor:2000,quantity:1,invalid:2,minimum:3000},false),'ready','account/address preparation remains available');
+  assert.equal(state({minor:2000,quantity:1,invalid:2,minimum:3000},false),'ready','cart presence is separate from order eligibility');
   assert.equal(state({minor:2000,quantity:1},true),'loading');
 });
 
@@ -46,4 +46,12 @@ test('cart reader refuses conflicting totals, missing counts and transient zero 
   assert.equal(consensus(['Subtotal €10.00','المجموع الفرعي 10.00€'],'Checkout (٢)').quantity,2);
   for(const [labels,count] of [[['€10.00','€11.00'],'Checkout (2)'],[['€0.00'],'Checkout (2)'],[['€10.00'],'Checkout (0)'],[['€10.00'],'Checkout'],[[],'Checkout (0)']])assert.equal(consensus(labels,count),null);
   assert.equal(consensus(['Subtotal €0.00'],'Checkout (0)').minor,0);
+});
+
+test('order preparation respects Temu minimum and invalid-item flags',()=>{
+ const block=context.self.__tembyCompanionCore.cartBlocker;
+ assert.equal(block({minor:2092,minimum:3000,invalid:0}),'minimum');
+ assert.equal(block({minor:3000,minimum:3000,invalid:0}),null);
+ assert.equal(block({minor:4000,minimum:3000,invalid:1}),'problem');
+ assert.equal(block({minor:2092}),null);
 });
