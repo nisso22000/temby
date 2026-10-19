@@ -28,6 +28,7 @@ const preview=`<!doctype html><html lang="ar"><meta charset="utf-8"><title>TEMBY
  if(mode==='account'||mode==='login'){
    const bridge=new EventTarget(),controller={};const navigatorFacade={serviceWorker:{controller,addEventListener:bridge.addEventListener.bind(bridge)},clipboard:navigator.clipboard};
    const form=document.createElement('form');form.style.marginLeft='420px';form.innerHTML='<label>Email <input aria-label="Email" type="text"></label><br><label>New password <input aria-label="New password" type="password" autocomplete="new-password"></label><button type="submit">Internal registration submit</button>';
+   if(mode==='login'){const password=form.querySelector('input[type=password]');password.hidden=true;password.autocomplete='current-password';const reveal=document.createElement('button');reveal.type='button';reveal.textContent='Internal email next';reveal.onclick=()=>{password.hidden=false;form.querySelector('input[aria-label=Email]').hidden=true;};form.prepend(reveal);}
    form.oninput=()=>{form.dataset.passwordLength=String(form.querySelector('input[type=password]').value.length);};
    if(mode==='login')document.body.append(form);
    form.onsubmit=event=>{event.preventDefault();document.body.dataset.submitted='yes';};
@@ -37,6 +38,7 @@ const preview=`<!doctype html><html lang="ar"><meta charset="utf-8"><title>TEMBY
  }
  if(mode==='unavailable'){sessionStorage.removeItem('temby-order-intent');sessionStorage.removeItem('temby-test-setup');}
  self.__tembyConfigureCompanion(clientPage,{open:indexedDB.open});
+ if(mode==='address'){const logout=document.createElement('button');logout.textContent='Sign out';logout.style.marginLeft='420px';document.body.append(logout);}
  const simulation=document.createElement('button');simulation.textContent='Run 4-second cache-gap regression';simulation.style.marginLeft='420px';document.body.append(simulation);
  simulation.onclick=async()=>{
    simulation.disabled=true;let blank=false,dimmed=false;

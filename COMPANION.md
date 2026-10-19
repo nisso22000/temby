@@ -91,3 +91,11 @@ Opening cart/login and filling no longer explicitly collapse the panel. The logi
 ## v34 workflow polish
 
 Normal cart heading/intro are used even before cart evidence exists; missing price remains a dash, not a fabricated zero. Next on a known eligible cart goes directly to the first incomplete setup step. Account setup opens the merchant login and prepares generated test credentials with an existing-account alternative. Address page uses the primary action for manual saved-address confirmation instead of navigating to itself. Commission is 5% of converted merchant net. Minimum warnings are high-contrast and include the reported threshold and net. Copy controls use labelled icons and neutral one-line credential fields. No collapsed guide is implemented.
+
+## v35 corrections
+
+Account setup prepares generated credentials automatically, including direct login-page entry; the existing-account choice is removed. Old per-tab existing-account preference is ignored. Credentials remain test-only, not an implemented fulfillment handoff. Neutral inputs now sit on pale postal stationery backgrounds. Minimum warning includes the exact shortfall in merchant currency. Empty/unavailable carts use the browse action label; known nonempty carts use Next.
+
+An explicit autofill click recognizes password-only screens and may fill a single empty current-password field with the generated password; passive autofill still excludes current-password fields. No nonempty password is overwritten. Missing/ambiguous fields produce guidance. A proposed password is not evidence that Temu set it.
+
+Recognized logout clicks invalidate account/address preparation immediately and clear the active cart snapshot. Reappearing login fields/sign-in controls invalidate old positive evidence; newer merchant authentication facts can correct this if logout fails. Detection remains limited to recognized controls and same-origin DOM.
