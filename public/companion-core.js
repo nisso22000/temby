@@ -21,7 +21,7 @@
     if(!Number.isSafeInteger(minor)||minor<0||minor>100000000||!Number.isSafeInteger(rate)||rate<=0||rate>1000000)throw Error('Invalid price or rate');
     const round=(n,d)=>Number((n+BigInt(d)/2n)/BigInt(d));
     const converted=round(BigInt(minor)*BigInt(rate),100);
-    const service=round(BigInt(converted)*8n,100);
+    const service=round(BigInt(converted)*5n,100);
     const bubble=converted+service;
     const card=round(BigInt(bubble)*2n,100);
     return {converted,service,bubble,card,total:bubble+card,rate};
@@ -48,6 +48,7 @@
     if(snapshot.quantity===0||snapshot.minor===0&&!(snapshot.quantity>0))return 'empty';
     return 'ready';
   }
+  function setupStep(readiness){return readiness.account?.status===1?(readiness.address?'review':'shipping'):'account';}
   function cartBlocker(snapshot){
     if(snapshot?.invalid>0)return 'problem';
     if(snapshot?.minimum!=null&&snapshot.minor<snapshot.minimum)return 'minimum';
@@ -61,5 +62,5 @@
     }
     throw Error('Password generation unavailable');
   }
-  self.__tembyCompanionCore={money,quote,consensus,normalize,paymentFee,cartState,cartBlocker,password};
+  self.__tembyCompanionCore={money,quote,consensus,normalize,paymentFee,cartState,cartBlocker,setupStep,password};
 })();

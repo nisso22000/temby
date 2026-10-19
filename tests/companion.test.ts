@@ -36,9 +36,9 @@ test('cart money parsing supports Temu bilingual formats and rejects ambiguous p
 });
 test('DZD estimate keeps card fees out of bubble and rounds integer minor units',()=>{
   const usd=quote(10000,'USD');
-  assert.equal(usd.converted,2500000);assert.equal(usd.service,200000);assert.equal(usd.bubble,2700000);assert.equal(usd.card,54000);assert.equal(usd.total,2754000);
-  assert.equal(quote(10000,'EUR').bubble,2970000);
-  assert.equal(quote(1,'EUR').bubble,297);
+  assert.equal(usd.converted,2500000);assert.equal(usd.service,125000);assert.equal(usd.bubble,2625000);assert.equal(usd.card,52500);assert.equal(usd.total,2677500);
+  assert.equal(quote(10000,'EUR').bubble,2887500);
+  assert.equal(quote(1,'EUR').bubble,289);
   for(const invalid of [-1,0.01,NaN,Infinity,100000001])assert.throws(()=>quote(invalid,'EUR'));
   assert.throws(()=>quote(100,'GBP'));assert.throws(()=>quote(100,'USD',{USD:0}));
 });
@@ -54,4 +54,11 @@ test('order preparation respects Temu minimum and invalid-item flags',()=>{
  assert.equal(block({minor:3000,minimum:3000,invalid:0}),null);
  assert.equal(block({minor:4000,minimum:3000,invalid:1}),'problem');
  assert.equal(block({minor:2092}),null);
+});
+
+test('prepared account and address skip setup without an intermediate account step',()=>{
+ const step=context.self.__tembyCompanionCore.setupStep;
+ assert.equal(step({account:{status:1},address:{confirmedAt:1}}),'review');
+ assert.equal(step({account:{status:1},address:null}),'shipping');
+ assert.equal(step({account:null,address:null}),'account');
 });
