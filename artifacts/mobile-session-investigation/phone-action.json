@@ -1,0 +1,130 @@
+{
+  "startedAt": "2026-10-20T13:44:23.220Z",
+  "scope": "Passive physical-phone user action capture. No agent interaction and no raw request/response bodies, credentials, product names or query values saved.",
+  "actions": [
+    {
+      "kind": "add-cart",
+      "time": 1792503892668
+    },
+    {
+      "kind": "other-control",
+      "time": 1792503937068
+    }
+  ],
+  "responses": [
+    {
+      "host": "www.temu.com",
+      "route": "/api/server/_stm",
+      "method": "GET",
+      "observedAt": 1792503938242,
+      "initiator": "script",
+      "status": 200,
+      "fromWorker": true,
+      "responseAt": 1792503938256
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/adx/cm/ttc",
+      "method": "GET",
+      "observedAt": 1792503938273,
+      "initiator": "script",
+      "status": 200,
+      "fromWorker": true,
+      "responseAt": 1792503938259
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/phantom/dm/wl/cg",
+      "method": "GET",
+      "observedAt": 1792503938337,
+      "initiator": "script",
+      "status": 200,
+      "fromWorker": true,
+      "responseAt": 1792503938305
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/phantom/xg/pfb/[value]",
+      "method": "GET",
+      "observedAt": 1792503938338,
+      "initiator": "script",
+      "status": 200,
+      "fromWorker": true,
+      "responseAt": 1792503938325
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/phantom/xg/pfb/b",
+      "method": "GET",
+      "observedAt": 1792503938338,
+      "initiator": "script",
+      "status": 200,
+      "fromWorker": true,
+      "responseAt": 1792503938400
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/passport/token/touch",
+      "method": "POST",
+      "observedAt": 1792503938274,
+      "initiator": "script",
+      "status": 424,
+      "fromWorker": true,
+      "responseAt": 1792503938403,
+      "application": {
+        "success": null,
+        "errorCode": 40001,
+        "hasCartList": false
+      }
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/faas-abtest-server/firefly-api/exp-config",
+      "method": "POST",
+      "observedAt": 1792503938274,
+      "initiator": "script",
+      "status": 200,
+      "fromWorker": true,
+      "responseAt": 1792503938414
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/faas-abtest-server/firefly-api/exp-config",
+      "method": "POST",
+      "observedAt": 1792503938274,
+      "initiator": "script",
+      "status": 200,
+      "fromWorker": true,
+      "responseAt": 1792503938432
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/phantom/xg/pfb/[value]",
+      "method": "POST",
+      "observedAt": 1792503938344,
+      "initiator": "script",
+      "status": 200,
+      "fromWorker": true,
+      "responseAt": 1792503938508
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/jade/neutrino/dnld/new/get",
+      "method": "POST",
+      "observedAt": 1792503938279,
+      "initiator": "script",
+      "status": 200,
+      "fromWorker": true,
+      "responseAt": 1792503938531
+    }
+  ],
+  "failures": [],
+  "navigations": [
+    {
+      "host": "www.temu.com",
+      "route": "[resource]",
+      "observedAt": "2026-10-20T13:45:37.283Z"
+    }
+  ],
+  "finishedAt": "2026-10-20T13:45:38.775Z"
+}

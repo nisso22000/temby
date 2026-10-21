@@ -1,0 +1,288 @@
+{
+  "available": true,
+  "embedded": [
+    {
+      "length": 208501,
+      "assignmentFound": true,
+      "prefix": "window.__CHUNK_DATA__=",
+      "json": false,
+      "hasPacket": false
+    }
+  ],
+  "bootstrapAccepted": true,
+  "bootstrapCandidates": [
+    {
+      "minor": 42106,
+      "currency": "EUR",
+      "items": 8,
+      "time": 1792511658790
+    }
+  ],
+  "chunkParseError": false,
+  "chunkKeys": [
+    "store",
+    "chromeAiPromptConfigB",
+    "chromeAiPromptConfigA"
+  ],
+  "chunkPaths": [
+    {
+      "path": "chunk.store",
+      "keys": [
+        "$service",
+        "$timezone",
+        "sysInfo",
+        "aBMap",
+        "apiStore",
+        "cartSelectAni",
+        "recommendStore",
+        "skuStore",
+        "unselectedGoodsExposureStore",
+        "renderStore",
+        "headStore",
+        "bottomStore",
+        "mainStore",
+        "abTestStore",
+        "faasAbStore",
+        "anchorStore",
+        "popupStore",
+        "tipStore",
+        "addCartAniStore",
+        "secondaryPopupStore",
+        "immersiveStore",
+        "system",
+        "inBackRefresh",
+        "topBarData",
+        "userAddressInfo",
+        "goodsSkuList",
+        "invalidGoodsSkuList",
+        "promotionFloatLayerVo",
+        "userScroll",
+        "isFirstLevelPage",
+        "serverTime",
+        "differenceServiceTime",
+        "autoCheckout",
+        "windowKey",
+        "isLogin",
+        "isShowBack",
+        "accountSuspendVo",
+        "pageRenderTime",
+        "errorState",
+        "query",
+        "hitVisitorMode",
+        "isLowIos",
+        "promiseVo",
+        "region",
+        "stickyHide",
+        "isSalesBanned",
+        "scExtendMap",
+        "cartTransferMap",
+        "jsonParseError",
+        "isCsr",
+        "enableRecommendLocalToLocal",
+        "isIndexApiError",
+        "uinList",
+        "recommendTabStore",
+        "invalidTabStore",
+        "prepareClient",
+        "hitPartialSkuData",
+        "hasQueryLogin",
+        "baseZIndex",
+        "webpEnable"
+      ]
+    }
+  ],
+  "apiStoreKeys": [
+    "cartModifyData",
+    "currentSecondarySnapshotId",
+    "secondaryData",
+    "showFloatLayerOrderTips"
+  ],
+  "packetKeys": [
+    "success",
+    "errorCode",
+    "result"
+  ],
+  "resultKeys": [
+    "secondarySnapshotId",
+    "checkoutButtonVo",
+    "serverTime",
+    "cartOperateInfo",
+    "cartListInfo",
+    "discountInfo",
+    "checkOutFloatLayerVo",
+    "manageFunctionList",
+    "hasOtherValidAccounts",
+    "cartFilterVo",
+    "displayList",
+    "cartBenefitTipVo",
+    "cartTransferMap",
+    "rtHomePageVo",
+    "checkoutBenefitVo",
+    "accountSuspendVo",
+    "checkoutLayerTrackInfo",
+    "firstRenderTrackInfo",
+    "resReadFlag",
+    "cartModifyPageExp",
+    "appLaunchTransferMap"
+  ],
+  "discountKeys": [
+    "orderAmountDto",
+    "pcExtraContextVo",
+    "sidebarCartVo",
+    "promotionDisplayV4Vo",
+    "unprotectedPriceNoticeText",
+    "amountRocVo"
+  ],
+  "dtoKeys": [
+    "totalGoodsAmount",
+    "orderAmount",
+    "fullyManagedOrderAmount",
+    "goodsDiscountAmount",
+    "orderAmountText",
+    "itemsTotalText",
+    "priceDownArrowVo",
+    "winOrderAmountText",
+    "orderDetailList",
+    "checkoutBigButtonType",
+    "orderBenefitList",
+    "floatTopBubbleVolist"
+  ],
+  "fixture": {
+    "success": true,
+    "result": {
+      "serverTime": 1792511658,
+      "cartListInfo": {
+        "invalidGoodsLines": 0,
+        "checkoutExtendMap": {},
+        "goodsSkuList": [
+          {
+            "isSelected": 1,
+            "baseGoodsInfo": {
+              "goodsId": 601000000
+            },
+            "skuInfo": {
+              "amount": 1,
+              "skuQuantity": 48,
+              "skuPrice": 2421,
+              "skuId": 175000000
+            },
+            "invalidDescVo": {}
+          },
+          {
+            "isSelected": 1,
+            "baseGoodsInfo": {
+              "goodsId": 601000001
+            },
+            "skuInfo": {
+              "amount": 1,
+              "skuQuantity": 5,
+              "skuPrice": 266,
+              "skuId": 175000001
+            },
+            "invalidDescVo": {}
+          },
+          {
+            "isSelected": 1,
+            "baseGoodsInfo": {
+              "goodsId": 601000002
+            },
+            "skuInfo": {
+              "amount": 1,
+              "skuQuantity": 32,
+              "skuPrice": 2020,
+              "skuId": 175000002
+            },
+            "invalidDescVo": {}
+          },
+          {
+            "isSelected": 1,
+            "baseGoodsInfo": {
+              "goodsId": 601000003
+            },
+            "skuInfo": {
+              "amount": 1,
+              "skuQuantity": 82,
+              "skuPrice": 2687,
+              "skuId": 175000003
+            },
+            "invalidDescVo": {}
+          },
+          {
+            "isSelected": 1,
+            "baseGoodsInfo": {
+              "goodsId": 601000004
+            },
+            "skuInfo": {
+              "amount": 1,
+              "skuQuantity": 13,
+              "skuPrice": 3485,
+              "skuId": 175000004
+            },
+            "invalidDescVo": {}
+          },
+          {
+            "isSelected": 1,
+            "baseGoodsInfo": {
+              "goodsId": 601000005
+            },
+            "skuInfo": {
+              "amount": 1,
+              "skuQuantity": 11,
+              "skuPrice": 24724,
+              "skuId": 175000005
+            },
+            "invalidDescVo": {}
+          },
+          {
+            "isSelected": 1,
+            "baseGoodsInfo": {
+              "goodsId": 601000006
+            },
+            "skuInfo": {
+              "amount": 1,
+              "skuQuantity": 99,
+              "skuPrice": 1406,
+              "skuId": 175000006
+            },
+            "invalidDescVo": {}
+          },
+          {
+            "isSelected": 1,
+            "baseGoodsInfo": {
+              "goodsId": 601000007
+            },
+            "skuInfo": {
+              "amount": 1,
+              "skuQuantity": 99,
+              "skuPrice": 5097,
+              "skuId": 175000007
+            },
+            "invalidDescVo": {}
+          }
+        ]
+      },
+      "cartTransferMap": {
+        "currency": "EUR",
+        "orderAmount": "42106",
+        "lastRequestTime": "1792511658790"
+      },
+      "discountInfo": {
+        "orderAmountDto": {
+          "orderAmount": 42106,
+          "totalGoodsAmount": 42203,
+          "goodsDiscountAmount": 97
+        }
+      },
+      "checkoutLayerTrackInfo": {}
+    }
+  },
+  "acceptedByCurrentAdapter": true,
+  "candidates": [
+    {
+      "minor": 42106,
+      "currency": "EUR",
+      "items": 8,
+      "time": 1792511658790
+    }
+  ]
+}

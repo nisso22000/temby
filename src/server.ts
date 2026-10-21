@@ -7,9 +7,11 @@ import { engineAsset, engineRelay } from './engine.js';
 import { recoverNavigation } from './navigation.js';
 import { forwardCspReport } from './reports.js';
 import { companionMail } from './companion-mail.js';
+import {NetworkFilter,type FilterMode} from './network-filter.js';
 
-export function createServers(port = 3000, merchantPort = 3001, transport: Transport = upstream, options:{ownedFixtures?:boolean}={}) {
+export function createServers(port = 3000, merchantPort = 3001, transport: Transport = upstream, options:{ownedFixtures?:boolean;filterMode?:FilterMode;directAssets?:boolean}={}) {
   const sessions = new Sessions();
+  const filter=new NetworkFilter(options.filterMode||'off');
   const appOrigin = `http://localhost:${port}`; const merchantOrigin = `http://localhost:${merchantPort}`;
   function guard(req: IncomingMessage, res: ServerResponse, expected: number) {
     if (![`localhost:${expected}`,`127.0.0.1:${expected}`].includes(req.headers.host || '')) { res.writeHead(403); res.end('Invalid host'); return false; }
@@ -24,9 +26,9 @@ export function createServers(port = 3000, merchantPort = 3001, transport: Trans
       const s = sessions.get(req,res); const url=new URL(req.url || '/',appOrigin);
       if (merchant) {
         if(url.pathname==='/_companion/mail')return await companionMail(req,res,s,merchantOrigin);
-        if (await engineAsset(url.pathname,res,req)) return;
+        if (await engineAsset(url.pathname,res,req,{directAssets:options.directAssets===true,blockTelemetry:options.filterMode==='balanced'})) return;
         if (url.pathname==='/_state') {res.writeHead(200,{'content-type':'application/json'});res.end(JSON.stringify({events:s.events}));return;}
-        if (url.pathname==='/_relay') return await engineRelay(req,res,s,transport,options.ownedFixtures===true);
+        if (url.pathname==='/_relay') return await engineRelay(req,res,s,transport,options.ownedFixtures===true,filter);
         if(url.pathname==='/_runtime'){
           if(req.method!=='POST'){res.writeHead(405);res.end();return;}
           let event;try{event=JSON.parse((await readBody(req))!.toString());}catch{res.writeHead(400);res.end();return;}
@@ -58,10 +60,11 @@ export function createServers(port = 3000, merchantPort = 3001, transport: Trans
       }
       if (req.method!=='GET' && req.method!=='HEAD') { res.writeHead(405); res.end(); return; }
       if(url.pathname==='/'){res.writeHead(302,{location:merchantOrigin+'/uv/'});res.end();return;}
-      if(url.pathname==='/api/health'){res.writeHead(200,{'content-type':'application/json'});res.end(JSON.stringify({failures:sessions.health()}));return;}
+      if(url.pathname==='/api/health'){res.writeHead(200,{'content-type':'application/json'});res.end(JSON.stringify({failures:sessions.health(s)}));return;}
+      if(url.pathname==='/api/metrics'){res.writeHead(200,{'content-type':'application/json'});res.end(JSON.stringify({counts:s.metrics||{}}));return;}
       if (url.pathname==='/api/state') {
         res.writeHead(200,{'content-type':'application/json','x-content-type-options':'nosniff'});
-        res.end(JSON.stringify({events:s.events})); return;
+        res.end(JSON.stringify({events:s.events,apiEvents:s.apiEvents||[]})); return;
       }
       const file = {'/diagnostics':'diagnostics.html','/diagnostics.js':'diagnostics.js'}[url.pathname];
       if (!file) {res.writeHead(404);res.end();return;}

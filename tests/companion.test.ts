@@ -62,3 +62,9 @@ test('prepared account and address skip setup without an intermediate account st
  assert.equal(step({account:{status:1},address:null}),'shipping');
  assert.equal(step({account:null,address:null}),'account');
 });
+
+test('unselected unavailable lines do not block the otherwise valid cart',()=>{
+ const block=context.self.__tembyCompanionCore.cartBlocker;
+ assert.equal(block({minor:2699,minimum:2000,invalid:1,selectedInvalid:0,unselectedInvalid:1}),null);
+ assert.equal(block({minor:2699,minimum:2000,invalid:1,selectedInvalid:1}),'problem');
+});

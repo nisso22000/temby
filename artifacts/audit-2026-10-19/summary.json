@@ -1,0 +1,69 @@
+{
+  "benchmarks": [
+    {
+      "label": "Current image streaming",
+      "medianFirstBodyMs": 62,
+      "medianCompleteMs": 212
+    },
+    {
+      "label": "Current CSS buffering",
+      "medianFirstBodyMs": 217,
+      "medianCompleteMs": 222
+    },
+    {
+      "label": "Current JS buffering",
+      "medianFirstBodyMs": 198,
+      "medianCompleteMs": 203
+    },
+    {
+      "label": "Current JSON buffering",
+      "medianFirstBodyMs": 226,
+      "medianCompleteMs": 242
+    },
+    {
+      "label": "Direct local fixture, bypassing relay",
+      "medianFirstBodyMs": 55,
+      "medianCompleteMs": 201
+    }
+  ],
+  "easyPrivacy": {
+    "source": "https://easylist.to/easylist/easyprivacy.txt",
+    "verifiedRules": [
+      "||temu.com/api/adx/",
+      "||pftk.temu.com^",
+      "||thtk.temu.com^"
+    ],
+    "runs": [
+      {
+        "source": "browser-results.json",
+        "mode": "desktop",
+        "upstreamRequests": 100,
+        "pftk": 18,
+        "thtk": 3,
+        "adx": 2,
+        "matchedRequests": 23,
+        "note": "100-request budget reached; later errors are contaminated by diagnostic 503s"
+      },
+      {
+        "source": "browser-results.json",
+        "mode": "mobile-emulation",
+        "upstreamRequests": 100,
+        "pftk": 22,
+        "thtk": 20,
+        "adx": 2,
+        "matchedRequests": 44,
+        "note": "100-request budget reached; later errors are contaminated by diagnostic 503s"
+      },
+      {
+        "source": "browser-live-cart-results.json",
+        "mode": "mobile-emulation",
+        "upstreamRequests": 72,
+        "pftk": 26,
+        "thtk": 4,
+        "adx": 1,
+        "matchedRequests": 31,
+        "note": "Stopped after cart response; fresh session, not a customer cart"
+      }
+    ]
+  }
+}

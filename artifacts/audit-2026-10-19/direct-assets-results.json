@@ -1,0 +1,33 @@
+{
+  "generatedAt": "2026-10-19T21:32:17.069Z",
+  "scope": "Single public HTML fetch and one sample per available CDN resource category; no merchant JS execution",
+  "rootStatus": 200,
+  "discoveredCategories": [
+    "script"
+  ],
+  "samples": [
+    {
+      "kind": "script",
+      "host": "static.kwcdn.com",
+      "status": 200,
+      "headers": {
+        "content-type": "text/javascript",
+        "cache-control": "max-age=31536000",
+        "access-control-allow-origin": "*",
+        "cross-origin-resource-policy": null,
+        "accept-ranges": "bytes",
+        "content-encoding": "br",
+        "content-length": "15231",
+        "vary": "Accept-Encoding"
+      },
+      "browser": {
+        "cors": {
+          "ok": true,
+          "type": "cors",
+          "status": 200
+        },
+        "corsHeadersMs": 157
+      }
+    }
+  ]
+}

@@ -1,0 +1,2806 @@
+{
+  "generatedAt": "2026-10-19T21:30:44.032Z",
+  "scope": "Isolated browser contexts; no customer credentials or cookies imported",
+  "synthetic": [
+    {
+      "mode": "desktop",
+      "initial": {
+        "companion": true,
+        "source": "response",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "6 040,65 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "structuredAfterDomTamper": {
+        "companion": true,
+        "source": "response",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "6 040,65 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "domFallback": {
+        "companion": true,
+        "source": "unavailable",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "— DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "domFallbackAfterTamper": {
+        "companion": true,
+        "source": "page",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "2,89 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "pageErrors": []
+    },
+    {
+      "mode": "mobile-emulation",
+      "initial": {
+        "companion": true,
+        "source": "response",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "6 040,65 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "structuredAfterDomTamper": {
+        "companion": true,
+        "source": "response",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "6 040,65 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "domFallback": {
+        "companion": true,
+        "source": "unavailable",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "— DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "domFallbackAfterTamper": {
+        "companion": true,
+        "source": "page",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "2,89 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "pageErrors": []
+    }
+  ],
+  "live": [
+    {
+      "mode": "desktop",
+      "requests": 100,
+      "peakConcurrency": 6,
+      "events": [
+        {
+          "host": "www.temu.com",
+          "route": "/",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/html",
+          "headersMs": 195,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 1
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/javascript",
+          "headersMs": 95,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/html",
+          "headersMs": 132,
+          "retryAfter": null,
+          "cookieCount": 1,
+          "setCookieCount": 1
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/html",
+          "headersMs": 139,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 4
+        },
+        {
+          "host": "aimg.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/300x9999>/quality/70/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 86,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "aimg.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/48x9999>/quality/70/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 91,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/250x9999>/quality/10/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 135,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/250x9999>/quality/10/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 93,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/250x9999>/quality/10/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 165,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/250x9999>/quality/10/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 164,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/250x9999>/quality/10/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 177,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 28,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 30,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 19,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 20,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 79,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 23,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 19,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 191,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 86,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 59,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 23,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 29,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 21,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 20,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 29,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 25,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 30,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 28,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 32,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 27,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 24,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 34,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 32,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 36,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 34,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 25,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 17,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 27,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 20,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 23,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 26,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 22,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 29,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 25,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 30,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 25,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 35,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/server/_stm",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 102,
+          "retryAfter": null,
+          "cookieCount": 7,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 55,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/phantom/dm/wl/cg",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 81,
+          "retryAfter": null,
+          "cookieCount": 8,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/phantom/xg/pfb/[value]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 83,
+          "retryAfter": null,
+          "cookieCount": 8,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/phantom/xg/pfb/b",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 82,
+          "retryAfter": null,
+          "cookieCount": 8,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/phantom/xg/pfb/[value]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 84,
+          "retryAfter": null,
+          "cookieCount": 8,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 54,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/adx/cm/ttc",
+          "queryNames": [
+            "scene",
+            "type"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 104,
+          "retryAfter": null,
+          "cookieCount": 8,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 321,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 22,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 21,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 69,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 68,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/static/config/get_front_end_page_config",
+          "queryNames": [
+            "client",
+            "useAntiToken"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 92,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/rubicon/benefit/query/info",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 78,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/jade/neutrino/dnld/qr/get",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 121,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify/pc_side_bar",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 94,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0,
+          "cartSchema": {
+            "success": false,
+            "resultKeys": [],
+            "hasCartListInfo": false,
+            "thresholdType": "undefined"
+          }
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/poppy/[value]/search_activation",
+          "queryNames": [
+            "scene"
+          ],
+          "method": "POST",
+          "status": 429,
+          "type": "application/json",
+          "headersMs": 183,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/alexa/homepage/goods_list",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 323,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 30,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 58,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 55,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 60,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 23,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/adx/cm/match-tag",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 94,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "aimg.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/30x9999>/quality/70/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 56,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/250x9999>/quality/10/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 114,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "aimg.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/30x9999>/quality/70/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 37,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "aimg.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/30x9999>/quality/70/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 64,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "aimg.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/30x9999>/quality/70/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 64,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "aimg.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/30x9999>/quality/70/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 34,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "aimg.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/30x9999>/quality/70/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 21,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "aimg.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/2000x9999>/quality/80/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 26,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "aimg.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/1300x9999>/quality/80/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 23,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/500x9999>/quality/70/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 34,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/500x9999>/quality/70/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 37,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/500x9999>/quality/70/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 49,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "aimg.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/1300x9999>/quality/80/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 27,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/500x9999>/quality/70/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 75,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/500x9999>/quality/70/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 86,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 56,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 55,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 58,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 58,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 56,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 61,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 55,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 55,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 65,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 62,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 61,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 62,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        }
+      ],
+      "consoleErrors": 25,
+      "pageErrors": [
+        "Error",
+        "AxiosError",
+        "Error",
+        "Error",
+        "ChunkLoadError",
+        "Error",
+        "Error",
+        "ChunkLoadError",
+        "Error",
+        "Error",
+        "ChunkLoadError",
+        "Error",
+        "Error",
+        "Error",
+        "Error"
+      ],
+      "stoppedForChallenge": false,
+      "finalLocation": {
+        "host": "www.temu.com",
+        "route": "/",
+        "queryNames": []
+      },
+      "companion": {
+        "companion": true,
+        "source": "unavailable",
+        "cache": "{\"available\":true,\"stores\":[\"entries\"],\"records\":0,\"candidates\":0,\"scoped\":true,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "— DZD",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "resourceSummary": {
+        "img": {
+          "count": 21,
+          "transferBytes": 0,
+          "durationMs": 12619.000000238419
+        },
+        "xmlhttprequest": {
+          "count": 31,
+          "transferBytes": 0,
+          "durationMs": 30125.39999985695
+        },
+        "link": {
+          "count": 36,
+          "transferBytes": 0,
+          "durationMs": 44210.599999666214
+        },
+        "script": {
+          "count": 9,
+          "transferBytes": 0,
+          "durationMs": 7880.000000238419
+        },
+        "other": {
+          "count": 2,
+          "transferBytes": 5001,
+          "durationMs": 257.7999999523163
+        },
+        "beacon": {
+          "count": 3,
+          "transferBytes": 0,
+          "durationMs": 2999.9999997615814
+        },
+        "css": {
+          "count": 1,
+          "transferBytes": 0,
+          "durationMs": 872.5
+        }
+      },
+      "repeatedRequestCounts": [
+        3,
+        16,
+        2,
+        2,
+        3
+      ]
+    },
+    {
+      "mode": "mobile-emulation",
+      "requests": 100,
+      "peakConcurrency": 6,
+      "events": [
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/150x9999>/quality/50/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 35,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/150x9999>/quality/50/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 36,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/150x9999>/quality/50/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 38,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/150x9999>/quality/50/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 40,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/150x9999>/quality/50/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 41,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/150x9999>/quality/50/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 42,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/150x9999>/quality/50/format/avif"
+          ],
+          "method": "GET",
+          "status": 0,
+          "error": "AbortError"
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/150x9999>/quality/50/format/avif"
+          ],
+          "method": "GET",
+          "status": 0,
+          "error": "AbortError"
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/150x9999>/quality/50/format/avif"
+          ],
+          "method": "GET",
+          "status": 0,
+          "error": "AbortError"
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/html",
+          "headersMs": 75,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 1
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/javascript",
+          "headersMs": 20,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/html",
+          "headersMs": 159,
+          "retryAfter": null,
+          "cookieCount": 1,
+          "setCookieCount": 1
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/html",
+          "headersMs": 139,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 4
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/125x9999>/quality/10/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 34,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "aimg.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/375x9999>/quality/50/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 51,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/125x9999>/quality/10/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 34,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/125x9999>/quality/10/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 37,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "aimg.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/375x9999>/quality/50/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 47,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/125x9999>/quality/10/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 33,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 55,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 29,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 29,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 23,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 34,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 33,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 28,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 27,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 29,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 23,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 27,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 21,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 50,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 24,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 94,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 22,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 21,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 23,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 22,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 29,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 39,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 54,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/server/_stm",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 74,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/adx/cm/ttc",
+          "queryNames": [
+            "scene",
+            "type"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 83,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 209,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 65,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 82,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 65,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 62,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 98,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 95,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 98,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "aimg.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/1300x9999>/quality/80/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 19,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/375x9999>/quality/50/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 34,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/375x9999>/quality/50/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 36,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/375x9999>/quality/50/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 41,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "img.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [
+            "imageMogr2/thumbnail/375x9999>/quality/50/format/avif"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "image/avif",
+          "headersMs": 39,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 63,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 55,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 56,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 54,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/phantom/dm/wl/cg",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 82,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/phantom/xg/pfb/[value]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 80,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/phantom/xg/pfb/b",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 85,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 54,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 55,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/phantom/xg/pfb/[value]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 81,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 27,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 24,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 54,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 27,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 44,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/adx/cm/match-tag",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 86,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 38,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 54,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 55,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 55,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 54,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 54,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 68,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 59,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 58,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 56,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 57,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 64,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 67,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 65,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 65,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 64,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 65,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 65,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 65,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 66,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 64,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/css",
+          "headersMs": 23,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 68,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 67,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/alexa/homepage/goods_list",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 413,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 65,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 68,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/octet-stream",
+          "headersMs": 65,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 0
+        }
+      ],
+      "consoleErrors": 96,
+      "pageErrors": [
+        "AxiosError",
+        "Error",
+        "Error",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "Error",
+        "Error",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "Error",
+        "Error",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "ChunkLoadError",
+        "Error",
+        "Error",
+        "Error",
+        "Error",
+        "Error",
+        "Error",
+        "Error",
+        "Error",
+        "Error",
+        "AxiosError",
+        "AxiosError"
+      ],
+      "stoppedForChallenge": false,
+      "finalLocation": {
+        "host": "www.temu.com",
+        "route": "/",
+        "queryNames": []
+      },
+      "companion": {
+        "companion": true,
+        "source": "unavailable",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "— DZD",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "resourceSummary": {
+        "img": {
+          "count": 11,
+          "transferBytes": 0,
+          "durationMs": 3455.999999523163
+        },
+        "xmlhttprequest": {
+          "count": 36,
+          "transferBytes": 0,
+          "durationMs": 23967.800000190735
+        },
+        "link": {
+          "count": 19,
+          "transferBytes": 0,
+          "durationMs": 6128.200000286102
+        },
+        "script": {
+          "count": 12,
+          "transferBytes": 0,
+          "durationMs": 9338
+        },
+        "beacon": {
+          "count": 27,
+          "transferBytes": 0,
+          "durationMs": 21396.999999284744
+        }
+      },
+      "repeatedRequestCounts": [
+        3,
+        20,
+        20,
+        2
+      ]
+    }
+  ]
+}

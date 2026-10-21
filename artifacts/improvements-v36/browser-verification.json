@@ -1,0 +1,37 @@
+{
+  "scope": "Owned fixtures only; no merchant requests or customer sessions",
+  "cases": [
+    {
+      "mode": "desktop",
+      "bareEndpoint": "response",
+      "minimumWarning": "Le minimum demandé par Temu n’est pas encore atteint. Il manque 9,08 EUR ; minimum : 30 EUR.",
+      "cartFailureWarning": "Temu n’a pas pu actualiser votre panier. Ouvrez-le pour vérifier le montant.",
+      "directRequests": 4,
+      "workerCounts": {
+        "direct": 2,
+        "directFallback": 0,
+        "blocked": 1,
+        "relay": 4
+      },
+      "pageErrors": [],
+      "thirdPartyButtonsHidden": true,
+      "integrityAfterWorkerRestart": true
+    },
+    {
+      "mode": "mobile",
+      "bareEndpoint": "response",
+      "minimumWarning": "Le minimum demandé par Temu n’est pas encore atteint. Il manque 9,08 EUR ; minimum : 30 EUR.",
+      "cartFailureWarning": "Temu n’a pas pu actualiser votre panier. Ouvrez-le pour vérifier le montant.",
+      "directRequests": 4,
+      "workerCounts": {
+        "direct": 2,
+        "directFallback": 0,
+        "blocked": 1,
+        "relay": 4
+      },
+      "pageErrors": [],
+      "thirdPartyButtonsHidden": true,
+      "integrityAfterWorkerRestart": true
+    }
+  ]
+}

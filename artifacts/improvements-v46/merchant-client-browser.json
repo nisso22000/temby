@@ -1,0 +1,28 @@
+[
+  {
+    "mobile": false,
+    "delayedSDKStartup": true,
+    "fullSDKRead": true,
+    "addAndRemoveThroughZero": true,
+    "noUnsignedReads": true,
+    "noRefusalRetry": true,
+    "clientErrorReleased": true,
+    "stalledClientDeadline": true,
+    "navigationReleased": true,
+    "recovery": true,
+    "reads": 8
+  },
+  {
+    "mobile": true,
+    "delayedSDKStartup": true,
+    "fullSDKRead": true,
+    "addAndRemoveThroughZero": true,
+    "noUnsignedReads": true,
+    "noRefusalRetry": true,
+    "clientErrorReleased": true,
+    "stalledClientDeadline": false,
+    "navigationReleased": true,
+    "recovery": true,
+    "reads": 7
+  }
+]

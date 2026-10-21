@@ -1,0 +1,684 @@
+{
+  "generatedAt": "2026-10-19T21:56:40.896Z",
+  "scope": "Isolated browser contexts; no customer credentials or cookies imported",
+  "synthetic": [
+    {
+      "mode": "desktop",
+      "initial": {
+        "companion": true,
+        "source": "response",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "6 040,65 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "structuredAfterDomTamper": {
+        "companion": true,
+        "source": "response",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "6 040,65 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "domFallback": {
+        "companion": true,
+        "source": "response",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "6 040,65 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "domFallbackAfterTamper": {
+        "companion": true,
+        "source": "response",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "6 040,65 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "pageErrors": []
+    },
+    {
+      "mode": "mobile-emulation",
+      "initial": {
+        "companion": true,
+        "source": "response",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "6 040,65 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "structuredAfterDomTamper": {
+        "companion": true,
+        "source": "response",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "6 040,65 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "domFallback": {
+        "companion": true,
+        "source": "response",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "6 040,65 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "domFallbackAfterTamper": {
+        "companion": true,
+        "source": "response",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "6 040,65 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "pageErrors": []
+    }
+  ],
+  "live": [
+    {
+      "mode": "mobile-emulation",
+      "requests": 39,
+      "peakConcurrency": 6,
+      "events": [
+        {
+          "host": "www.temu.com",
+          "route": "/shopping_cart.html",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/html",
+          "headersMs": 178,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 1
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/javascript",
+          "headersMs": 158,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/shopping_cart.html",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/html",
+          "headersMs": 90,
+          "retryAfter": null,
+          "cookieCount": 1,
+          "setCookieCount": 1
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/shopping_cart.html",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "text/html",
+          "headersMs": 107,
+          "retryAfter": null,
+          "cookieCount": 2,
+          "setCookieCount": 4
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 41,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 46,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 119,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 118,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 109,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 44,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 41,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 41,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 42,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 45,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 43,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 42,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/server/_stm",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 82,
+          "retryAfter": null,
+          "cookieCount": 8,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/[value]/rubicon/benefit/query",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 89,
+          "retryAfter": null,
+          "cookieCount": 8,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/passport/token/touch",
+          "queryNames": [],
+          "method": "POST",
+          "status": 424,
+          "type": "application/json",
+          "headersMs": 86,
+          "retryAfter": null,
+          "cookieCount": 8,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/passport/token/touch",
+          "queryNames": [],
+          "method": "POST",
+          "status": 424,
+          "type": "application/json",
+          "headersMs": 80,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/phantom/xg/pfb/[value]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 77,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/faas-abtest-server/firefly-api/exp-config",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 85,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/faas-abtest-server/firefly-api/exp-config",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 105,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/phantom/dm/wl/cg",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 101,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/phantom/xg/pfb/b",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 79,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/phantom/xg/pfb/[value]",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 79,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 90,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0,
+          "cartSchema": {
+            "success": true,
+            "resultKeys": [
+              "float_title",
+              "currency_position_type",
+              "all_amount_sum",
+              "sku_amount_sum",
+              "cart_goods_num_map",
+              "cart_sku_num_map",
+              "cart_goods_sku_map",
+              "cart_shipping_general_vo",
+              "front_control_map",
+              "save_for_cart_grey",
+              "flw_source"
+            ],
+            "hasCartListInfo": false,
+            "thresholdType": "undefined"
+          }
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/alexa/homepage/bottom_tab",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 84,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify",
+          "queryNames": [],
+          "method": "POST",
+          "status": 403,
+          "type": "application/json",
+          "headersMs": 103,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0,
+          "cartSchema": {
+            "success": false,
+            "resultKeys": [],
+            "hasCartListInfo": false,
+            "thresholdType": "undefined"
+          }
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 102,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0,
+          "cartSchema": {
+            "success": true,
+            "resultKeys": [
+              "all_amount_sum",
+              "sku_amount_sum",
+              "cart_goods_num_map",
+              "cart_sku_num_map",
+              "cart_goods_sku_map"
+            ],
+            "hasCartListInfo": false,
+            "thresholdType": "undefined"
+          }
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/poppy/[value]/search_activation",
+          "queryNames": [
+            "scene"
+          ],
+          "method": "POST",
+          "status": 429,
+          "type": "application/json",
+          "headersMs": 182,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 96,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "queryNames": [],
+          "method": "GET",
+          "status": 200,
+          "type": "application/javascript",
+          "headersMs": 79,
+          "retryAfter": null,
+          "cookieCount": 0,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/bg/sigerus/auth/history_login_info/query",
+          "queryNames": [],
+          "method": "POST",
+          "status": 429,
+          "type": "application/json",
+          "headersMs": 120,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/login.html",
+          "queryNames": [
+            "from",
+            "login_scene",
+            "refer_page_name",
+            "refer_page_id",
+            "refer_page_sn",
+            "_x_sessn_id"
+          ],
+          "method": "GET",
+          "status": 200,
+          "type": "text/html",
+          "headersMs": 292,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/poppy/[value]/shopping_cart",
+          "queryNames": [
+            "scene"
+          ],
+          "method": "POST",
+          "status": 403,
+          "type": "application/json",
+          "headersMs": 407,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0,
+          "cartSchema": {
+            "success": false,
+            "resultKeys": [
+              "server_time",
+              "has_more"
+            ],
+            "hasCartListInfo": false,
+            "thresholdType": "undefined"
+          }
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/bg-aquarius/popup/[value]/default",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 94,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/query/other_accounts",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 108,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0,
+          "cartSchema": {
+            "success": true,
+            "resultKeys": [
+              "has_other_valid_accounts"
+            ],
+            "hasCartListInfo": false,
+            "thresholdType": "undefined"
+          }
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/[value]/sumer-log/key-use-data",
+          "queryNames": [],
+          "method": "POST",
+          "status": 200,
+          "type": "application/json",
+          "headersMs": 80,
+          "retryAfter": null,
+          "cookieCount": 9,
+          "setCookieCount": 0
+        }
+      ],
+      "consoleErrors": 5,
+      "pageErrors": [
+        "AxiosError",
+        "AxiosError",
+        "AxiosError",
+        "AxiosError"
+      ],
+      "stoppedForChallenge": false,
+      "stoppedAfterCartResponse": true,
+      "finalLocation": {
+        "host": "www.temu.com",
+        "route": "/login.html",
+        "queryNames": [
+          "from",
+          "login_scene",
+          "refer_page_name",
+          "refer_page_id",
+          "refer_page_sn",
+          "_x_sessn_id"
+        ]
+      },
+      "companion": {
+        "companion": false,
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "resourceSummary": {
+        "xmlhttprequest": {
+          "count": 1,
+          "transferBytes": 0,
+          "durationMs": 45.09999990463257
+        }
+      },
+      "repeatedRequestCounts": [
+        3,
+        2,
+        2,
+        2
+      ]
+    }
+  ],
+  "directAssetProbes": []
+}

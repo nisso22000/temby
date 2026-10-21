@@ -1,0 +1,517 @@
+{
+  "shapes": [
+    {
+      "key": "oncontentvisibilityautostatechange",
+      "type": "undefined",
+      "keys": []
+    },
+    {
+      "key": "oncontextrestored",
+      "type": "undefined",
+      "keys": []
+    },
+    {
+      "key": "onpopstate",
+      "type": "undefined",
+      "keys": []
+    },
+    {
+      "key": "cookieStore",
+      "type": "undefined",
+      "keys": []
+    },
+    {
+      "key": "__DelayInitialI18nStore__",
+      "type": "boolean",
+      "keys": []
+    },
+    {
+      "key": "rawData",
+      "type": "object",
+      "keys": [
+        "store",
+        "chromeAiPromptConfigB",
+        "chromeAiPromptConfigA"
+      ]
+    },
+    {
+      "key": "__InitialLanguage__",
+      "type": "string",
+      "keys": []
+    },
+    {
+      "key": "__InitialI18nStore__",
+      "type": "object",
+      "keys": [
+        "fr",
+        "en"
+      ]
+    },
+    {
+      "key": "__InitialI18nStoreLoaded__",
+      "type": "boolean",
+      "keys": []
+    },
+    {
+      "key": "extraI18nStore",
+      "type": "object",
+      "keys": [
+        "fr"
+      ]
+    },
+    {
+      "key": "__ExtraI18nStore__",
+      "type": "object",
+      "keys": [
+        "fr"
+      ]
+    },
+    {
+      "key": "webpackChunkmobile_bg_cart_2929_bootstraped",
+      "type": "boolean",
+      "keys": []
+    },
+    {
+      "key": "webpackChunkmobile_bg_cart",
+      "type": "object",
+      "keys": [
+        "push"
+      ]
+    },
+    {
+      "key": "__INITIAL_PROPS__",
+      "type": "object",
+      "keys": [
+        "store",
+        "chromeAiPromptConfigB",
+        "chromeAiPromptConfigA"
+      ]
+    }
+  ],
+  "embedded": [
+    {
+      "type": "",
+      "length": 28879,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 134,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 11584,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 1365,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 43,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 14463,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 640,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 31854,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 210,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 32,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 123,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 371,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 1973,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 38,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 1770,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 164,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 1708,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 1076,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 36,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 17,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 208315,
+      "hasCartList": true,
+      "hasGoodsList": true,
+      "hasOrderAmount": true
+    },
+    {
+      "type": "",
+      "length": 119780,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 548,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 2768,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 7,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    },
+    {
+      "type": "",
+      "length": 5113,
+      "hasCartList": false,
+      "hasGoodsList": false,
+      "hasOrderAmount": false
+    }
+  ],
+  "cartPaths": [
+    {
+      "path": "rawData.store",
+      "keys": [
+        "$service",
+        "$timezone",
+        "sysInfo",
+        "aBMap",
+        "apiStore",
+        "cartSelectAni",
+        "recommendStore",
+        "skuStore",
+        "unselectedGoodsExposureStore",
+        "renderStore",
+        "headStore",
+        "bottomStore",
+        "mainStore",
+        "abTestStore",
+        "faasAbStore",
+        "anchorStore",
+        "popupStore",
+        "tipStore",
+        "addCartAniStore",
+        "secondaryPopupStore",
+        "immersiveStore",
+        "system",
+        "inBackRefresh",
+        "topBarData",
+        "userAddressInfo",
+        "goodsSkuList",
+        "invalidGoodsSkuList",
+        "promotionFloatLayerVo",
+        "userScroll",
+        "isFirstLevelPage",
+        "serverTime",
+        "differenceServiceTime",
+        "autoCheckout",
+        "windowKey",
+        "isLogin",
+        "isShowBack",
+        "accountSuspendVo",
+        "pageRenderTime",
+        "errorState",
+        "query",
+        "hitVisitorMode",
+        "isLowIos",
+        "promiseVo",
+        "region",
+        "stickyHide",
+        "isSalesBanned",
+        "scExtendMap",
+        "cartTransferMap",
+        "jsonParseError",
+        "isCsr",
+        "enableRecommendLocalToLocal",
+        "isIndexApiError",
+        "uinList",
+        "recommendTabStore",
+        "invalidTabStore",
+        "prepareClient",
+        "hitPartialSkuData",
+        "hasQueryLogin",
+        "baseZIndex",
+        "webpEnable"
+      ]
+    },
+    {
+      "path": "rawData.store.apiStore.cartModifyData.result",
+      "keys": [
+        "secondarySnapshotId",
+        "checkoutButtonVo",
+        "serverTime",
+        "cartOperateInfo",
+        "cartListInfo",
+        "discountInfo",
+        "checkOutFloatLayerVo",
+        "manageFunctionList",
+        "hasOtherValidAccounts",
+        "cartFilterVo",
+        "displayList",
+        "cartBenefitTipVo",
+        "cartTransferMap",
+        "rtHomePageVo",
+        "checkoutBenefitVo",
+        "accountSuspendVo",
+        "checkoutLayerTrackInfo",
+        "firstRenderTrackInfo",
+        "resReadFlag",
+        "cartModifyPageExp",
+        "appLaunchTransferMap"
+      ]
+    },
+    {
+      "path": "rawData.store.apiStore.cartModifyData.result.cartListInfo",
+      "keys": [
+        "hitVisitorMode",
+        "listTitle",
+        "goodsSkuList",
+        "userAddressInfo",
+        "payLogoVo",
+        "safePaymentTextVo",
+        "promiseVo",
+        "privacyVo",
+        "topInfoVo",
+        "hitFastPayMode",
+        "currencyStr",
+        "currencyPositionType",
+        "destinationUrl",
+        "maxMergePaySkuMaxNum",
+        "maxMergePaySkuMaxLength",
+        "frontControlMap",
+        "checkoutExtendMap",
+        "extendMapForFront",
+        "wishSkuList",
+        "soldOutTextVo",
+        "deliveryGuaranteeVo",
+        "invalidGoodsLines"
+      ]
+    },
+    {
+      "path": "rawData.store.apiStore.cartModifyData.result.cartTransferMap",
+      "keys": [
+        "fullyManagedOrderAmount",
+        "totalSaveAmount",
+        "orderAmount",
+        "lastMatchFilterInfo",
+        "currency",
+        "lastRequestTime"
+      ]
+    },
+    {
+      "path": "rawData.store.bottomStore.orderAmountDto",
+      "keys": [
+        "totalGoodsAmount",
+        "orderAmount",
+        "fullyManagedOrderAmount",
+        "goodsDiscountAmount",
+        "orderAmountText",
+        "itemsTotalText",
+        "priceDownArrowVo",
+        "winOrderAmountText",
+        "orderDetailList",
+        "checkoutBigButtonType",
+        "orderBenefitList",
+        "floatTopBubbleVolist"
+      ]
+    },
+    {
+      "path": "rawData.store.cartTransferMap",
+      "keys": [
+        "fullyManagedOrderAmount",
+        "totalSaveAmount",
+        "orderAmount",
+        "lastMatchFilterInfo",
+        "currency",
+        "lastRequestTime"
+      ]
+    },
+    {
+      "path": "__INITIAL_PROPS__.store",
+      "keys": [
+        "$axiosHttp",
+        "$service",
+        "sysInfo",
+        "setStoreData",
+        "$timezone",
+        "aBMap",
+        "apiStore",
+        "cartSelectAni",
+        "recommendStore",
+        "skuStore",
+        "unselectedGoodsExposureStore",
+        "renderStore",
+        "headStore",
+        "bottomStore",
+        "mainStore",
+        "abTestStore",
+        "faasAbStore",
+        "anchorStore",
+        "popupStore",
+        "tipStore",
+        "addCartAniStore",
+        "secondaryPopupStore",
+        "immersiveStore",
+        "$context",
+        "system",
+        "inBackRefresh",
+        "setUserScroll",
+        "query",
+        "hitVisitorMode",
+        "scExtendMap",
+        "cartTransferMap",
+        "getRequestPageCartTransferMap",
+        "isCsr",
+        "setShowIncalidCardSkuId",
+        "enableRecommendLocalToLocal",
+        "randRefreshIndex",
+        "getExtendInfoFromQuery",
+        "sortGoodsSkuList",
+        "sortGoodsList",
+        "queryCommonRecommend",
+        "queryBottomRecommendTab",
+        "filterRecommendRepeat",
+        "recommendTabQueryGoods",
+        "recommendTabStore",
+        "invalidTabStore",
+        "debounceQueryIndex",
+        "queryIndex",
+        "hitPartialSkuData",
+        "queryFullIndex",
+        "firstQueryIndex",
+        "hasQueryLogin",
+        "queryLogin",
+        "refreshLogin",
+        "refreshData",
+        "requestSecondaryOrderTip",
+        "getTabItemTrackingData",
+        "topBarData",
+        "userAddressInfo",
+        "goodsSkuList",
+        "invalidGoodsSkuList"
+      ]
+    }
+  ],
+  "viewport": {
+    "width": 360,
+    "height": 641
+  },
+  "fixedBottom": [
+    {
+      "top": 591.7552490234375,
+      "bottom": 641.6667098999023,
+      "width": 360,
+      "height": 49.911460876464844
+    }
+  ],
+  "companionBounds": {
+    "top": 507.66668701171875,
+    "bottom": 565.6666870117188,
+    "left": 8,
+    "right": 215.0572967529297
+  }
+}

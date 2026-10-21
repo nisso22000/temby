@@ -1,0 +1,32 @@
+{
+  "startedAt": "2026-10-20T16:53:51.053Z",
+  "scope": "Update local worker, clear TEMBY derived snapshot only, reload existing homepage once; no cart-page visit, mutation, login or challenge action",
+  "snapshots": [
+    {
+      "visibility": "visible"
+    },
+    {
+      "path": "/",
+      "visibility": "visible",
+      "source": "response",
+      "issue": null,
+      "amount": "122 308,73 DZD",
+      "count": "9 article(s) sélectionné(s)",
+      "merchantNet": "423,58 EUR â†’ 116 484,5 DZD"
+    }
+  ],
+  "before": {
+    "path": "/",
+    "visibility": "visible",
+    "source": "response",
+    "issue": null,
+    "amount": "122 860,24 DZD",
+    "count": "10 article(s) sélectionné(s)",
+    "merchantNet": "425,49 EUR → 117 009,75 DZD"
+  },
+  "update": {
+    "updated": true,
+    "derivedCopyCleared": true
+  },
+  "finishedAt": "2026-10-20T16:53:54.250Z"
+}

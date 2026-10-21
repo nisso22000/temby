@@ -52,3 +52,23 @@ test('streaming limit cancels oversized bodies and never returns a complete cach
     assert.equal(completed,false);assert.equal(cancelled,true);
   }finally{tail.resolve();server.closeAllConnections();server.close();}
 });
+
+test('unchanged styles, partial media and binary downloads stream before upstream completion',async()=>{
+ const tail=deferred();
+ const transport:Transport=async(url)=>new Response(new ReadableStream({start(controller){controller.enqueue(new Uint8Array([1,2]));void tail.promise.then(()=>{controller.enqueue(new Uint8Array([3,4]));controller.close();});}}),{status:url.pathname.includes('video')?206:200,headers:{'content-type':url.pathname.includes('css')?'text/css':url.pathname.includes('video')?'video/mp4':'application/pdf','cache-control':'private','content-range':'bytes 0-3/100'}}) as any;
+ const {app,merchant}=createServers(4090,4091,transport);app.listen(4090,'127.0.0.1');merchant.listen(4091,'127.0.0.1');await Promise.all([once(app,'listening'),once(merchant,'listening')]);
+ const origin='http://localhost:4091';const self:any={location:{origin},Ultraviolet:{},fetch:(url:string,options:any)=>fetch(url,{...options,headers:{...options.headers,origin}})};
+ vm.runInNewContext(await readFile(new URL('../public/uv-transport.js',import.meta.url),'utf8'),{self,URL,Response,ReadableStream,Uint8Array,DataView,TextDecoder,atob,btoa});
+ const client=new self.Ultraviolet.BareClient();
+ try{
+  const replies=await Promise.all([['style','css'],['video','video'],['empty','pdf']].map(async([destination,path])=>{
+   let timer:ReturnType<typeof setTimeout>;
+   const pending=client.fetch('https://static.kwcdn.com/owned.'+path,{headers:{'x-temby-request-destination':destination}});
+   const response:any=await Promise.race([pending,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Response was buffered')),1500);})]).finally(()=>clearTimeout(timer));
+   const reader=response.body.getReader();assert.deepEqual(Array.from((await reader.read()).value),[1,2]);
+   if(destination==='video'){assert.equal(response.status,206);assert.equal(response.headers.get('content-range'),'bytes 0-3/100');}
+   return reader;
+  }));tail.resolve();
+  for(const reader of replies){assert.deepEqual(Array.from((await reader.read()).value),[3,4]);assert.equal((await reader.read()).done,true);}
+ }finally{tail.resolve();app.closeAllConnections();merchant.closeAllConnections();app.close();merchant.close();}
+});

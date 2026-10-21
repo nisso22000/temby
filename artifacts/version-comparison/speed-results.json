@@ -1,0 +1,535 @@
+{
+  "scope": "HTTP delivery only; no browser rendering, UV rewriting or IndexedDB cookie commit timing",
+  "rows": [
+    {
+      "version": "v23",
+      "kind": "homepage",
+      "status": 200,
+      "headersMs": 426,
+      "totalMs": 428,
+      "bodyBytes": 2889,
+      "setCookieCount": 1
+    },
+    {
+      "version": "v24",
+      "kind": "homepage",
+      "status": 200,
+      "headersMs": 393,
+      "totalMs": 395,
+      "bodyBytes": 2889,
+      "setCookieCount": 1
+    },
+    {
+      "version": "v24",
+      "kind": "homepage",
+      "status": 200,
+      "headersMs": 144,
+      "totalMs": 146,
+      "bodyBytes": 2889,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v23",
+      "kind": "homepage",
+      "status": 200,
+      "headersMs": 130,
+      "totalMs": 132,
+      "bodyBytes": 2889,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v23",
+      "kind": "homepage",
+      "status": 200,
+      "headersMs": 129,
+      "totalMs": 131,
+      "bodyBytes": 2889,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v24",
+      "kind": "homepage",
+      "status": 200,
+      "headersMs": 127,
+      "totalMs": 129,
+      "bodyBytes": 2889,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v24",
+      "kind": "homepage",
+      "status": 200,
+      "headersMs": 117,
+      "totalMs": 118,
+      "bodyBytes": 2889,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v23",
+      "kind": "homepage",
+      "status": 200,
+      "headersMs": 108,
+      "totalMs": 108,
+      "bodyBytes": 2889,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v23",
+      "kind": "/uv/config.js",
+      "status": 200,
+      "headersMs": 15,
+      "totalMs": 16,
+      "bodyBytes": 15421,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v23",
+      "kind": "/uv/bundle.js",
+      "status": 200,
+      "headersMs": 22,
+      "totalMs": 33,
+      "bodyBytes": 378572,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v23",
+      "kind": "/uv/sw.js",
+      "status": 200,
+      "headersMs": 10,
+      "totalMs": 13,
+      "bodyBytes": 5806,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v24",
+      "kind": "/uv/config.js",
+      "status": 200,
+      "headersMs": 16,
+      "totalMs": 17,
+      "bodyBytes": 17090,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v24",
+      "kind": "/uv/bundle.js",
+      "status": 200,
+      "headersMs": 20,
+      "totalMs": 29,
+      "bodyBytes": 378572,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v24",
+      "kind": "/uv/sw.js",
+      "status": 200,
+      "headersMs": 12,
+      "totalMs": 13,
+      "bodyBytes": 6768,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v24",
+      "kind": "/uv/config.js",
+      "status": 200,
+      "headersMs": 11,
+      "totalMs": 12,
+      "bodyBytes": 17090,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v24",
+      "kind": "/uv/bundle.js",
+      "status": 200,
+      "headersMs": 9,
+      "totalMs": 21,
+      "bodyBytes": 378572,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v24",
+      "kind": "/uv/sw.js",
+      "status": 200,
+      "headersMs": 7,
+      "totalMs": 7,
+      "bodyBytes": 6768,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v23",
+      "kind": "/uv/config.js",
+      "status": 200,
+      "headersMs": 6,
+      "totalMs": 7,
+      "bodyBytes": 15421,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v23",
+      "kind": "/uv/bundle.js",
+      "status": 200,
+      "headersMs": 4,
+      "totalMs": 10,
+      "bodyBytes": 378572,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v23",
+      "kind": "/uv/sw.js",
+      "status": 200,
+      "headersMs": 4,
+      "totalMs": 4,
+      "bodyBytes": 5806,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v23",
+      "kind": "/uv/config.js",
+      "status": 200,
+      "headersMs": 3,
+      "totalMs": 4,
+      "bodyBytes": 15421,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v23",
+      "kind": "/uv/bundle.js",
+      "status": 200,
+      "headersMs": 5,
+      "totalMs": 9,
+      "bodyBytes": 378572,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v23",
+      "kind": "/uv/sw.js",
+      "status": 200,
+      "headersMs": 3,
+      "totalMs": 3,
+      "bodyBytes": 5806,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v24",
+      "kind": "/uv/config.js",
+      "status": 200,
+      "headersMs": 4,
+      "totalMs": 5,
+      "bodyBytes": 17090,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v24",
+      "kind": "/uv/bundle.js",
+      "status": 200,
+      "headersMs": 3,
+      "totalMs": 9,
+      "bodyBytes": 378572,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v24",
+      "kind": "/uv/sw.js",
+      "status": 200,
+      "headersMs": 3,
+      "totalMs": 4,
+      "bodyBytes": 6768,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v24",
+      "kind": "/uv/config.js",
+      "status": 200,
+      "headersMs": 3,
+      "totalMs": 4,
+      "bodyBytes": 17090,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v24",
+      "kind": "/uv/bundle.js",
+      "status": 200,
+      "headersMs": 4,
+      "totalMs": 7,
+      "bodyBytes": 378572,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v24",
+      "kind": "/uv/sw.js",
+      "status": 200,
+      "headersMs": 3,
+      "totalMs": 3,
+      "bodyBytes": 6768,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v23",
+      "kind": "/uv/config.js",
+      "status": 200,
+      "headersMs": 3,
+      "totalMs": 4,
+      "bodyBytes": 15421,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v23",
+      "kind": "/uv/bundle.js",
+      "status": 200,
+      "headersMs": 4,
+      "totalMs": 9,
+      "bodyBytes": 378572,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v23",
+      "kind": "/uv/sw.js",
+      "status": 200,
+      "headersMs": 3,
+      "totalMs": 3,
+      "bodyBytes": 5806,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v23",
+      "kind": "/uv/config.js",
+      "status": 200,
+      "headersMs": 3,
+      "totalMs": 3,
+      "bodyBytes": 15421,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v23",
+      "kind": "/uv/bundle.js",
+      "status": 200,
+      "headersMs": 3,
+      "totalMs": 6,
+      "bodyBytes": 378572,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v23",
+      "kind": "/uv/sw.js",
+      "status": 200,
+      "headersMs": 3,
+      "totalMs": 3,
+      "bodyBytes": 5806,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v24",
+      "kind": "/uv/config.js",
+      "status": 200,
+      "headersMs": 3,
+      "totalMs": 3,
+      "bodyBytes": 17090,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v24",
+      "kind": "/uv/bundle.js",
+      "status": 200,
+      "headersMs": 3,
+      "totalMs": 6,
+      "bodyBytes": 378572,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v24",
+      "kind": "/uv/sw.js",
+      "status": 200,
+      "headersMs": 3,
+      "totalMs": 3,
+      "bodyBytes": 6768,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v24",
+      "kind": "/uv/config.js",
+      "status": 200,
+      "headersMs": 4,
+      "totalMs": 5,
+      "bodyBytes": 17090,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v24",
+      "kind": "/uv/bundle.js",
+      "status": 200,
+      "headersMs": 3,
+      "totalMs": 7,
+      "bodyBytes": 378572,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v24",
+      "kind": "/uv/sw.js",
+      "status": 200,
+      "headersMs": 4,
+      "totalMs": 4,
+      "bodyBytes": 6768,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v23",
+      "kind": "/uv/config.js",
+      "status": 200,
+      "headersMs": 5,
+      "totalMs": 5,
+      "bodyBytes": 15421,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v23",
+      "kind": "/uv/bundle.js",
+      "status": 200,
+      "headersMs": 5,
+      "totalMs": 12,
+      "bodyBytes": 378572,
+      "setCookieCount": 0
+    },
+    {
+      "version": "v23",
+      "kind": "/uv/sw.js",
+      "status": 200,
+      "headersMs": 3,
+      "totalMs": 4,
+      "bodyBytes": 5806,
+      "setCookieCount": 0
+    }
+  ],
+  "summary": [
+    {
+      "version": "v23",
+      "kind": "homepage",
+      "samples": 4,
+      "statuses": [
+        200,
+        200,
+        200,
+        200
+      ],
+      "medianHeadersMs": 129.5,
+      "medianTotalMs": 131.5,
+      "minMs": 108,
+      "maxMs": 428
+    },
+    {
+      "version": "v23",
+      "kind": "/uv/config.js",
+      "samples": 6,
+      "statuses": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "medianHeadersMs": 4,
+      "medianTotalMs": 4.5,
+      "minMs": 3,
+      "maxMs": 16
+    },
+    {
+      "version": "v23",
+      "kind": "/uv/bundle.js",
+      "samples": 6,
+      "statuses": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "medianHeadersMs": 4.5,
+      "medianTotalMs": 9.5,
+      "minMs": 6,
+      "maxMs": 33
+    },
+    {
+      "version": "v23",
+      "kind": "/uv/sw.js",
+      "samples": 6,
+      "statuses": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "medianHeadersMs": 3,
+      "medianTotalMs": 3.5,
+      "minMs": 3,
+      "maxMs": 13
+    },
+    {
+      "version": "v24",
+      "kind": "homepage",
+      "samples": 4,
+      "statuses": [
+        200,
+        200,
+        200,
+        200
+      ],
+      "medianHeadersMs": 135.5,
+      "medianTotalMs": 137.5,
+      "minMs": 118,
+      "maxMs": 395
+    },
+    {
+      "version": "v24",
+      "kind": "/uv/config.js",
+      "samples": 6,
+      "statuses": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "medianHeadersMs": 4,
+      "medianTotalMs": 5,
+      "minMs": 3,
+      "maxMs": 17
+    },
+    {
+      "version": "v24",
+      "kind": "/uv/bundle.js",
+      "samples": 6,
+      "statuses": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "medianHeadersMs": 3.5,
+      "medianTotalMs": 8,
+      "minMs": 6,
+      "maxMs": 29
+    },
+    {
+      "version": "v24",
+      "kind": "/uv/sw.js",
+      "samples": 6,
+      "statuses": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "medianHeadersMs": 3.5,
+      "medianTotalMs": 4,
+      "minMs": 3,
+      "maxMs": 13
+    }
+  ]
+}

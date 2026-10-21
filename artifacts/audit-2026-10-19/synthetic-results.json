@@ -1,0 +1,183 @@
+{
+  "scope": "Synthetic diagnostics, not a merchant performance benchmark",
+  "generatedAt": "2026-10-19T21:34:11.693Z",
+  "checks": [
+    {
+      "name": "Cart response is a snapshot, not a price delta",
+      "total": 2092,
+      "minimum": 3000
+    },
+    {
+      "name": "Locally modified structured data is accepted by the client parser",
+      "acceptedModifiedMinor": 1,
+      "securityImplication": "Client parser is validation for consistency, not proof of merchant origin"
+    },
+    {
+      "name": "Numeric-string minimum handling",
+      "numberMinimum": 3000,
+      "stringMinimum": null
+    },
+    {
+      "name": "Newer-timestamp cache versus live precedence",
+      "selectedMinor": 100
+    },
+    {
+      "name": "IndexedDB without databases()",
+      "opened": [
+        "scdb"
+      ],
+      "expectedScopedName": "https://www.temu.com@scdb",
+      "missesScopedDatabase": true
+    },
+    {
+      "name": "Live endpoint recognition",
+      "supported": true,
+      "observedMobileBareEndpoint": false,
+      "otherCartRoute": false
+    },
+    {
+      "name": "Unsupported currency",
+      "GBPResponseAccepted": false
+    },
+    {
+      "name": "Direct path relay load",
+      "relayCallsDuringDirectBenchmark": 0,
+      "note": "Local mechanism demonstration, not CDN connectivity validation"
+    },
+    {
+      "name": "Identical concurrent public-cache misses",
+      "browserRequests": 20,
+      "coldUpstreamCalls": 20,
+      "peakUpstreamHeadersInFlight": 20,
+      "warmExtraCalls": 0
+    },
+    {
+      "name": "Cooldown distinguishes POST body",
+      "first": "{\"requestBody\":\"first\"}",
+      "second": "{\"requestBody\":\"first\"}",
+      "secondReachedUpstream": false
+    },
+    {
+      "name": "Replay observability",
+      "recorded429s": 1,
+      "client429s": 2
+    }
+  ],
+  "benchmarks": [
+    {
+      "label": "Current image streaming",
+      "samples": [
+        {
+          "headersMs": 22,
+          "firstBodyMs": 63,
+          "completeMs": 218,
+          "wireBytes": 524403
+        },
+        {
+          "headersMs": 5,
+          "firstBodyMs": 62,
+          "completeMs": 212,
+          "wireBytes": 524403
+        },
+        {
+          "headersMs": 4,
+          "firstBodyMs": 48,
+          "completeMs": 201,
+          "wireBytes": 524403
+        }
+      ]
+    },
+    {
+      "label": "Current CSS buffering",
+      "samples": [
+        {
+          "headersMs": 216,
+          "firstBodyMs": 217,
+          "completeMs": 222,
+          "wireBytes": 524402
+        },
+        {
+          "headersMs": 218,
+          "firstBodyMs": 219,
+          "completeMs": 247,
+          "wireBytes": 524402
+        },
+        {
+          "headersMs": 210,
+          "firstBodyMs": 210,
+          "completeMs": 217,
+          "wireBytes": 524402
+        }
+      ]
+    },
+    {
+      "label": "Current JS buffering",
+      "samples": [
+        {
+          "headersMs": 195,
+          "firstBodyMs": 196,
+          "completeMs": 203,
+          "wireBytes": 524409
+        },
+        {
+          "headersMs": 212,
+          "firstBodyMs": 213,
+          "completeMs": 226,
+          "wireBytes": 524409
+        },
+        {
+          "headersMs": 198,
+          "firstBodyMs": 198,
+          "completeMs": 202,
+          "wireBytes": 524409
+        }
+      ]
+    },
+    {
+      "label": "Current JSON buffering",
+      "samples": [
+        {
+          "headersMs": 224,
+          "firstBodyMs": 226,
+          "completeMs": 242,
+          "wireBytes": 524410
+        },
+        {
+          "headersMs": 215,
+          "firstBodyMs": 216,
+          "completeMs": 231,
+          "wireBytes": 524410
+        },
+        {
+          "headersMs": 231,
+          "firstBodyMs": 232,
+          "completeMs": 243,
+          "wireBytes": 524410
+        }
+      ]
+    },
+    {
+      "label": "Direct local fixture, bypassing relay",
+      "samples": [
+        {
+          "headersMs": 55,
+          "firstBodyMs": 55,
+          "completeMs": 201,
+          "wireBytes": 524288
+        },
+        {
+          "headersMs": 63,
+          "firstBodyMs": 63,
+          "completeMs": 219,
+          "wireBytes": 524288
+        },
+        {
+          "headersMs": 47,
+          "firstBodyMs": 48,
+          "completeMs": 195,
+          "wireBytes": 524288
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "version": "v23",
+    "page": "homepage",
+    "event": "load",
+    "responseMs": 634,
+    "domMs": 974,
+    "loadMs": 4159
+  },
+  {
+    "version": "v23",
+    "page": "login",
+    "event": "load",
+    "responseMs": 3317,
+    "domMs": 4035,
+    "loadMs": 8783
+  },
+  {
+    "version": "v24",
+    "page": "homepage",
+    "event": "load",
+    "responseMs": 635,
+    "domMs": 1133,
+    "loadMs": 2618
+  },
+  {
+    "version": "v24",
+    "page": "login",
+    "event": "load",
+    "responseMs": 1577,
+    "domMs": 2449,
+    "loadMs": 4448
+  }
+]

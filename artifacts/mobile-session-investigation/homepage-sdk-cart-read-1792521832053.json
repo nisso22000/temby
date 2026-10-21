@@ -1,0 +1,18 @@
+{
+  "capturedAt": "2026-10-20T18:43:52.051Z",
+  "scope": "One normal-render full-cart read from an existing mobile homepage through its own merchant client. No cart changes or raw payloads retained.",
+  "result": {
+    "clientAvailable": true,
+    "clientPath": "__INITIAL_PROPS__.stores.store.$service.postRisk",
+    "durationMs": 519,
+    "success": true,
+    "errorCode": 1000000,
+    "accepted": true,
+    "cart": {
+      "totalMinor": 8782,
+      "currency": "EUR",
+      "lines": 2,
+      "selectedUnits": 7
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "scope": "Isolated local Ghostery balanced-profile matcher CPU benchmark, four representative URLs; excludes module import and network/page latency",
+  "rules": 3,
+  "ruleParseMs": 7.301300000000083,
+  "medianMicrosecondsPerCall": 4.492610000000002,
+  "trials": 7,
+  "callsPerTrial": 20000,
+  "warmupCalls": 2000
+}

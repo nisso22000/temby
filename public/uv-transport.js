@@ -28,8 +28,13 @@
   };
   class RelayClient {
     async fetch(url,options={}){
-      const started=++requestSequence;
+      const started=++requestSequence,startedAt=Date.now();
+      const cartObserved=self.__tembyCart?.responseURL(String(url));
+      const cartScope=cartObserved?await self.__tembyCartScope?.(String(url)):null;
+      if(cartObserved)void self.__tembyPublishCartTrace?.(String(url),'request',{method:options.method||'GET',transport:'proxy-relay',requestStartedAt:startedAt}).catch(()=>{});
       const bytes=options.body?new Uint8Array(await new Response(options.body).arrayBuffer()):null;
+      let cartOperation=null;
+      if(cartObserved&&bytes){try{const parsed=JSON.parse(new TextDecoder().decode(bytes));if(Number.isSafeInteger(parsed.cart_modify_type))cartOperation=parsed.cart_modify_type;}catch{}}
       const body=bytes?btoa(Array.from(bytes,x=>String.fromCharCode(x)).join('')):null;
       const headers={...options.headers};const destination=headers['x-temby-request-destination']||'unknown';delete headers['x-temby-request-destination'];
       const signal=['GET','HEAD'].includes(options.method||'GET')?(self.__tembyRelaySignals?.get(options.headers)||options.signal):undefined;
@@ -47,9 +52,13 @@
       const empty=[101,204,205,304].includes(wire.status)||options.method==='HEAD';
       if(empty&&binary)await wire.body.cancel();
       const response=new Response(empty?null:binary?wire.body:Uint8Array.from(atob(wire.body),x=>x.charCodeAt(0)),{status:wire.status,headers:Object.entries(wire.headers).filter(([k])=>k!=='set-cookie')});
-      if(self.__tembyCart?.responseURL(String(url))&&self.__tembyObserveCartResponse){
-        // Observe the response already requested by Temu; never request a cart.
-        try{await self.__tembyObserveCartResponse(String(url),response.clone(),started);}catch{}
+      if(cartObserved&&self.__tembyObserveCartResponse){
+        // Observe the supplied response without issuing another request here.
+        try{
+          const establishesIdentity=!cartScope&&wire.headers['set-cookie']?.some(cookie=>/^(?:[^=;]*(?:auth|token|session|uid|uin)[^=;]*|_nano_fp)=/i.test(cookie));
+          const observedScope=establishesIdentity?await self.__tembyCartScope?.(String(url)):cartScope;
+          await self.__tembyObserveCartResponse(String(url),response.clone(),started,startedAt,observedScope,cartOperation);
+        }catch{}
       }
       response.rawHeaders=wire.headers;response.finalURL=String(url);return response;
     }

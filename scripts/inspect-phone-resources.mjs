@@ -1,0 +1,6 @@
+// Read-only, sanitized resource history. No merchant calls or raw URLs saved.
+const tabs=await(await fetch('http://127.0.0.1:9223/json/list')).json();
+for(const tab of tabs.filter(t=>t.type==='page'&&/^http:\/\/localhost:3001\/uv-service\//.test(t.url))){
+ const s=new WebSocket(tab.webSocketDebuggerUrl);await new Promise((r,j)=>{s.onopen=r;s.onerror=j;});
+ try{const reply=await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('Debugger timeout')),8000);s.onmessage=e=>{const m=JSON.parse(e.data);if(m.id===1){clearTimeout(timer);resolve(m.result?.result?.value);}};s.send(JSON.stringify({id:1,method:'Runtime.evaluate',params:{returnByValue:true,expression:`({visible:document.visibilityState==='visible',requests:performance.getEntriesByType('resource').map(e=>{try{let u=new URL(e.name);if(u.pathname.startsWith('/uv-service/'))u=new URL(decodeURIComponent(u.pathname.slice(12)));return {host:u.hostname,path:u.pathname.split('/').map(p=>/^[a-z_-]{1,50}$/i.test(p)?p:p?'[value]':'').join('/'),status:e.responseStatus,startMs:Math.round(e.startTime)};}catch{return null;}}).filter(e=>e&&/cart|shopping_cart/.test(e.path)).slice(-30)})`}}));});console.log(JSON.stringify({target:tab.id,...reply}));}finally{s.close();}
+}

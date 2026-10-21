@@ -1,0 +1,40 @@
+{
+  "scope": "Read-only physical Android tab and normalized database summaries. No credentials, item names, IDs, or raw merchant bodies saved.",
+  "databases": [
+    {
+      "scoped": true,
+      "error": "absent-or-unavailable"
+    },
+    {
+      "scoped": false,
+      "error": "absent-or-unavailable"
+    }
+  ],
+  "page": {
+    "companion": true,
+    "source": "unavailable",
+    "issue": null,
+    "updating": "false",
+    "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+    "amount": "— DZD",
+    "warning": "",
+    "button": "Remplir automatiquement",
+    "visibility": "visible",
+    "readyState": "complete",
+    "mobile": true,
+    "hasTouch": true
+  },
+  "ownedSevenLineParser": {
+    "time": 1792511692955,
+    "merchantRequestTime": 1792511692955,
+    "ageMs": 19,
+    "currency": "EUR",
+    "totalMinor": 2699,
+    "items": 7,
+    "quantity": 6,
+    "invalidLines": 1,
+    "selectedInvalid": 0,
+    "unselectedInvalid": 1,
+    "accepted": true
+  }
+}

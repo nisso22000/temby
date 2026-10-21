@@ -1,0 +1,57 @@
+{
+  "startedAt": "2026-10-20T16:06:19.896Z",
+  "scope": "One local worker update and ordinary cart refresh; no merchant interaction beyond loading that cart document",
+  "snapshots": [
+    {
+      "path": "/shopping_cart.html",
+      "visibility": "visible",
+      "source": "unavailable",
+      "updating": "false",
+      "issue": null,
+      "amount": "— DZD",
+      "count": "",
+      "merchantNet": "",
+      "bubbleBottom": 1735,
+      "viewportHeight": 1747
+    },
+    {
+      "path": "/shopping_cart.html",
+      "visibility": "visible",
+      "viewportHeight": 641
+    },
+    {
+      "path": "/shopping_cart.html",
+      "visibility": "visible",
+      "source": "response",
+      "updating": "false",
+      "issue": null,
+      "amount": "121 581,08 DZD",
+      "count": "8 article(s) sélectionné(s)",
+      "merchantNet": "421,06 EUR → 115 791,5 DZD",
+      "bubbleBottom": 565.6666870117188,
+      "viewportHeight": 641
+    }
+  ],
+  "workerErrors": [],
+  "before": {
+    "path": "/shopping_cart.html",
+    "visibility": "visible",
+    "source": "unavailable",
+    "updating": "false",
+    "issue": null,
+    "amount": "— DZD",
+    "count": "",
+    "merchantNet": "",
+    "bubbleBottom": 621.6666870117188,
+    "viewportHeight": 697
+  },
+  "localAsset": {
+    "error": "Failed to fetch"
+  },
+  "update": {
+    "active": true,
+    "state": "activated"
+  },
+  "refreshedAt": "2026-10-20T16:06:21.672Z",
+  "finishedAt": "2026-10-20T16:06:24.803Z"
+}

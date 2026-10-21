@@ -1,0 +1,45 @@
+{
+  "scope": "Owned fixtures only; no merchant requests or customer sessions",
+  "cases": [
+    {
+      "mode": "desktop",
+      "freshVisitNoWarning": true,
+      "visibleTotalIgnored": true,
+      "emptyCartNoWarning": true,
+      "databaseOnly": true,
+      "bareEndpoint": "response",
+      "minimumWarning": "Le minimum de commande n’est pas encore atteint. Il manque 9,08 EUR ; minimum : 30 EUR.",
+      "cartFailureWarning": "Temu n’a pas pu actualiser votre panier. Ouvrez-le pour vérifier le montant.",
+      "directRequests": 12,
+      "workerCounts": {
+        "direct": 10,
+        "directFallback": 0,
+        "blocked": 5,
+        "relay": 11
+      },
+      "pageErrors": [],
+      "providerUiUntouched": true,
+      "integrityAfterWorkerRestart": true
+    },
+    {
+      "mode": "mobile",
+      "freshVisitNoWarning": true,
+      "visibleTotalIgnored": true,
+      "emptyCartNoWarning": true,
+      "databaseOnly": true,
+      "bareEndpoint": "response",
+      "minimumWarning": "Le minimum de commande n’est pas encore atteint. Il manque 9,08 EUR ; minimum : 30 EUR.",
+      "cartFailureWarning": "Temu n’a pas pu actualiser votre panier. Ouvrez-le pour vérifier le montant.",
+      "directRequests": 12,
+      "workerCounts": {
+        "direct": 10,
+        "directFallback": 0,
+        "blocked": 5,
+        "relay": 11
+      },
+      "pageErrors": [],
+      "providerUiUntouched": true,
+      "integrityAfterWorkerRestart": true
+    }
+  ]
+}

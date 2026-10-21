@@ -1,0 +1,81 @@
+{
+  "failures": [
+    {
+      "host": "www.temu.com",
+      "route": "/api/passport/token/touch",
+      "status": 424,
+      "errorCode": 40001,
+      "outcome": "Rewriting engine relay",
+      "count": 10,
+      "lastSeen": "2026-10-18T06:51:07.621Z"
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/seo/get_common_biz_data",
+      "status": 403,
+      "errorCode": 40002,
+      "outcome": "Rewriting engine relay",
+      "count": 5,
+      "lastSeen": "2026-10-18T06:50:48.51Z"
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/poppy/[value]/search_activation",
+      "status": 429,
+      "errorCode": 40002,
+      "outcome": "Rewriting engine relay",
+      "count": 5,
+      "lastSeen": "2026-10-18T06:50:48.368Z"
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/poppy/[value]/title_bar_list",
+      "status": 403,
+      "errorCode": 40001,
+      "outcome": "Rewriting engine relay",
+      "count": 5,
+      "lastSeen": "2026-10-18T06:50:47.85Z"
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/seo/get_page_seo_data",
+      "status": 403,
+      "errorCode": 40002,
+      "outcome": "Rewriting engine relay",
+      "count": 5,
+      "lastSeen": "2026-10-18T06:50:47.006Z"
+    },
+    {
+      "host": "eu.pftk.temu.com",
+      "status": 502,
+      "outcome": "Local relay upstream transport failure",
+      "count": 1,
+      "lastSeen": "2026-10-18T06:45:07.697Z"
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/cusco/platform/chat/showQuickEntry",
+      "status": 424,
+      "errorCode": 40001,
+      "outcome": "Rewriting engine relay",
+      "count": 3,
+      "lastSeen": "2026-10-18T06:44:32.305Z"
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify/pc_side_bar",
+      "status": 200,
+      "errorCode": 40002,
+      "outcome": "Rewriting engine relay",
+      "count": 4,
+      "lastSeen": "2026-10-18T06:44:32.152Z"
+    },
+    {
+      "host": "cm.g.doubleclick.net",
+      "status": 403,
+      "outcome": "Destination outside allowlist",
+      "count": 1,
+      "lastSeen": "2026-10-18T06:27:41.936Z"
+    }
+  ]
+}

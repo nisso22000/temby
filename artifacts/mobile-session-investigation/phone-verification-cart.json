@@ -1,0 +1,107 @@
+{
+  "startedAt": "2026-10-20T15:50:22.544Z",
+  "scope": "Passive physical-phone user action capture. No agent interaction and no raw request/response bodies, credentials, product names or query values saved.",
+  "actions": [
+    {
+      "kind": "other-control",
+      "time": 1792511510663
+    },
+    {
+      "kind": "other-control",
+      "time": 1792511515931
+    },
+    {
+      "kind": "other-control",
+      "time": 1792511519488
+    }
+  ],
+  "responses": [
+    {
+      "host": "www.temu.com",
+      "route": "/api/bg/sigerus/auth/login_name/is_registered",
+      "method": "POST",
+      "isRelay": false,
+      "observedAt": 1792511510715,
+      "initiator": "script",
+      "status": 200,
+      "transportStatus": 200,
+      "fromWorker": true,
+      "responseAt": 1792511510558,
+      "application": {
+        "success": true,
+        "errorCode": 1000000,
+        "hasCartList": false
+      }
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/bg/sigerus/auth/pub_key/request",
+      "method": "POST",
+      "isRelay": false,
+      "observedAt": 1792511519534,
+      "initiator": "script",
+      "status": 200,
+      "transportStatus": 200,
+      "fromWorker": true,
+      "responseAt": 1792511519125,
+      "application": {
+        "success": true,
+        "errorCode": 1000000,
+        "hasCartList": false
+      }
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/faas-abtest-server/firefly-api/exp-config",
+      "method": "POST",
+      "isRelay": false,
+      "observedAt": 1792511519762,
+      "initiator": "script",
+      "status": 200,
+      "transportStatus": 200,
+      "fromWorker": true,
+      "responseAt": 1792511519239,
+      "application": {
+        "success": true,
+        "errorCode": null,
+        "hasCartList": false
+      }
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/bg/sigerus/auth/login",
+      "method": "POST",
+      "isRelay": false,
+      "observedAt": 1792511519890,
+      "initiator": "script",
+      "status": 200,
+      "transportStatus": 200,
+      "fromWorker": true,
+      "responseAt": 1792511519484,
+      "application": {
+        "success": true,
+        "errorCode": 1000000,
+        "hasCartList": false
+      }
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/bg/sigerus/auth/email_code/request",
+      "method": "POST",
+      "isRelay": false,
+      "observedAt": 1792511520145,
+      "initiator": "script",
+      "status": 200,
+      "transportStatus": 200,
+      "fromWorker": true,
+      "responseAt": 1792511520015,
+      "application": {
+        "success": true,
+        "errorCode": 1000000,
+        "hasCartList": false
+      }
+    }
+  ],
+  "failures": [],
+  "navigations": []
+}

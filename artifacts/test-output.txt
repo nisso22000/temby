@@ -1,0 +1,21 @@
+
+> temby-shopping-proxy-poc@0.1.0 test
+> tsx --test tests/*.test.ts
+
+✔ allowlist rejects SSRF targets, credentials, bad ports and lookalike suffixes (1.8283ms)
+✔ address policy rejects private, mapped IPv4, link-local, multicast and special-use addresses (3.3797ms)
+✔ connection lookup rejects nonallowlisted hosts before DNS (0.6776ms)
+✔ URL and HTML rewriting handles absolute, relative, forms, CDN, srcset, meta refresh and targets (10.6979ms)
+✔ real adapter recognizes observed challenge and never fabricates cart (0.5095ms)
+✔ fixture extraction keeps missing values unknown and validates checkout confirmation (2.0144ms)
+✔ cookie jar enforces domain, Secure, expiry and customer separation (21.2034ms)
+✔ decompression returns correct body and bounded reader limits decompressed bytes (151.2617ms)
+✔ HTTP integration: forwarding, redirects, challenge halt, sessions, fixture cart and security boundaries (180.7746ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1830.0064

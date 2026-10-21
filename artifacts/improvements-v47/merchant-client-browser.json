@@ -1,0 +1,36 @@
+[
+  {
+    "mobile": false,
+    "delayedSDKStartup": true,
+    "fullSDKRead": true,
+    "addAndRemoveThroughZero": true,
+    "bubbleChangeRevalidated": true,
+    "fullDeleteResponseDirect": true,
+    "overlappingReadDoesNotLoseEdit": true,
+    "noUnsignedReads": true,
+    "noRefusalRetry": true,
+    "clientErrorReleased": true,
+    "stalledClientDeadline": true,
+    "navigationReleased": true,
+    "recovery": true,
+    "returningTabRevalidated": false,
+    "reads": 10
+  },
+  {
+    "mobile": true,
+    "delayedSDKStartup": true,
+    "fullSDKRead": true,
+    "addAndRemoveThroughZero": true,
+    "bubbleChangeRevalidated": true,
+    "fullDeleteResponseDirect": true,
+    "overlappingReadDoesNotLoseEdit": true,
+    "noUnsignedReads": true,
+    "noRefusalRetry": true,
+    "clientErrorReleased": true,
+    "stalledClientDeadline": false,
+    "navigationReleased": true,
+    "recovery": true,
+    "returningTabRevalidated": true,
+    "reads": 10
+  }
+]

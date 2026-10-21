@@ -1,0 +1,1412 @@
+{
+  "scope": "Two fresh proxy contexts; different sessions/time, not a causal A/B test. No user account or challenge interaction.",
+  "runs": [
+    {
+      "mode": "compatibility-default",
+      "upstreamRequests": 80,
+      "stoppedForChallenge": false,
+      "budgetReached": true,
+      "statuses": {
+        "200": 75,
+        "403": 3,
+        "424": 1,
+        "429": 1
+      },
+      "repeatedOperations": [
+        {
+          "host": "www.temu.com",
+          "route": "/",
+          "method": "GET",
+          "count": 3
+        }
+      ],
+      "events": [
+        {
+          "host": "www.temu.com",
+          "route": "/",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 1
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 1,
+          "setCookies": 1
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 4
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/server/_stm",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 7,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/adx/cm/ttc",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 8,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/phantom/dm/wl/cg",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 8,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/phantom/xg/pfb/[value]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 8,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/phantom/xg/pfb/b",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 8,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/phantom/xg/pfb/[value]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/passport/token/touch",
+          "method": "POST",
+          "status": 424,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/bg/buffon/fuji/region/pay/icon",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/seo/get_page_seo_data",
+          "method": "POST",
+          "status": 403,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/faas-abtest-server/firefly-api/exp-config",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/alexa/pc/homepage/activity",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/poppy/[value]/title_bar_list",
+          "method": "POST",
+          "status": 403,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/bg/huygens/setting/query",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/poppy/[value]/search_activation",
+          "method": "POST",
+          "status": 429,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/bg-barbera-api/home/footer/pc",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.thtk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/faas-abtest-server/firefly-api/exp-config",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/alexa/pc/homepage/hub",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/seo/get_common_biz_data",
+          "method": "POST",
+          "status": 403,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        },
+        {
+          "host": "eu.pftk.temu.com",
+          "route": "[resource]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 0
+        }
+      ],
+      "pageErrors": [
+        "AxiosError",
+        "AxiosError",
+        "AxiosError",
+        "AxiosError",
+        "AxiosError",
+        "AxiosError",
+        "AxiosError"
+      ],
+      "finalLocation": {
+        "host": "www.temu.com",
+        "route": "/login.html"
+      },
+      "workerCounts": {
+        "direct": 0,
+        "directFallback": 0,
+        "blocked": 0,
+        "relay": 126
+      }
+    },
+    {
+      "mode": "optional-routing-enabled",
+      "upstreamRequests": 80,
+      "stoppedForChallenge": false,
+      "budgetReached": true,
+      "statuses": {
+        "200": 71,
+        "403": 3,
+        "424": 1,
+        "429": 2
+      },
+      "repeatedOperations": [
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "count": 3
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "count": 2
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/",
+          "method": "GET",
+          "count": 3
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "count": 2
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/server/_stm",
+          "method": "GET",
+          "count": 2
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/static/config/get_front_end_page_config",
+          "method": "GET",
+          "count": 2
+        }
+      ],
+      "events": [
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 0,
+          "error": "AbortError"
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 0,
+          "error": "AbortError"
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 0,
+          "error": "AbortError"
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 1
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 1,
+          "setCookies": 1
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 2,
+          "setCookies": 4
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/server/_stm",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 7,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/phantom/dm/wl/cg",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 8,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/phantom/xg/pfb/[value]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 8,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/phantom/xg/pfb/b",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 8,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/phantom/xg/pfb/[value]",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/bg/buffon/fuji/region/pay/icon",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/seo/get_page_seo_data",
+          "method": "POST",
+          "status": 403,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/passport/token/touch",
+          "method": "POST",
+          "status": 424,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/faas-abtest-server/firefly-api/exp-config",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/bg/huygens/setting/query",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/poppy/[value]/title_bar_list",
+          "method": "POST",
+          "status": 403,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/alexa/pc/homepage/activity",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/poppy/[value]/search_activation",
+          "method": "POST",
+          "status": 429,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/bg-barbera-api/home/footer/pc",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/faas-abtest-server/firefly-api/exp-config",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/alexa/pc/homepage/hub",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/seo/get_common_biz_data",
+          "method": "POST",
+          "status": 403,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/login.html",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/static/config/get_front_end_page_config",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/rubicon/benefit/query/info",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/jade/neutrino/dnld/qr/get",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/poppy/[value]/search_activation",
+          "method": "POST",
+          "status": 429,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify/pc_side_bar",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/[value]/sumer-log/key-use-data",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/alexa/homepage/goods_list",
+          "method": "POST",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "static.kwcdn.com",
+          "route": "[resource]",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 0,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/server/_stm",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        },
+        {
+          "host": "www.temu.com",
+          "route": "/api/static/config/get_front_end_page_config",
+          "method": "GET",
+          "status": 200,
+          "cookiesSent": 9,
+          "setCookies": 0
+        }
+      ],
+      "pageErrors": [
+        "AxiosError",
+        "AxiosError",
+        "AxiosError",
+        "AxiosError",
+        "AxiosError",
+        "AxiosError",
+        "InvalidStateError",
+        "",
+        "",
+        "",
+        "Error",
+        "Error",
+        "ChunkLoadError",
+        "Error",
+        "AxiosError",
+        "Error",
+        "Error",
+        "ChunkLoadError",
+        "AxiosError",
+        "AxiosError",
+        "AxiosError",
+        "AxiosError",
+        "AxiosError",
+        "AxiosError",
+        "AxiosError"
+      ],
+      "finalLocation": {
+        "host": "www.temu.com",
+        "route": "/login.html"
+      },
+      "workerCounts": {
+        "direct": 34,
+        "directFallback": 0,
+        "blocked": 122,
+        "relay": 95
+      }
+    }
+  ]
+}

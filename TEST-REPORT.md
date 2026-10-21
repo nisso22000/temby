@@ -1,3 +1,101 @@
+# V48 full-cart authority and mobile count signal — 21 October 2026
+
+All 100 automated tests and TypeScript pass. The owned desktop/mobile browser scenario verifies that a matching mobile bubble count causes no new read, a changed selected-SKU count triggers one full read, and a complete delete response updates the amount without a second read. It also checks a completed edit against an overlapping stale read, add/remove through zero, rejection and recovery, and a returning mobile tab. The HTML cart bootstrap parser and periodic database scan are removed. The physical Samsung case has not yet been retested with v48, and merchant puzzles/login can still prevent a full read. Browser evidence: artifacts/improvements-v48/merchant-client-browser.json and browser-verification.json.
+
+## Earlier v47 verification
+
+The old saved cart could block a read indefinitely in a newly opened tab. V47 rechecks a saved cart when its last successful response is at least 15 seconds old and its last attempted read is at least 30 seconds old. Successful cart edits without a full response, including a delete acknowledgement with no operation number, trigger one shared full read. A page-client read counts as successful only after the worker publishes a validated response. Failed edit acknowledgements do not trigger a read. All 98 tests and TypeScript pass. Owned desktop/mobile browser scenarios pass add/remove through zero, refusals, recovery and navigation; the returning mobile tab reads a changed cart after its old tab was closed. Evidence: artifacts/improvements-v47/merchant-client-browser.json. The Samsung failure reported by the user was not reproduced physically in this run, so its resolution is not yet confirmed.
+
+The user's later pasted cart-page `/cart_modify` delete response is a different case: it contains a full cart, and the current validator accepts its USD 16.72 total, three SKU lines and five selected units. This proves the acknowledgement-only fix is not the cause of that exact missed update. The publication/display path needs a simultaneous capture; the response alone cannot identify the failing step.
+
+# Earlier V46 merchant page client — 21 October 2026
+
+All 97 tests and TypeScript pass. New unit coverage locates the homepage/cart clients, waits for hydration, preserves method context, rejects count-only/refused responses and avoids extracting credentials or exposing client errors.
+
+The owned browser fixture requires a page-client marker on every full-cart read; an ordinary worker read would be refused. Desktop and mobile both pass delayed initialization, add/remove through zero, one refused read without a fallback duplicate, a failing client without another request, recovery, and navigation during an unfinished page read. A new page can subsequently update again. A separate stalled-client deadline check passes in the shared desktop path, without an extra fallback request. Existing pages without a client also pass their startup/live-update/failure regressions. Evidence: artifacts/improvements-v46/merchant-client-browser.json.
+
+The real Samsung homepage client returned a complete EUR 87.82 cart in 519 ms during the 20 October discovery probe. That confirms the data source, not integrated v46 mutation reliability. The phone was disconnected on 21 October, so physical validation of the new coordination path remains pending. Puzzles/login and reported intermittent misses remain unresolved launch checks.
+
+# Earlier V45 cart identity rotation and stale-zero state — 20 October 2026
+
+Later removal coverage: owned desktop/mobile scenarios now remove three accepted items down to zero and check both the selected count and DZD amount after each change. They pass. Physical history also shows two successful removal updates, and the current merchant SDK cart agrees with a read-only API probe. The customer still reports intermittent misses; those successful cases do not establish that the remaining failure is fixed. See MOBILE-INVESTIGATION.md for the current field status.
+
+All 94 tests and TypeScript pass. An owned-browser before/after test rotates verifyAuthToken during a full cart read. Before the identity correction, all four guest/signed-in × desktop/mobile cases discard the result and remain at 0 DZD; afterward, all four show the changed amount. No real merchant cart is modified by these tests. Evidence: artifacts/improvements-v45/identity-rotation-before.json and identity-rotation-after.json.
+
+Owned startup tests also pass a confirmed empty cart → accepted add → refused full read → navigation → later accepted add/read. The old zero receives a stale warning, the warning survives navigation without a retry, and later success clears it. The merchant clock is 400 ms behind the local observation clock. Cold initialization, live mobile route changes, burst sharing and refusal bounds still pass. Evidence: artifacts/improvements-v45/startup-browser.json. The v45 physical fresh-session test now passes after the customer completed signup. An accepted add on a product page produced a published EUR 3.86 snapshot and one-item / 1,114.58 DZD companion display without a cart-page visit. Guest access before signup still encountered puzzles/login, so that reliability remains unresolved. Evidence: artifacts/improvements-v45/physical-signup-product-add.json.
+
+# Earlier V44 missed mobile changes — 20 October 2026
+
+All 93 tests pass, together with TypeScript and diff whitespace checks. New worker checks verify successful mobile mutation acknowledgements without cart_modify_type request a snapshot, while failed acknowledgements, counts and tracking do not. Owned fresh desktop/mobile contexts start at confirmed 0, then receive updates after single/operate_cart, batch/add_cart and remove_and_add. They never request shopping_cart.html. Existing burst coalescing and refusal bounds still pass. This fixes a demonstrated code gap; the customer's Samsung private-window mutation retest remains pending. No physical merchant cart writes were performed by the agent.
+
+# Earlier V43 mobile wire format and cold-homepage read — 20 October 2026
+
+The full suite passed 91 tests. Final focused parser checks and TypeScript pass after rejecting conflicting camel/snake aliases. Both wire spellings reuse the same currency, amount, SKU and selected-unit validation.
+
+Owned desktop/mobile startup checks pass: a new homepage with no cart data, no scdb and no saved snapshot gets eight selected units from one read-only API request, with zero shopping_cart.html requests. An accepted partial cart-change reply refreshes the total. A burst of four further changes used two shared reads on desktop and one on mobile in the recorded run. Count-only replies do not trigger reads. A refused read is not retried by navigating. Evidence: artifacts/improvements-v43/startup-browser.json. Existing broad cart/database/minimum/resource fixtures also pass with confirmed fresh-empty-cart initialization.
+
+The final startup run also verifies that Next is disabled while a changed cart is being read. A refused cold-start read remains at one request through navigation and worker restart. Burst grouping varies with scheduling; the recorded final run used one shared burst read in each browser mode, with the assertion allowing one follow-up for later changes. The final full suite still passes 91 tests.
+
+Physical Samsung cold-homepage verification cleared only TEMBY's derived copy, preserved merchant/login state and reloaded the existing homepage once. It obtained a fresh nine-selected-item EUR 423.58 response and showed 122,308.73 DZD without a cart-page visit or request. Evidence: artifacts/improvements-v43/physical-homepage-startup.json. A prior saved estimate differed; the real merchant cart UI was not independently revisited during this test. Live add/remove reconciliation and puzzle reliability remain unverified.
+
+# Earlier V42 cart retention across browsing — 20 October 2026
+
+The full suite passed 90 tests; final targeted cart-state/worker tests and TypeScript passed after the last warning-retention change. Coverage includes identity hashing without credential retention, other-account refusal, logout ordering, late-response rejection and storage-denied fallback. The compatibility test now chooses available local ports after an unrelated listener occupied its previous fixed port.
+
+Owned desktop/mobile browsers pass cart → another page with no cart API response → worker stop/restart → page reload. The initial eight-item fixture remains readable from the local cart database. A subsequent cart failure also remains a warning after navigation. Existing cart, minimum, sold-out, provider and resource checks pass with no page exceptions. Evidence: artifacts/improvements-v42/browser-verification.json.
+
+Physical Samsung verification passed cart refresh → homepage → existing product → product reload, retaining nine selected items, EUR 423.58 and 122,308.73 DZD. These nine items were already present before the agent test. No cart mutations, login, challenge handling, purchases or server restart were performed. Evidence: artifacts/improvements-v42/physical-phone-cart.json. This verifies retention of a known snapshot; real-phone mutation-response coverage remains unverified.
+
+# Earlier V41 initial mobile cart response — 20 October 2026
+
+All 88 tests and TypeScript pass. The new initial-response tests use an anonymized packet taken from the physical Samsung's already-received cart API data. They check the known document JSON path, refusal of script execution/visible-price-only input, ambiguous assignments, and worker handoff to a companion that did not exist when the response arrived. Earlier-navigation and other-origin snapshots are rejected, and merchant response bytes remain unchanged.
+
+Owned desktop/mobile browser fixtures pass the initial-document-only eight-item scenario without scdb or a subsequent cart API fetch. Existing empty/fresh carts, database-only reading, minimums, sold-out lines, resource routing and integrity cases still pass. Evidence: artifacts/improvements-v41/browser-verification.json.
+
+The real Samsung was updated without restarting the server or clearing login. One cart refresh showed source=response, eight selected lines, EUR 421.06 and 121,581.08 DZD, with no issue. The bubble clears the bottom checkout bar. Evidence: artifacts/improvements-v41/physical-phone-cart.json. Repeated mutations and broader puzzle/login reliability remain unverified; the separate server metadata fix has not yet been activated in the running customer server.
+
+# Earlier V40 physical-phone investigation and API observability — 20 October 2026
+
+Transport follow-up: all 86 tests and TypeScript pass after preserving the actual browser's Sec-Fetch-Mode through Undici fetch. A real local HTTP test first reproduces Undici changing navigate to cors, then verifies navigate/no-cors/same-origin/cors at the receiving server with the correction. It also checks unchanged POST bytes, other supplied headers, two Set-Cookie headers and an unfollowed 302. No change in real Temu challenge frequency is established, and the running customer server was not restarted to activate this transport edit.
+
+Follow-up layout check: the owned desktop/mobile browser suite passed after moving the mobile companion above a reserved 64-pixel bottom-control area. The mobile bounding-box assertion passed and both cases had no page exceptions. The source change is not yet physically verified on Samsung. Real mobile cart reading remains broken: two HTTP-200 cart responses had an unsupported schema, and a later refresh returned cart HTTP 403 before login. See MOBILE-INVESTIGATION.md for timestamps and capture limits.
+
+The functional suite has 85 passing tests and TypeScript passes. New coverage verifies that a separate bounded API ring survives image/telemetry bursts, remains session-scoped and excludes query values/credentials. Cart-family coverage includes merge/user_cart_num while count-only observations cannot publish a fabricated total/error or advance full-snapshot ordering. Browser results are under artifacts/improvements-v40/.
+
+Physical Samsung evidence is under artifacts/mobile-session-investigation/. The initial homepage APIs succeeded; no supported scdb/full-response snapshot existed for the companion. A user-reported successful product/add flow was followed by a later product navigation and token-touch refusal/verification. The successful add response itself was not captured; no universal mobile cart or puzzle fix is claimed. No merchant interaction was automated and the user server was not restarted.
+
+See MOBILE-INVESTIGATION.md and PROXY-ARCHITECTURE-PLAN.md for the evidence, limitations and next decision steps. Historical results follow.
+
+# V39 cart regression diagnosis — 20 October 2026
+
+Current functional tests cover the seven-line/six-selected cart with an unselected zero-quantity SKU_SOLD_OUT item, selected/unexplained blocker retention, shared merchant request timestamps, safe console logging and bounded parsing despite large unrelated item metadata. Returning to a visible mobile tab triggers an immediate storage rescan. The hanging database-enumeration case also passes because enumeration is no longer needed. Current suite: 84 passing tests.
+
+Owned desktop/mobile browser fixtures pass with no uncaught page errors. The seven-line case displays six selected lines and permits continuation. Measured fixture updates were 149 ms desktop and 59 ms mobile before final field-projection hardening; these are not whole-page speed claims. Source/browser evidence: artifacts/improvements-v39/.
+
+Read-only physical Samsung debugging confirmed the existing companion was unavailable while the Chrome tab was hidden and Android was dozing. The proposed parser accepted a synthetic seven-line case on that physical device: EUR 26.99, seven lines, six selected, zero selected problems, one unselected problem. Actual database inspection timed out while the tab was hidden. No phone navigation, login, logout, puzzle interaction or storage write was performed. This does not certify real mobile cart/authentication or product loading.
+
+The local running server reports optional direct loading and telemetry blocking off. Existing browser documents need the launcher/reload to load v39. The user server was not restarted.
+
+# V38 routing investigation and simplification — 20 October 2026
+
+Removed provider-control hiding and Ghostery. Added default-routing coverage: merchant telemetry is forwarded unchanged, provider UI hooks are absent, and external provider hosts remain denied. Optional routing tests explicitly opt in now. The functional suite has 78 passing tests and TypeScript passes. Owned desktop/mobile browser evidence is under artifacts/improvements-v38/.
+
+The bounded live routing comparison uses two different fresh contexts, at different times, with at most 80 relay upstream requests each. Both encountered token-touch 424/API refusals and login redirection. The enabled sample recorded 122 local blocks and more page errors; direct CDN traffic bypasses the relay budget. Both hit the budget, so some later failures can come from the diagnostic stop. These samples do not establish cause or challenge frequency. No challenge was solved, no login was submitted, and no user session was imported or cleared. Raw URLs/query values, credentials and response bodies were not saved. Results: artifacts/improvements-v38/merchant-routing-comparison.json.
+
+The recent double-puzzle report remains unresolved. Safer defaults remove two unvalidated traffic changes while preserving their explicit opt-in comparison paths. A server restart and browser refresh are needed for activation; no running user server was restarted.
+
+# V37 cart corrections — 20 October 2026
+
+Current changes remove visible-page cart reading, use timestamp ordering without the two-minute source preference, apply max(20 USD/EUR, accepted merchant minimum), distinguish absent/empty carts from failed updates, and separate sign-in form detection from cart invalidation. The current suite has 77 functional tests after replacing obsolete page-dependent assertions. TypeScript checks pass. Owned desktop/mobile browser cases pass with no uncaught page errors: fresh failed requests without a warning/dimmed amount, visible totals ignored, explicit empty carts, database-only recovery, live cart updates, minimum shortfalls, failed-update recovery, direct resources, provider-control matching and browser-worker restart. Evidence: artifacts/improvements-v37/browser-verification.json.
+
+These are owned fixtures. Real populated signed-in Temu mobile cart behavior and the 403/424/429/puzzle/login issue remain unresolved. The user's running server has not been restarted during these checks. Historical results below describe their original revisions.
+
+# V36 reliability/performance verification — 19 October 2026
+
+All **82 functional tests**, TypeScript checks and diff whitespace checks pass. Owned desktop/mobile browser verification passes bare mobile cart recognition, minimum warnings, failed-update recovery, direct public CSS and declared protected-script delivery, original integrity metadata through a real service-worker stop/restart, telemetry suppression and recognized provider-control hiding. Expected console 403 messages come from the deliberately rejected cart fixture; there are no uncaught page errors in these browser cases. Results and screenshots are under `artifacts/improvements-v36/`.
+
+The known-sized public-image fixture coalesces twenty simultaneous requests into one upstream call. The paced local CSS fixture starts payload delivery around 45 ms versus the earlier buffered median 217 ms; no whole-page percentage gain is claimed. A bounded fresh-session live mobile test still receives cart 403/token-touch 424/429 responses and reaches login. No customer account, CAPTCHA, registration terms, purchase or payment was submitted. The existing server was not restarted. See `LAUNCH-READINESS.md` for changes, activation controls and unresolved public-launch gates.
+
 # V25 local release — 18 October 2026
 
 All 38 functional tests and `npm run typecheck` pass. URL normalization now skips absolute parsing when no colon can occur in an absolute URL, and skips login-return parsing when no literal `from` query parameter is present. Regression coverage retains nested proxy/login returns, raw query bytes, whitespace and dot-segment behavior, ordinary product links and CDN URLs. V24 cookie handling and previous transport/cache/streaming behavior remain unchanged.
@@ -118,3 +216,5 @@ Validation: TypeScript check and all 12 remaining tests pass. Integration checks
 
 Live follow-up at approximately 21:46 UTC: root navigation redirected to Temu's sign-in page under the encoded localhost route. Its full Arabic sign-in form rendered, with email/phone entry and Continue button visible. An upstream 429 did not replace the page; other API/asset requests continued with 200 responses. Google/Facebook/Apple SDK hosts remain locally denied by the allowlist; social sign-in is unverified. No credentials were entered or login submitted. Screenshot: artifacts/proxied-temu-login.png. The development diagnostics UI was reduced to metadata only; the old payment/cart lab interface is no longer served.
 
+
+Final v39 browser recheck after parser hardening and visibility recovery: desktop 38 ms, mobile 32 ms. Both desktop/mobile cases passed with no uncaught page errors. These are owned fixture timings.

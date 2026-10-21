@@ -1,0 +1,10 @@
+// Read-only capability checks in existing phone tabs. No merchant calls.
+const tabs=await(await fetch('http://127.0.0.1:9223/json/list')).json();
+for(const tab of tabs.filter(t=>t.type==='page'&&/^http:\/\/localhost:3001\/uv-service\//.test(t.url))){
+ const socket=new WebSocket(tab.webSocketDebuggerUrl);await new Promise((r,j)=>{socket.onopen=r;socket.onerror=j;});let id=0;const pending=new Map();
+ socket.onmessage=e=>{const v=JSON.parse(e.data),p=pending.get(v.id);if(!p)return;clearTimeout(p.timer);pending.delete(v.id);v.error?p.reject(Error(v.error.message)):p.resolve(v.result);};
+ const send=(method,params={})=>new Promise((resolve,reject)=>{const n=++id,timer=setTimeout(()=>{pending.delete(n);reject(Error('Debugger timeout'));},8000);pending.set(n,{resolve,reject,timer});socket.send(JSON.stringify({id:n,method,params}));});
+ try{const r=await send('Runtime.evaluate',{returnByValue:true,expression:`(()=>{const store=globalThis.__INITIAL_PROPS__?.store||globalThis.rawData?.store;const svc=store?.$service,http=store?.$axiosHttp;return {path:globalThis.__uv?.meta?.url?.pathname,visibility:document.visibilityState,cartModify:typeof svc?.cartModify,postRisk:typeof svc?.postRisk,httpPostRisk:typeof http?.postRisk,httpPost:typeof http?.post,storeKeys:store?Object.keys(store).filter(k=>/service|http|cart|query|common/i.test(k)).slice(0,35):[],commonKeys:store?.cartModifyCommonParams?Object.keys(store.cartModifyCommonParams).filter(k=>/^[a-z_]{1,60}$/.test(k)):[],cartSummary:store?.apiStore?.cartModifyData?.result?{currency:store.apiStore.cartModifyData.result.cartTransferMap?.currency,total:store.apiStore.cartModifyData.result.cartTransferMap?.orderAmount,selected:(store.apiStore.cartModifyData.result.cartListInfo?.goodsSkuList||[]).filter(i=>i.isSelected===1).reduce((n,i)=>n+(i.skuInfo?.amount||0),0)}:null,source:document.getElementById('temby-companion')?.getAttribute('data-price-source')};})()`});console.log(JSON.stringify(r.result?.value));}finally{socket.close();}
+}
+
+

@@ -1,0 +1,19 @@
+{
+  "scope": "Passive physical Samsung fresh-session check after customer signup. No agent cart mutations or challenge interactions.",
+  "customerReport": "Completed signup, added on product page, companion updated without visiting cart.",
+  "snapshotPages": [
+    "shopping",
+    "authentication"
+  ],
+  "capturedCartPage": false,
+  "published": {
+    "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+    "totalMinor": 386
+  },
+  "companion": {
+    "amount": "1 114,58 DZD",
+    "count": "1 article(s) sélectionné(s)",
+    "issue": null
+  },
+  "limitations": "Confirms the signed-in case after signup. Guest puzzle/login reliability remains unresolved."
+}

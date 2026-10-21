@@ -52,7 +52,7 @@ test('active server isolates sessions, enforces local boundaries and removes ret
     const fixture=await fetch(store+'/_relay',{method:'POST',headers:{origin:store,'content-type':'application/json'},body:JSON.stringify({url:'https://fixture.temby.invalid/api/cart',method:'GET'})});assert.equal((await fixture.json()).status,403);assert.equal(calls,0,'test fixtures are disabled in the default server');
     assert.equal((await fetch(store+'/_relay',{method:'POST',headers:{origin:'https://evil.test','content-type':'application/json'},body:'{}'})).status,403);
     const invalidHost=await new Promise<number|undefined>((resolve,reject)=>get(appURL+'/api/state',{headers:{host:'evil.test'}},r=>{r.resume();resolve(r.statusCode);}).on('error',reject));assert.equal(invalidHost,403);
-    const state=await(await fetch(appURL+'/api/state',{headers:{cookie:sid}})).json();assert.deepEqual(Object.keys(state),['events']);assert.equal((await fetch(appURL+'/api/state')).headers.get('access-control-allow-origin'),null);
+    const state=await(await fetch(appURL+'/api/state',{headers:{cookie:sid}})).json();assert.deepEqual(Object.keys(state),['events','apiEvents']);assert.deepEqual(state.apiEvents,[]);assert.equal((await fetch(appURL+'/api/state')).headers.get('access-control-allow-origin'),null);
   }finally{app.closeAllConnections();merchant.closeAllConnections();app.close();merchant.close();}
 });
 

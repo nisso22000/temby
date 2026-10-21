@@ -13,4 +13,13 @@ test('failed requests survive successful image bursts in bounded health metadata
   record(session,{host:'www.temu.com',method:'POST',status:200,type:'application/json',bytes:25,outcome:'relay',route:'/api/bg/example',errorCode:40002,applicationFailed:true});
   for(let i=0;i<150;i++)record(session,{host:'img.kwcdn.com',method:'GET',status:200,type:'image/avif',bytes:100,outcome:'relay'});
   assert.equal(session.events.length,100);assert.equal(session.failures.length,1);assert.equal(sessions.health()[0].errorCode,40002);assert.equal(sessions.health()[0].count,1);
+  assert.equal(session.apiEvents?.length,1);assert.equal(session.apiEvents?.[0].route,'/api/bg/example');
+});
+
+test('bounded API timeline retains successful item/cart responses without tokens or query values',()=>{
+ const sessions=new Sessions();const session=sessions.get({headers:{}} as any,{setHeader(){}} as any);
+ for(let i=0;i<110;i++)record(session,{host:'www.temu.com',method:'POST',status:200,type:'application/json',bytes:20,outcome:'Rewriting engine relay',...responseMetadata(new URL('https://www.temu.com/api/oak/integration/sku?token=secret'),'application/json',Buffer.from('{"success":true}'))});
+ for(let i=0;i<120;i++)record(session,{host:'eu.pftk.temu.com',method:'POST',status:200,type:'application/octet-stream',bytes:0,outcome:'Rewriting engine relay'});
+ assert.equal(session.apiEvents?.length,100);assert.equal(session.apiEvents?.[0].status,200);assert.equal(session.failures.length,0);assert.ok(!JSON.stringify(session.apiEvents).includes('secret'));
+ const other=sessions.get({headers:{}} as any,{setHeader(){}} as any);assert.equal(other.apiEvents,undefined,'timeline belongs to its own session');
 });

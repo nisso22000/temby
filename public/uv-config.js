@@ -12,6 +12,12 @@ self.Ultraviolet.prototype.rewriteImport=function(base,specifier){return this.re
     constructor(...args){
       super(...args);this.attrs.isForbidden=()=>false;
       this.$tembySource=self.__tembySetSource;
+      this.html.on('element',(element,type)=>{
+        if(type!=='rewrite'||element.tagName!=='script'||!self.__tembyRegisterIntegrity)return;
+        const integrity=element.getAttribute('integrity')||element.getAttribute('__uv-attr-integrity');
+        const src=element.getAttribute('src');
+        if(integrity&&src)try{self.__tembyRegisterIntegrity(this.meta.url.href,new URL(src,this.meta.base||this.meta.url).href,integrity);}catch{}
+      });
       this.js?.on('MemberExpression',(node,data,type)=>{
         if(type!=='rewrite'||node.computed||node.property.name!=='postMessage'||node.object.type==='Super')return;
         // Keep the workaround on the reproduced iframe message path. Do not

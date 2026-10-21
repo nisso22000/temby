@@ -1,0 +1,730 @@
+{
+  "scope": "Read-only cached public-script endpoint discovery and safe cart console history",
+  "targets": [
+    {
+      "type": "page",
+      "scannedScripts": 10,
+      "endpoints": [
+        "/api/bg/venice/cart_floating_layer",
+        "/api/bg/bg-uranus-api/uranus_cart/secondary",
+        "/api/bg/epiktetos/cart/goods/footprint/list",
+        "/api/bg/bg-uranus-api/uranus_cart/recommend/sku_list",
+        "/api/bg/bg-uranus-api/uranus_cart/tracking_data",
+        "/api/bg/bg-uranus-api/uranus_cart/query/other_accounts",
+        "/api/bg/venice/gateway/cart_page",
+        "/api/bg/bg-uranus-api/cart_share/create",
+        "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+        "/api/bg/bg-uranus-api/uranus_cart/cart_modify",
+        "/api/bg/bg-uranus-api/uranus_cart/reselect/sku_list"
+      ],
+      "traces": [
+        {
+          "phase": "unavailable",
+          "reason": "no-supported-current-cart"
+        },
+        {
+          "phase": "selected",
+          "source": "response",
+          "time": 1792521256921,
+          "totalMinor": 18264,
+          "currency": "EUR",
+          "items": 4,
+          "selectedUnits": 15,
+          "invalidLines": 0
+        },
+        {
+          "phase": "database",
+          "source": "scdb",
+          "reason": "database-absent"
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792521260079
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/query/other_accounts",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792521260689
+        },
+        {
+          "phase": "response",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify",
+          "source": "response",
+          "status": 200,
+          "requestStartedAt": 1792521260079,
+          "durationMs": 1515,
+          "time": 1792521260940,
+          "totalMinor": 16629,
+          "currency": "EUR",
+          "items": 3,
+          "invalidLines": 0
+        },
+        {
+          "phase": "published",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify",
+          "source": "response",
+          "requestStartedAt": 1792521260079,
+          "totalMinor": 16629
+        },
+        {
+          "phase": "selected",
+          "source": "response",
+          "time": 1792521260940,
+          "totalMinor": 16629,
+          "currency": "EUR",
+          "items": 3,
+          "selectedUnits": 14,
+          "invalidLines": 0
+        },
+        {
+          "phase": "observed-without-snapshot",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/query/other_accounts",
+          "source": "response",
+          "reason": "unsupported-schema",
+          "status": 200,
+          "requestStartedAt": 1792521260689,
+          "durationMs": 1473
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792521262406
+        },
+        {
+          "phase": "observed-without-snapshot",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "source": "response",
+          "reason": "unsupported-schema",
+          "status": 200,
+          "requestStartedAt": 1792521262406,
+          "durationMs": 192
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792521263073
+        },
+        {
+          "phase": "response",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify",
+          "source": "response",
+          "status": 200,
+          "requestStartedAt": 1792521263073,
+          "durationMs": 226,
+          "time": 1792521262666,
+          "totalMinor": 8782,
+          "currency": "EUR",
+          "items": 2,
+          "invalidLines": 0
+        },
+        {
+          "phase": "published",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify",
+          "source": "response",
+          "requestStartedAt": 1792521263073,
+          "totalMinor": 8782
+        },
+        {
+          "phase": "selected",
+          "source": "response",
+          "time": 1792521262666,
+          "totalMinor": 8782,
+          "currency": "EUR",
+          "items": 2,
+          "selectedUnits": 7,
+          "invalidLines": 0
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792521263541
+        },
+        {
+          "phase": "observed-without-snapshot",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "source": "response",
+          "reason": "unsupported-schema",
+          "status": 200,
+          "requestStartedAt": 1792521263541,
+          "durationMs": 283
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792521356436
+        },
+        {
+          "phase": "response",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+          "source": "response",
+          "status": 200,
+          "requestStartedAt": 1792521356436,
+          "durationMs": 290,
+          "time": 1792521356109,
+          "totalMinor": 8782,
+          "currency": "EUR",
+          "items": 2,
+          "invalidLines": 0
+        },
+        {
+          "phase": "published",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+          "source": "response",
+          "requestStartedAt": 1792521356436,
+          "totalMinor": 8782
+        },
+        {
+          "phase": "selected",
+          "source": "response",
+          "time": 1792521356109,
+          "totalMinor": 8782,
+          "currency": "EUR",
+          "items": 2,
+          "selectedUnits": 7,
+          "invalidLines": 0
+        }
+      ],
+      "exceptions": [],
+      "frames": [
+        {
+          "host": "www.temu.com",
+          "isMain": true,
+          "isProduct": false,
+          "isVerification": false
+        }
+      ]
+    },
+    {
+      "type": "service_worker",
+      "scannedScripts": 0,
+      "endpoints": [],
+      "traces": [
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792520934286
+        },
+        {
+          "phase": "response",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+          "source": "response",
+          "status": 200,
+          "requestStartedAt": 1792520934286,
+          "durationMs": 210,
+          "time": 1792520933907,
+          "totalMinor": 1016,
+          "currency": "EUR",
+          "items": 1,
+          "invalidLines": 0
+        },
+        {
+          "phase": "published",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+          "source": "response",
+          "requestStartedAt": 1792520934286,
+          "totalMinor": 1016
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792520958163
+        },
+        {
+          "phase": "observed-without-snapshot",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "source": "response",
+          "reason": "unsupported-schema",
+          "status": 200,
+          "requestStartedAt": 1792520958163,
+          "durationMs": 542
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/single/operate_cart",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792520962009
+        },
+        {
+          "phase": "changed",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/single/operate_cart",
+          "source": "response",
+          "reason": "accepted-mutation-needs-snapshot",
+          "status": 200,
+          "requestStartedAt": 1792520962009
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792520962261
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792520962325
+        },
+        {
+          "phase": "response",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+          "source": "response",
+          "status": 200,
+          "requestStartedAt": 1792520962261,
+          "durationMs": 217,
+          "time": 1792520961875,
+          "totalMinor": 4201,
+          "currency": "EUR",
+          "items": 2,
+          "invalidLines": 0
+        },
+        {
+          "phase": "published",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+          "source": "response",
+          "requestStartedAt": 1792520962261,
+          "totalMinor": 4201
+        },
+        {
+          "phase": "observed-without-snapshot",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "source": "response",
+          "reason": "unsupported-schema",
+          "status": 200,
+          "requestStartedAt": 1792520962325,
+          "durationMs": 171
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792520969667
+        },
+        {
+          "phase": "observed-without-snapshot",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "source": "response",
+          "reason": "unsupported-schema",
+          "status": 200,
+          "requestStartedAt": 1792520969667,
+          "durationMs": 835
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792520972624
+        },
+        {
+          "phase": "observed-without-snapshot",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "source": "response",
+          "reason": "unsupported-schema",
+          "status": 200,
+          "requestStartedAt": 1792520972624,
+          "durationMs": 619
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/single/operate_cart",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792520978856
+        },
+        {
+          "phase": "changed",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/single/operate_cart",
+          "source": "response",
+          "reason": "accepted-mutation-needs-snapshot",
+          "status": 200,
+          "requestStartedAt": 1792520978856
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792520979139
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792520979146
+        },
+        {
+          "phase": "observed-without-snapshot",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "source": "response",
+          "reason": "unsupported-schema",
+          "status": 200,
+          "requestStartedAt": 1792520979139,
+          "durationMs": 120
+        },
+        {
+          "phase": "response",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+          "source": "response",
+          "status": 200,
+          "requestStartedAt": 1792520979146,
+          "durationMs": 186,
+          "time": 1792520978738,
+          "totalMinor": 5015,
+          "currency": "EUR",
+          "items": 3,
+          "invalidLines": 0
+        },
+        {
+          "phase": "published",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+          "source": "response",
+          "requestStartedAt": 1792520979146,
+          "totalMinor": 5015
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792520984073
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792520984080
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792520984087
+        },
+        {
+          "phase": "observed-without-snapshot",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "source": "response",
+          "reason": "unsupported-schema",
+          "status": 200,
+          "requestStartedAt": 1792520984073,
+          "durationMs": 195
+        },
+        {
+          "phase": "observed-without-snapshot",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "source": "response",
+          "reason": "unsupported-schema",
+          "status": 200,
+          "requestStartedAt": 1792520984080,
+          "durationMs": 282
+        },
+        {
+          "phase": "observed-without-snapshot",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "source": "response",
+          "reason": "unsupported-schema",
+          "status": 200,
+          "requestStartedAt": 1792520984087,
+          "durationMs": 283
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792520987105
+        },
+        {
+          "phase": "observed-without-snapshot",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "source": "response",
+          "reason": "unsupported-schema",
+          "status": 200,
+          "requestStartedAt": 1792520987105,
+          "durationMs": 1128
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/single/operate_cart",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792520990661
+        },
+        {
+          "phase": "changed",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/single/operate_cart",
+          "source": "response",
+          "reason": "accepted-mutation-needs-snapshot",
+          "status": 200,
+          "requestStartedAt": 1792520990661
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792520990931
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792520991034
+        },
+        {
+          "phase": "response",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+          "source": "response",
+          "status": 200,
+          "requestStartedAt": 1792520990931,
+          "durationMs": 224,
+          "time": 1792520990531,
+          "totalMinor": 11015,
+          "currency": "EUR",
+          "items": 4,
+          "invalidLines": 0
+        },
+        {
+          "phase": "published",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+          "source": "response",
+          "requestStartedAt": 1792520990931,
+          "totalMinor": 11015
+        },
+        {
+          "phase": "observed-without-snapshot",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "source": "response",
+          "reason": "unsupported-schema",
+          "status": 200,
+          "requestStartedAt": 1792520991034,
+          "durationMs": 147
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792521005556
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792521005559
+        },
+        {
+          "phase": "observed-without-snapshot",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "source": "response",
+          "reason": "unsupported-schema",
+          "status": 200,
+          "requestStartedAt": 1792521005556,
+          "durationMs": 162
+        },
+        {
+          "phase": "observed-without-snapshot",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "source": "response",
+          "reason": "unsupported-schema",
+          "status": 200,
+          "requestStartedAt": 1792521005559,
+          "durationMs": 276
+        },
+        {
+          "phase": "request",
+          "route": "/shopping_cart.html",
+          "method": "GET",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792521091110
+        },
+        {
+          "phase": "response",
+          "route": "/shopping_cart.html",
+          "source": "document-response",
+          "status": 200,
+          "requestStartedAt": 1792521091110,
+          "durationMs": 366,
+          "time": 1792521090721,
+          "totalMinor": 3187,
+          "currency": "EUR",
+          "items": 2,
+          "invalidLines": 0
+        },
+        {
+          "phase": "published",
+          "route": "/shopping_cart.html",
+          "source": "response",
+          "requestStartedAt": 1792521091110,
+          "totalMinor": 3187
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/query/other_accounts",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792521094390
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792521094409
+        },
+        {
+          "phase": "observed-without-snapshot",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/query/other_accounts",
+          "source": "response",
+          "reason": "unsupported-schema",
+          "status": 200,
+          "requestStartedAt": 1792521094390,
+          "durationMs": 605
+        },
+        {
+          "phase": "response",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify",
+          "source": "response",
+          "status": 200,
+          "requestStartedAt": 1792521094409,
+          "durationMs": 695,
+          "time": 1792521094482,
+          "totalMinor": 1155,
+          "currency": "EUR",
+          "items": 1,
+          "invalidLines": 0
+        },
+        {
+          "phase": "published",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify",
+          "source": "response",
+          "requestStartedAt": 1792521094409,
+          "totalMinor": 1155
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792521095388
+        },
+        {
+          "phase": "observed-without-snapshot",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "source": "response",
+          "reason": "unsupported-schema",
+          "status": 200,
+          "requestStartedAt": 1792521095388,
+          "durationMs": 120
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792521096300
+        },
+        {
+          "phase": "response",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify",
+          "source": "response",
+          "status": 200,
+          "requestStartedAt": 1792521096300,
+          "durationMs": 200,
+          "time": 1792521095900,
+          "totalMinor": 0,
+          "currency": "EUR",
+          "items": 0
+        },
+        {
+          "phase": "published",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify",
+          "source": "response",
+          "requestStartedAt": 1792521096300,
+          "totalMinor": 0
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792521096813
+        },
+        {
+          "phase": "observed-without-snapshot",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "source": "response",
+          "reason": "unsupported-schema",
+          "status": 200,
+          "requestStartedAt": 1792521096813,
+          "durationMs": 105
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792521142348
+        },
+        {
+          "phase": "observed-without-snapshot",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+          "source": "response",
+          "reason": "unsupported-schema",
+          "status": 200,
+          "requestStartedAt": 1792521142348,
+          "durationMs": 909
+        },
+        {
+          "phase": "request",
+          "route": "/api/bg/bg-uranus-api/uranus_cart/single/operate_cart",
+          "method": "POST",
+          "transport": "proxy-relay",
+          "requestStartedAt": 1792521146021
+        }
+      ],
+      "exceptions": [],
+      "worker": {
+        "mobileMutationFix": true,
+        "cartIdentityFix": true,
+        "recognizedCartResponses": 1,
+        "counts": {
+          "direct": 0,
+          "directFallback": 0,
+          "blocked": 0,
+          "relay": 5303
+        },
+        "options": {
+          "directAssets": false,
+          "blockTelemetry": false
+        }
+      }
+    }
+  ]
+}

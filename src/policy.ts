@@ -1,9 +1,8 @@
 import dns from 'node:dns';
 import ipaddr from 'ipaddr.js';
 
-const integrations=new Set(['accounts.google.com','connect.facebook.net','appleid.cdn-apple.com']);
 export function hostAllowed(hostname:string):boolean {
-  return ['temu.com','kwcdn.com'].some(domain=>hostname===domain||hostname.endsWith('.'+domain))||integrations.has(hostname);
+  return ['temu.com','kwcdn.com'].some(domain=>hostname===domain||hostname.endsWith('.'+domain));
 }
 export function targetAllowed(url: URL): boolean {
   return url.protocol === 'https:' && !url.username && !url.password && (!url.port || url.port === '443') && hostAllowed(url.hostname);

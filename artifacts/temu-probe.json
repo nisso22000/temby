@@ -1,0 +1,13 @@
+{
+  "observedAt": "2026-10-15T16:24:09.097Z",
+  "url": "https://www.temu.com/",
+  "status": 200,
+  "location": null,
+  "contentType": "text/html",
+  "bytes": 2889,
+  "sha256": "695675bcdf98d4292cf6b8f56193695f2f93cc84949bdf32f8615b3cc6c9c767",
+  "elapsedMs": 274,
+  "challenge": "Temu JavaScript challenge loader (/assets/chl/js/)",
+  "challengeLoaderMarker": true,
+  "note": "No raw body, cookies, headers containing tokens or credentials are persisted. No challenge execution."
+}

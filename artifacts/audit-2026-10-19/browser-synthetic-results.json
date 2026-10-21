@@ -1,0 +1,103 @@
+{
+  "generatedAt": "2026-10-19T21:34:01.915Z",
+  "scope": "Isolated browser contexts; no customer credentials or cookies imported",
+  "synthetic": [
+    {
+      "mode": "desktop",
+      "initial": {
+        "companion": true,
+        "source": "response",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "6 040,65 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "structuredAfterDomTamper": {
+        "companion": true,
+        "source": "response",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "6 040,65 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "domFallback": {
+        "companion": true,
+        "source": "page",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "6 040,65 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "domFallbackAfterTamper": {
+        "companion": true,
+        "source": "page",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "2,89 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "pageErrors": []
+    },
+    {
+      "mode": "mobile-emulation",
+      "initial": {
+        "companion": true,
+        "source": "response",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "6 040,65 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "structuredAfterDomTamper": {
+        "companion": true,
+        "source": "response",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "6 040,65 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "domFallback": {
+        "companion": true,
+        "source": "page",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "6 040,65 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "domFallbackAfterTamper": {
+        "companion": true,
+        "source": "page",
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "updating": "false",
+        "amount": "2,89 DZD",
+        "received": "yes",
+        "secureContext": true,
+        "serviceWorker": false,
+        "hasDatabaseEnumeration": true
+      },
+      "pageErrors": []
+    }
+  ],
+  "live": []
+}

@@ -1,4 +1,90 @@
-# Companion v30 — behavior and verification
+# Current cart read path — v48, 21 October 2026
+
+Desktop Temu often fetches a full cart for its sidebar. Mobile Temu often fetches only the number of items for its cart bubble. That number has no trustworthy price. TEMBY now uses a full, validated Temu cart API response as its only live price source on both layouts. A mobile count response is compared with the selected SKU quantities in TEMBY's last confirmed full response. If they differ, it requests the full cart through the page's Temu client. A successful full add/delete response already contains the answer and updates directly; an acknowledgement without the cart requests the full response. The saved account-scoped database is a copy of the last validated response, never an independent price calculation.
+
+I removed HTML bootstrap cart extraction and the five-second database scan. A page may still use a saved confirmed amount while a bounded recheck is due, but it must not overwrite a newer live response. A late read cannot overwrite a completed cart edit, and a request begun before logout cannot restore the old cart afterward. If Temu refuses the full request, TEMBY keeps the prior amount with an update warning rather than guessing from the bubble. The full read and saved copy also work when there is no desktop sidebar.
+
+Controlled desktop/mobile browser cases and all 100 tests pass. A physical Samsung add/delete and puzzle session has not yet been verified against this v48 build. Temu can still require login or a puzzle, so this is not a claim of launch-ready reliability.
+
+## Earlier v47 behavior
+
+A tab that opens with a saved cart now verifies it after a quiet period: at least 15 seconds since the saved response and 30 seconds since the last read attempt. This is one account-wide check shared by tabs, not a five-second merchant poll. Successful cart edits that only acknowledge the change trigger a full cart read, including an edit with no operation number. The worker accepts a page-client result as refreshed only when its own response observer has published the validated cart. The owned browser checks pass; the reported physical Samsung delete case still needs retesting.
+
+Mobile Temu exposes its homepage client at __INITIAL_PROPS__.stores.store.$service. The cart page uses __INITIAL_PROPS__.store.$service. Our earlier inspection missed the homepage location. A real Samsung homepage read through that client returned the full EUR 87.82 cart, including seven selected units, in 519 ms without a cart-page visit. That is one measurement, not a general speed guarantee.
+
+When a full snapshot is needed, the worker now asks the shopping page to use this existing client. It waits briefly for application initialization, asks for the full cart, and observes the response through the ordinary relay. The same amount, currency, item and identity checks apply before updating the companion and its local database. Successful full responses already supplied by Temu update directly. A partial change acknowledgement causes a coordinated full read; prices are never inferred from that acknowledgement.
+
+The worker still shares overlapping reads. If no supported page client exists, the existing direct relay read remains available. If the page client attempted a read and it failed or Temu refused it, TEMBY does not issue a duplicate through the fallback. Navigating away releases the pending page read; a later read can use the new page. Failures and stale-zero warnings retain the previous rules. No visible price scraping, hidden cart iframe, or periodic merchant polling was added.
+
+Controlled desktop/mobile browser tests pass initialization with delayed page-client availability, add/remove down to zero, refusal without another request, client errors, navigation during an unfinished read and later recovery. All 97 tests and TypeScript pass. On 21 October the phone was disconnected, so the integrated v46 change has not yet been validated on the physical phone. Standalone product pages that expose neither supported store location still use the existing fallback. Puzzles/login and the reported intermittent misses remain launch checks.
+
+# Earlier cart correction — v45, 20 October 2026
+
+The saved-cart identity used to include verifyAuthToken, which is a verification proof. A changed proof could cause a valid incoming total to be discarded as another account's data. It now uses meaningful authentication credentials/account IDs, or the guest cart ID when not authenticated. Verification, challenge and CSRF proofs are excluded from this local identity calculation; they continue to pass to Temu normally. Empty credential cookies do not establish an account, and a remembered user ID alone does not restore a signed-in cart after logout.
+
+This exact discard was reproduced in owned desktop/mobile browsers, for guests and signed-in users. Before the fix, all four cases stayed at 0 after a verification cookie changed during the read. Afterward, all four display the updated DZD amount without visiting the cart. This establishes the code defect and correction, not the cause of every earlier phone failure. The phone retest now passes after signup: the customer added on a product page without visiting the cart, and both the capture and customer report confirm the new amount. This does not establish reliable guest access before login.
+
+After an accepted cart change, a refused refresh also marks a previously confirmed empty amount as stale. That warning survives navigation and clears after a later accepted read. Ordinary fresh empty carts remain warning-free. Warning freshness compares local observation times, avoiding the phone/server clock offset seen in the capture. Worker traces now distinguish a parsed response, successful publication, and discard reasons.
+
+# Earlier cart correction — v44, 20 October 2026
+
+The Samsung private-window report exposed a gap: the amount initialized to 0, but a successful add did not refresh it. Loaded mobile SDK code uses single/operate_cart and batch/add_cart without our expected cart_modify_type field. Successful replies from these routes and remove_and_add now request a full validated cart if the reply itself lacks it. No count polling, price arithmetic or visible-page reading was added. Fresh desktop/mobile browser tests pass empty → populated updates while remaining on a product page. The exact physical private-window case still needs confirmation.
+
+# Earlier cart behavior — v43, 20 October 2026
+
+You do not need to open the cart page first. When there is no usable cart record, the companion asks Temu for the full cart through its read-only API. It stays on the current shopping page. The response supplies the real total and selected items; nothing is calculated from a cart count or visible page prices.
+
+The mobile bug was a field-name mismatch: Temu sends cart_list_info and order_amount over the network, while its SDK/database copy uses cartListInfo and orderAmount. The reader now handles both spellings, rejects conflicting aliases and retains the existing currency/total checks. Both formats feed the same local database.
+
+After a successful cart change, a full response updates immediately. If the recognized change returns only a partial acknowledgement, one shared full-cart read supplies the missing total. Overlapping changes can require one follow-up read if they completed after the first read began. There is no periodic merchant polling or automatic retry of a refusal. Count-only replies do not cause extra reads. A failed initial read is remembered for that identity so ordinary navigation does not repeat it; a later successful change can initiate another read.
+
+During an actual pending read, the existing estimate is marked as updating and Next is disabled until the read finishes. This has no fixed settling delay. On return to a visible tab the companion asks the worker for local state, which also clears a stale pending indicator after a worker restart. No extra merchant read is needed when that state is usable.
+
+The query uses the merchant SDK's observed NORMAL_RENDER=1 and FullSkuData=2, with no item IDs, quantities, selection edits or fabricated proof values. The real Samsung homepage obtained a cart after only TEMBY's saved copy was cleared, without opening/requesting shopping_cart.html. Owned desktop/mobile tests also exercise changes and refusals. A real-phone add/remove test and visual reconciliation after those changes remain unverified.
+
+# Earlier cart behavior — v42, 20 October 2026
+
+The companion retains the last validated cart across shopping pages using the browser-local temby-cart-state IndexedDB database. The worker keeps one connection while alive, writes on accepted responses and reads on companion startup; this adds no merchant polling. Merchant scdb remains a second input.
+
+The saved record is scoped to merchant origin and a SHA-256 digest of authentication/session cookie identity. Raw credentials are not stored in the cart record or logged. Unknown identity does not restore a saved account's cart. Explicit logout clears the record with a persisted time barrier, preventing a late earlier response from restoring it. A later failed cart update remains a warning after navigation. Original merchant/request timestamps and the existing age checks are retained rather than reset on page visits.
+
+The physical Samsung retained the current nine selected items and EUR 423.58 total through cart → homepage → existing product → product reload. Owned desktop/mobile fixtures also stop/restart the worker and confirm the cart survives, while unit checks cover account isolation, logout and denied storage. This is last-confirmed cart retention, not proof that every add/remove/quantity-change path has been captured. An initial full snapshot still requires a supported response or database record.
+
+# Earlier cart behavior — v41, 20 October 2026
+
+The cart reader accepts supported cart API responses, the same API packet embedded as JSON in the initial shopping_cart.html response, and supported scdb records. It never reads visible prices. For the initial document, only window.rawData.store.apiStore.cartModifyData is supported; scripts are parsed as JSON and never executed. Existing success, currency, totals and item validation remains in force. A bounded worker handoff delivers the initial response after companion startup and rejects snapshots from earlier navigations or other merchant origins. No new merchant fetch is introduced.
+
+Physical Samsung verification after the customer's normal login and one ordinary cart refresh showed eight selected items, EUR 421.06 and 121,581.08 DZD including the configured 5% service charge. The same scenario passes owned desktop/mobile browser fixtures without scdb or a subsequent cart API call. Broader authentication/challenge behavior is not established by this successful read. Earlier behavior notes follow.
+
+# Earlier cart behavior — v39, 20 October 2026
+
+Response/database only. Supported envelopes retain unselected sold-out zero-quantity items. Effective blockers use selected unavailable lines plus unexplained problem counts; a fully explained unselected sold-out line is a nonblocking notice. Validated financial totals remain separate from optional item details.
+
+Accepted updates apply immediately: the old settling/eight-second hold is removed. Merchant cartTransferMap.lastRequestTime is used when valid, with request-start/cache-key fallback. Supported envelopes are projected before copying to avoid losing totals behind large product metadata. Known database names are opened directly with bounded waits, without enumeration. Polling remains local every five visible seconds; no extra merchant cart fetch is added. Unsupported response shape/content triggers a local rescan and diagnostic trace, not an automatic broken-cart warning. Opening an already-open full cart requests a local rescan.
+
+[TEMBY cart] console entries expose safe path/method/transport, response status and duration, database candidates, source choice, totals and selection/problem counts. No cookies, tokens, raw response bodies, names or product IDs are logged. Current limitations and physical Samsung observations are in LAUNCH-READINESS.md. Historical behavior below is superseded where it conflicts.
+
+# Current cart behavior — v37, 20 October 2026
+
+The cart amount now comes only from complete supported successful cart responses and matching supported IndexedDB envelopes. The visible-page monetary reader was removed. Newest accepted timestamps decide response/database precedence; the old two-minute live preference was removed. Equal conflicting observations are rejected. Cache timestamps and local request-start timestamps are observations, not verified server revisions. The 30-minute age limit remains.
+
+The effective order minimum is max(20 USD/EUR, accepted merchant minimum). The original merchant minimum remains separate. A fresh visit without accepted cart data is a neutral browsing state. Failed requests do not produce a cart warning until there is a known nonempty cart and the failure is newer than it. A newer accepted response/database observation clears that warning. Sign-in form appearance changes setup readiness but no longer clears cart observations; recognized explicit logout still invalidates older observations.
+
+The database reader opens, scans and closes every five visible seconds and on focus. It is local storage work, not network cart polling. Desktop/mobile owned fixture evidence is in artifacts/improvements-v37/. Real Temu mobile cart/authentication remains unresolved. See LAUNCH-READINESS.md for the complete implementation inventory and limitations.
+
+The notes below describe historical revisions. Statements about visible-page cart reading or live/cache preference are superseded by this section.
+
+# Companion — current v36 behavior and historical notes
+
+V36 recognizes the mobile bare `/cart_modify` endpoint as well as its child routes. Merchant HTTP/application failures and unsupported response shapes produce bounded reason codes; a failed update offers cart review rather than silently treating the old estimate as current. A later successful supported response clears that warning. No extra cart requests are introduced.
+
+Minimums normalize integer strings as well as integers. Known shortfalls and invalid-item warnings appear before clicking; the action offers more shopping or cart review. An unknown minimum is labelled for confirmation and does not claim confirmed eligibility. Recent live snapshots outrank cache write timestamps for two minutes. Snapshot timestamps use request start; recognized logout/login invalidation persists a cutoff across tabs/reloads so earlier responses and cached records cannot restore the old cart. This remains client evidence, never payment authority.
+
+IndexedDB discovery safely attempts the known scoped database without enumeration, aborts accidental creation, closes late/blocked opens and bounds reads. Recovery scans run every five visible seconds and on focus. DOM price reads are invalidated by relevant changes, navigation, resize/focus and a two-second recovery interval; the lightweight UI timer remains 500 ms. Visible DOM totals remain estimates only.
+
+Google/Facebook/Apple sign-in controls are hidden in recognized login/dialog contexts and their external destinations are denied. Email entry remains in Temu. Unsupported merchant control variants and native phone-based login have not been comprehensively validated.
+
+The sections below describe earlier revisions where timing or wording differs; the v36 behavior above supersedes them. See LAUNCH-READINESS.md for release evidence and unmet real-user requirements.
 
 ## Scope
 

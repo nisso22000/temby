@@ -1,0 +1,216 @@
+{
+  "scope": "Node VM CPU microbenchmark; actual public vendor source parsed, never executed. HTML workload synthetic. Not a page-load benchmark.",
+  "vendorBytes": 788455,
+  "rows": [
+    {
+      "round": 1,
+      "version": "v23",
+      "workload": "vendor-js",
+      "ms": 2099.85,
+      "outputSize": 840131
+    },
+    {
+      "round": 1,
+      "version": "v23",
+      "workload": "html-100-cards",
+      "ms": 84.86,
+      "outputSize": 22683
+    },
+    {
+      "round": 1,
+      "version": "v23",
+      "workload": "helper-injection",
+      "ms": 2.56,
+      "outputSize": 475164
+    },
+    {
+      "round": 1,
+      "version": "v24",
+      "workload": "vendor-js",
+      "ms": 2342.09,
+      "outputSize": 840131
+    },
+    {
+      "round": 1,
+      "version": "v24",
+      "workload": "html-100-cards",
+      "ms": 81.05,
+      "outputSize": 22683
+    },
+    {
+      "round": 1,
+      "version": "v24",
+      "workload": "helper-injection",
+      "ms": 1.91,
+      "outputSize": 475460
+    },
+    {
+      "round": 2,
+      "version": "v24",
+      "workload": "vendor-js",
+      "ms": 2000.67,
+      "outputSize": 840131
+    },
+    {
+      "round": 2,
+      "version": "v24",
+      "workload": "html-100-cards",
+      "ms": 119.63,
+      "outputSize": 22683
+    },
+    {
+      "round": 2,
+      "version": "v24",
+      "workload": "helper-injection",
+      "ms": 2.55,
+      "outputSize": 475460
+    },
+    {
+      "round": 2,
+      "version": "v23",
+      "workload": "vendor-js",
+      "ms": 1806.19,
+      "outputSize": 840131
+    },
+    {
+      "round": 2,
+      "version": "v23",
+      "workload": "html-100-cards",
+      "ms": 54.56,
+      "outputSize": 22683
+    },
+    {
+      "round": 2,
+      "version": "v23",
+      "workload": "helper-injection",
+      "ms": 0.51,
+      "outputSize": 475164
+    },
+    {
+      "round": 3,
+      "version": "v23",
+      "workload": "vendor-js",
+      "ms": 1855.8,
+      "outputSize": 840131
+    },
+    {
+      "round": 3,
+      "version": "v23",
+      "workload": "html-100-cards",
+      "ms": 38.98,
+      "outputSize": 22683
+    },
+    {
+      "round": 3,
+      "version": "v23",
+      "workload": "helper-injection",
+      "ms": 0.22,
+      "outputSize": 475164
+    },
+    {
+      "round": 3,
+      "version": "v24",
+      "workload": "vendor-js",
+      "ms": 2109.82,
+      "outputSize": 840131
+    },
+    {
+      "round": 3,
+      "version": "v24",
+      "workload": "html-100-cards",
+      "ms": 68.27,
+      "outputSize": 22683
+    },
+    {
+      "round": 3,
+      "version": "v24",
+      "workload": "helper-injection",
+      "ms": 0.19,
+      "outputSize": 475460
+    },
+    {
+      "round": 4,
+      "version": "v24",
+      "workload": "vendor-js",
+      "ms": 1952.41,
+      "outputSize": 840131
+    },
+    {
+      "round": 4,
+      "version": "v24",
+      "workload": "html-100-cards",
+      "ms": 69.38,
+      "outputSize": 22683
+    },
+    {
+      "round": 4,
+      "version": "v24",
+      "workload": "helper-injection",
+      "ms": 0.23,
+      "outputSize": 475460
+    },
+    {
+      "round": 4,
+      "version": "v23",
+      "workload": "vendor-js",
+      "ms": 2000.16,
+      "outputSize": 840131
+    },
+    {
+      "round": 4,
+      "version": "v23",
+      "workload": "html-100-cards",
+      "ms": 46.3,
+      "outputSize": 22683
+    },
+    {
+      "round": 4,
+      "version": "v23",
+      "workload": "helper-injection",
+      "ms": 0.24,
+      "outputSize": 475164
+    },
+    {
+      "round": 5,
+      "version": "v23",
+      "workload": "vendor-js",
+      "ms": 2343.3,
+      "outputSize": 840131
+    },
+    {
+      "round": 5,
+      "version": "v23",
+      "workload": "html-100-cards",
+      "ms": 40.02,
+      "outputSize": 22683
+    },
+    {
+      "round": 5,
+      "version": "v23",
+      "workload": "helper-injection",
+      "ms": 0.22,
+      "outputSize": 475164
+    },
+    {
+      "round": 5,
+      "version": "v24",
+      "workload": "vendor-js",
+      "ms": 2566.08,
+      "outputSize": 840131
+    },
+    {
+      "round": 5,
+      "version": "v24",
+      "workload": "html-100-cards",
+      "ms": 308.67,
+      "outputSize": 22683
+    },
+    {
+      "round": 5,
+      "version": "v24",
+      "workload": "helper-injection",
+      "ms": 0.34,
+      "outputSize": 475460
+    }
+  ]
+}

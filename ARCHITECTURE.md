@@ -1,6 +1,14 @@
 # Architecture
 
-The active path is browser -> UV service worker -> local Node relay -> Temu/CDN. Pages execute in the user's browser under localhost:3001/uv-service/. UV is the only active engine.
+The rewriting path is browser -> UV service worker -> local Node relay -> Temu/CDN. V36 can deliver validated public CDN images/styles/fonts/media and declared integrity-protected scripts directly from the browser, omitting credentials, with a relay fallback and a bounded failure cooldown. Documents, authenticated APIs and ordinary rewritten JavaScript remain on the relay. Pages execute in the user's browser under localhost:3001/uv-service/. UV is the only active engine.
+
+The worker retains original static script integrity declarations for at most 32 document contexts/64 resources each, committing bounded URL/hash metadata to local CacheStorage before document handoff. It restores that metadata after worker termination. This covers requests whose native worker-visible integrity field is empty, preserving original bytes on fallback and the declared hash on native fetch. Conflicting declarations remain raw on the relay rather than selecting one hash for direct delivery. Arbitrary dynamic declarations/frames/modules remain incompletely verified; no hash is recomputed to accept rewritten bytes.
+
+V36 adds a maintained network-rule engine with a reviewed three-rule EasyPrivacy default; it is not the whole list. Worker shortcuts suppress those optional telemetry requests before Node, with matching relay enforcement. Full-list mode is explicit and uses an operator-reviewed local snapshot. External Google/Facebook/Apple sign-in hosts are no longer allowed.
+
+Upstream work is bounded at 32 active bodies globally, eight per origin, and 128 queued requests; cancellation removes queued reads and releases body slots. Excess capacity returns local 503, never an invented merchant 429 or an automatic retry. Equivalent anonymous cache-eligible CDN reads can wait for one known-small public cache fill. Private, authenticated, varying, unknown-sized and non-cacheable responses do not share that body.
+
+Cooldown keys hash session, URL, method, forwarded headers and body. Only explicit future Retry-After establishes a cooldown. Retained bodies are bounded at 64 KiB each, with a global 4 MiB/256-entry budget; oversized refusals use a labelled local cooldown response instead of retaining the original body. Replays and cache hits are recorded separately. `/api/health` and `/api/metrics` report only the current session.
 
 ## Browser runtime helpers
 
@@ -22,7 +30,7 @@ Original response CSP and integrity checks remain enforced. Integrity resources 
 
 ## Transport and caching
 
-The negotiated binary envelope is a four-byte big-endian metadata length, UTF-8 JSON status/header metadata, and unencoded response bytes. Successful GET image/font responses stream from upstream through Node and the worker with backpressure and decoded-byte limits. Only complete eligible streamed bodies up to 2 MiB are accumulated for caching; larger bodies are not accumulated. HTML, scripts, styles, error responses, legacy transport and mutating requests retain full bounded-body processing. Cookie headers are processed before body delivery.
+The negotiated binary envelope is a four-byte big-endian metadata length, UTF-8 JSON status/header metadata, and unencoded response bytes. Successful GET image/font/style/media/track and recognized non-executable binary responses stream from upstream through Node and the worker with backpressure and decoded-byte limits. Partial media responses retain range metadata. Only complete eligible streamed bodies up to 2 MiB are accumulated for caching; larger bodies are not accumulated. HTML, ordinary scripts, JSON, error responses, legacy transport and mutating requests retain full bounded-body processing. Cookie headers are processed before body delivery. The relay's existing 12 MiB/25-second bounds still apply; direct media is not subject to those server body bounds.
 
 UV does not pass request signals to its transport. A worker-local WeakMap associates each request's header object with its native signal without introducing an upstream header. The relay adapter forwards it only for reads. Node aborts GET/HEAD upstream work on client disconnect, combining cancellation with the existing timeout; writes are not newly canceled by this mechanism. A failed stream closes the local body rather than appending an error envelope to already delivered bytes. Partial bodies never enter the public cache.
 

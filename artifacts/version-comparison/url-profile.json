@@ -1,0 +1,95 @@
+{
+  "scope": "Owned synthetic 500-link HTML; v24 normalizer replaced only inside an isolated VM. Not a production change.",
+  "rows": [
+    {
+      "round": 1,
+      "version": "v23",
+      "ms": 416.33,
+      "outputLength": 105950
+    },
+    {
+      "round": 1,
+      "version": "v24",
+      "ms": 601.14,
+      "outputLength": 105950
+    },
+    {
+      "round": 1,
+      "version": "v24-with-v23-url-normalizer",
+      "ms": 310.17,
+      "outputLength": 105950
+    },
+    {
+      "round": 2,
+      "version": "v24-with-v23-url-normalizer",
+      "ms": 259.01,
+      "outputLength": 105950
+    },
+    {
+      "round": 2,
+      "version": "v24",
+      "ms": 373.9,
+      "outputLength": 105950
+    },
+    {
+      "round": 2,
+      "version": "v23",
+      "ms": 256.82,
+      "outputLength": 105950
+    },
+    {
+      "round": 3,
+      "version": "v23",
+      "ms": 283.88,
+      "outputLength": 105950
+    },
+    {
+      "round": 3,
+      "version": "v24",
+      "ms": 461.17,
+      "outputLength": 105950
+    },
+    {
+      "round": 3,
+      "version": "v24-with-v23-url-normalizer",
+      "ms": 379.92,
+      "outputLength": 105950
+    },
+    {
+      "round": 4,
+      "version": "v24-with-v23-url-normalizer",
+      "ms": 302.91,
+      "outputLength": 105950
+    },
+    {
+      "round": 4,
+      "version": "v24",
+      "ms": 730.71,
+      "outputLength": 105950
+    },
+    {
+      "round": 4,
+      "version": "v23",
+      "ms": 270.31,
+      "outputLength": 105950
+    },
+    {
+      "round": 5,
+      "version": "v23",
+      "ms": 379.32,
+      "outputLength": 105950
+    },
+    {
+      "round": 5,
+      "version": "v24",
+      "ms": 757.34,
+      "outputLength": 105950
+    },
+    {
+      "round": 5,
+      "version": "v24-with-v23-url-normalizer",
+      "ms": 560.85,
+      "outputLength": 105950
+    }
+  ]
+}

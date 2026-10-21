@@ -1,0 +1,759 @@
+{
+  "capturedAt": "2026-10-21T09:38:54.746Z",
+  "scope": "Structured API/runtime source discovery only; no visible prices, secrets or product identifiers.",
+  "createdDiagnosticTab": null,
+  "targets": [
+    {
+      "target": "144",
+      "visible": true,
+      "pageKind": "cart",
+      "globalNames": [
+        "VisibilityStateEntry",
+        "ValidityState",
+        "PopStateEvent",
+        "IDBObjectStore",
+        "CustomStateSet",
+        "ContentVisibilityAutoStateChangeEvent",
+        "CSSLayerStatementRule",
+        "oncontentvisibilityautostatechange",
+        "oncontextrestored",
+        "onpopstate",
+        "cookieStore",
+        "CookieStore",
+        "CookieStoreManager",
+        "XRDOMOverlayState",
+        "NotRestoredReasonDetails",
+        "NotRestoredReasons",
+        "XRRenderState",
+        "__DelayInitialI18nStore__",
+        "rawData",
+        "__InitialI18nStore__",
+        "__InitialI18nStoreLoaded__",
+        "extraI18nStore",
+        "__ExtraI18nStore__",
+        "webpackChunkmobile_bg_cart_2929_bootstraped",
+        "webpackChunkmobile_bg_cart",
+        "__INITIAL_PROPS__"
+      ],
+      "storeShapes": [],
+      "storage": [
+        {
+          "store": "localStorage",
+          "key": "ShoppingCartLocalStorageKeyMap"
+        },
+        {
+          "store": "localStorage",
+          "key": "FloatCartLocalStorageKeyMap"
+        },
+        {
+          "store": "sessionStorage",
+          "key": "cart_pos"
+        }
+      ],
+      "rootShapes": [
+        {
+          "path": "rawData",
+          "keys": [
+            "store",
+            "chromeAiPromptConfigB",
+            "chromeAiPromptConfigA"
+          ]
+        },
+        {
+          "path": "__InitialI18nStore__",
+          "keys": [
+            "en"
+          ]
+        },
+        {
+          "path": "extraI18nStore",
+          "keys": [
+            "en"
+          ]
+        },
+        {
+          "path": "__ExtraI18nStore__",
+          "keys": [
+            "en"
+          ]
+        },
+        {
+          "path": "__INITIAL_PROPS__",
+          "keys": [
+            "store",
+            "chromeAiPromptConfigB",
+            "chromeAiPromptConfigA"
+          ]
+        },
+        {
+          "path": "__INITIAL_PROPS__.store",
+          "keys": [
+            "$axiosHttp",
+            "$service",
+            "sysInfo",
+            "setStoreData",
+            "$timezone",
+            "aBMap",
+            "apiStore",
+            "cartSelectAni",
+            "recommendStore",
+            "skuStore",
+            "unselectedGoodsExposureStore",
+            "renderStore",
+            "headStore",
+            "bottomStore",
+            "mainStore",
+            "abTestStore",
+            "faasAbStore",
+            "anchorStore",
+            "popupStore",
+            "tipStore",
+            "addCartAniStore",
+            "secondaryPopupStore",
+            "immersiveStore",
+            "$context",
+            "system",
+            "inBackRefresh",
+            "query",
+            "hitVisitorMode",
+            "scExtendMap",
+            "cartTransferMap",
+            "getRequestPageCartTransferMap",
+            "isCsr",
+            "setShowIncalidCardSkuId",
+            "enableRecommendLocalToLocal",
+            "randRefreshIndex",
+            "getExtendInfoFromQuery",
+            "sortGoodsSkuList",
+            "sortGoodsList",
+            "queryCommonRecommend",
+            "queryBottomRecommendTab",
+            "filterRecommendRepeat",
+            "recommendTabQueryGoods",
+            "recommendTabStore",
+            "invalidTabStore",
+            "debounceQueryIndex",
+            "queryIndex",
+            "hitPartialSkuData",
+            "queryFullIndex",
+            "firstQueryIndex",
+            "hasQueryLogin",
+            "queryLogin",
+            "refreshLogin",
+            "refreshData",
+            "requestSecondaryOrderTip",
+            "getTabItemTrackingData",
+            "topBarData",
+            "goodsSkuList",
+            "invalidGoodsSkuList",
+            "promotionFloatLayerVo",
+            "isFirstLevelPage",
+            "serverTime",
+            "differenceServiceTime",
+            "autoCheckout",
+            "windowKey",
+            "isLogin",
+            "isShowBack",
+            "pageRenderTime",
+            "errorState",
+            "payInfo",
+            "isLowIos",
+            "promiseVo",
+            "region",
+            "stickyHide",
+            "isSalesBanned",
+            "jsonParseError",
+            "showIncalidCardSkuId",
+            "isIndexApiError",
+            "uinList",
+            "prepareClient",
+            "baseZIndex"
+          ]
+        },
+        {
+          "path": "rawData.store",
+          "keys": [
+            "$service",
+            "$timezone",
+            "sysInfo",
+            "aBMap",
+            "apiStore",
+            "cartSelectAni",
+            "recommendStore",
+            "skuStore",
+            "unselectedGoodsExposureStore",
+            "renderStore",
+            "headStore",
+            "bottomStore",
+            "mainStore",
+            "abTestStore",
+            "faasAbStore",
+            "anchorStore",
+            "popupStore",
+            "tipStore",
+            "addCartAniStore",
+            "secondaryPopupStore",
+            "immersiveStore",
+            "system",
+            "inBackRefresh",
+            "topBarData",
+            "goodsSkuList",
+            "invalidGoodsSkuList",
+            "promotionFloatLayerVo",
+            "isFirstLevelPage",
+            "serverTime",
+            "differenceServiceTime",
+            "autoCheckout",
+            "windowKey",
+            "isLogin",
+            "isShowBack",
+            "pageRenderTime",
+            "errorState",
+            "query",
+            "hitVisitorMode",
+            "isLowIos",
+            "promiseVo",
+            "region",
+            "stickyHide",
+            "isSalesBanned",
+            "scExtendMap",
+            "cartTransferMap",
+            "jsonParseError",
+            "isCsr",
+            "enableRecommendLocalToLocal",
+            "isIndexApiError",
+            "uinList",
+            "recommendTabStore",
+            "invalidTabStore",
+            "prepareClient",
+            "hitPartialSkuData",
+            "hasQueryLogin",
+            "baseZIndex",
+            "webpEnable"
+          ]
+        },
+        {
+          "path": "ReactRoot",
+          "keys": [
+            "tag",
+            "key",
+            "elementType",
+            "type",
+            "stateNode",
+            "return",
+            "child",
+            "sibling",
+            "index",
+            "ref",
+            "pendingProps",
+            "memoizedProps",
+            "updateQueue",
+            "memoizedState",
+            "dependencies",
+            "mode",
+            "flags",
+            "subtreeFlags",
+            "deletions",
+            "lanes",
+            "childLanes",
+            "alternate"
+          ]
+        },
+        {
+          "path": "localStorage.ShoppingCartLocalStorageKeyMap",
+          "keys": [
+            "shoppingCartHasShowGuide",
+            "shoppingCartFrequencyMap"
+          ]
+        },
+        {
+          "path": "localStorage.FloatCartLocalStorageKeyMap",
+          "keys": [
+            "cart_icon_last_visit_time",
+            "cart_hour_tip_first_add_time",
+            "cart_hour_tip_last_shown_time",
+            "cart_event_card_time"
+          ]
+        }
+      ],
+      "scanned": 25000,
+      "candidates": [
+        {
+          "path": "rawData.store.apiStore.cartModifyData",
+          "kind": "full-cart-envelope",
+          "success": true,
+          "lines": 0,
+          "total": "0",
+          "currency": "EUR",
+          "resultKeys": [
+            "secondarySnapshotId",
+            "serverTime",
+            "cartOperateInfo",
+            "cartListInfo",
+            "discountInfo",
+            "manageFunctionList",
+            "cartTransferMap",
+            "rtHomePageVo",
+            "resReadFlag",
+            "cartModifyPageExp",
+            "appLaunchTransferMap"
+          ]
+        }
+      ],
+      "services": [
+        {
+          "path": "__INITIAL_PROPS__.store.debounceQueryIndex",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.queryIndex",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.queryFullIndex",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.firstQueryIndex",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.$service.postRisk",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.$service.postRiskWithAgain",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.$service.cartModify",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.$service.debounceCartModify",
+          "kind": "function"
+        },
+        {
+          "path": "ReactRoot.child.child.child.child.child.child.child.child.child.child.child.child.child.child.sibling.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.sibling.sibling.sibling.sibling.child.child.child.child.child.child.child.child.pendingProps.children.props.service.postRisk",
+          "kind": "function"
+        }
+      ],
+      "databaseAPI": "function"
+    },
+    {
+      "target": "145",
+      "visible": false,
+      "pageKind": "shopping",
+      "globalNames": [
+        "VisibilityStateEntry",
+        "ValidityState",
+        "PopStateEvent",
+        "IDBObjectStore",
+        "CustomStateSet",
+        "ContentVisibilityAutoStateChangeEvent",
+        "CSSLayerStatementRule",
+        "oncontentvisibilityautostatechange",
+        "oncontextrestored",
+        "onpopstate",
+        "cookieStore",
+        "CookieStore",
+        "CookieStoreManager",
+        "XRDOMOverlayState",
+        "NotRestoredReasonDetails",
+        "NotRestoredReasons",
+        "XRRenderState",
+        "__DelayInitialI18nStore__",
+        "rawData",
+        "__InitialI18nStore__",
+        "__InitialI18nStoreLoaded__",
+        "extraI18nStore",
+        "__ExtraI18nStore__",
+        "webpackChunkmobile_bg_commodity_2929_bootstraped",
+        "webpackChunkmobile_bg_commodity",
+        "__INITIAL_PROPS__"
+      ],
+      "storeShapes": [],
+      "storage": [
+        {
+          "store": "localStorage",
+          "key": "ShoppingCartLocalStorageKeyMap"
+        },
+        {
+          "store": "localStorage",
+          "key": "FloatCartLocalStorageKeyMap"
+        },
+        {
+          "store": "sessionStorage",
+          "key": "cart_pos"
+        }
+      ],
+      "rootShapes": [
+        {
+          "path": "rawData",
+          "keys": [
+            "store",
+            "chromeAiPromptConfigB",
+            "chromeAiPromptConfigA"
+          ]
+        },
+        {
+          "path": "__InitialI18nStore__",
+          "keys": [
+            "ar",
+            "en"
+          ]
+        },
+        {
+          "path": "extraI18nStore",
+          "keys": [
+            "ar"
+          ]
+        },
+        {
+          "path": "__ExtraI18nStore__",
+          "keys": [
+            "ar"
+          ]
+        },
+        {
+          "path": "__INITIAL_PROPS__",
+          "keys": [
+            "store",
+            "chromeAiPromptConfigB",
+            "chromeAiPromptConfigA"
+          ]
+        },
+        {
+          "path": "__INITIAL_PROPS__.store",
+          "keys": [
+            "$axiosHttp",
+            "$service",
+            "setStoreData",
+            "$timezone",
+            "immersiveStore",
+            "bannerV2Store",
+            "popupStore",
+            "barStore",
+            "recStore",
+            "brandRecStore",
+            "brandTagStore",
+            "projectorStore",
+            "cartCheckoutGuideStore",
+            "oneTapStore",
+            "collectStore",
+            "skuStore",
+            "baseGoodStore",
+            "baseGoodSkuStore",
+            "baseGoodSpecStore",
+            "baseGoodSkuSelectorStore",
+            "baseGoodCartStore",
+            "baseGoodBenefitStore",
+            "cartStore",
+            "tagStore",
+            "bannerImgCoverStore",
+            "mallStore",
+            "sceneId",
+            "reviewStore",
+            "instantDialogsStore",
+            "priceModuleStore",
+            "activityStore",
+            "displayModuleStore",
+            "tipsStore",
+            "tipsStrategyStore",
+            "getPopupStatus",
+            "showSellerPopup",
+            "pageListId",
+            "isLogin",
+            "isNativePlatform",
+            "isMiniPackage",
+            "isIOSSystem",
+            "systemVersion",
+            "platformVersion",
+            "webpEnable",
+            "crawlerType",
+            "hasTimeZone",
+            "isNativeSupportHideCartByQuery",
+            "recParams",
+            "share",
+            "system",
+            "queryFaasABTest",
+            "additionalLogicHandler",
+            "source",
+            "getBizLogSource",
+            "setBizLogSource",
+            "sendExtraEvent",
+            "onAddOrderSuccessBack",
+            "getMinBuyQtyDataBySkuId",
+            "getQueryIndexParams",
+            "setDefaultSkuInfo",
+            "initMainData",
+            "setExtraDataByMainData",
+            "queryShoppingCart",
+            "queryDownload",
+            "refreshSecondaryApi",
+            "matchLimitedFlowSku",
+            "findLimitedFlowSkuUnderSpec",
+            "addOrderImport",
+            "buildAddOrderImport",
+            "getBuyNowBottomButtonModule",
+            "getAddToCartBottomButtonModule",
+            "getCartTransferParams",
+            "forwardShoppingCart",
+            "navigationAppGoods",
+            "sharePage",
+            "getShareParams",
+            "queryShareInfo",
+            "hasPreferenceChange",
+            "returnCallback",
+            "checkLogin"
+          ]
+        },
+        {
+          "path": "rawData.store",
+          "keys": [
+            "$service",
+            "$timezone",
+            "immersiveStore",
+            "bannerV2Store",
+            "popupStore",
+            "barStore",
+            "recStore",
+            "brandRecStore",
+            "brandTagStore",
+            "projectorStore",
+            "cartCheckoutGuideStore",
+            "oneTapStore",
+            "collectStore",
+            "skuStore",
+            "baseGoodStore",
+            "baseGoodSkuStore",
+            "baseGoodSpecStore",
+            "baseGoodSkuSelectorStore",
+            "baseGoodCartStore",
+            "baseGoodBenefitStore",
+            "cartStore",
+            "tagStore",
+            "bannerImgCoverStore",
+            "mallStore",
+            "sceneId",
+            "reviewStore",
+            "instantDialogsStore",
+            "priceModuleStore",
+            "activityStore",
+            "displayModuleStore",
+            "tipsStore",
+            "tipsStrategyStore",
+            "title",
+            "redirectUrl",
+            "serverTime",
+            "diffTime",
+            "goods",
+            "goodsExt",
+            "sku",
+            "delivery",
+            "guarantee",
+            "review",
+            "mall",
+            "sizeGuide",
+            "control",
+            "skuControl",
+            "shoppingCartInfo",
+            "waistBannerV2",
+            "payBenefit",
+            "custom",
+            "order",
+            "specCustom",
+            "modelTryOn",
+            "productDetail",
+            "description",
+            "environment",
+            "guaranteeModule",
+            "message",
+            "video",
+            "canNotSaleTip",
+            "selectSkuTip",
+            "commitment",
+            "sizeSpecModule",
+            "report",
+            "selectCountryId",
+            "popupIdList",
+            "popupData",
+            "topNavBarData",
+            "localInfo",
+            "currentDR",
+            "pageListId",
+            "isLogin",
+            "query",
+            "isNativePlatform",
+            "isMiniPackage",
+            "isIOSSystem",
+            "systemVersion",
+            "platformVersion",
+            "webpEnable",
+            "crawlerType"
+          ]
+        },
+        {
+          "path": "ReactRoot",
+          "keys": [
+            "tag",
+            "key",
+            "elementType",
+            "type",
+            "stateNode",
+            "return",
+            "child",
+            "sibling",
+            "index",
+            "ref",
+            "pendingProps",
+            "memoizedProps",
+            "updateQueue",
+            "memoizedState",
+            "dependencies",
+            "mode",
+            "flags",
+            "subtreeFlags",
+            "deletions",
+            "lanes",
+            "childLanes",
+            "alternate"
+          ]
+        },
+        {
+          "path": "ReactRoot",
+          "keys": [
+            "tag",
+            "key",
+            "elementType",
+            "type",
+            "stateNode",
+            "return",
+            "child",
+            "sibling",
+            "index",
+            "ref",
+            "pendingProps",
+            "memoizedProps",
+            "updateQueue",
+            "memoizedState",
+            "dependencies",
+            "mode",
+            "flags",
+            "subtreeFlags",
+            "deletions",
+            "lanes",
+            "childLanes",
+            "alternate"
+          ]
+        },
+        {
+          "path": "localStorage.ShoppingCartLocalStorageKeyMap",
+          "keys": [
+            "shoppingCartHasShowGuide"
+          ]
+        },
+        {
+          "path": "localStorage.FloatCartLocalStorageKeyMap",
+          "keys": [
+            "cart_icon_last_visit_time",
+            "cart_hour_tip_first_add_time"
+          ]
+        }
+      ],
+      "scanned": 25000,
+      "candidates": [],
+      "services": [
+        {
+          "path": "__INITIAL_PROPS__.store.getQueryIndexParams",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.$service.postRisk",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.$service.postRiskWithAgain",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.recStore.$recService.postRisk",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.recStore.$recService.postRiskWithAgain",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.brandRecStore.$recService.postRisk",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.brandRecStore.$recService.postRiskWithAgain",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.brandTagStore.$brandTagService.postRisk",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.brandTagStore.$brandTagService.postRiskWithAgain",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.cartCheckoutGuideStore.$cartCheckoutGuideService.postRisk",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.cartCheckoutGuideStore.$cartCheckoutGuideService.postRiskWithAgain",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.collectStore.$collectService.postRisk",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.collectStore.$collectService.postRiskWithAgain",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.mallStore.$mallService.postRisk",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.mallStore.$mallService.postRiskWithAgain",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.reviewStore.$reviewService.postRisk",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.reviewStore.$reviewService.postRiskWithAgain",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.instantDialogsStore.$innerService.postRisk",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.instantDialogsStore.$innerService.postRiskWithAgain",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.reviewStore.commentStore.$commentService.postRisk",
+          "kind": "function"
+        },
+        {
+          "path": "__INITIAL_PROPS__.store.reviewStore.commentStore.$commentService.postRiskWithAgain",
+          "kind": "function"
+        },
+        {
+          "path": "ReactRoot.child.child.child.child.child.child.child.child.child.child.child.child.child.child.sibling.child.child.child.child.child.sibling.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.sibling.child.child.child.child.child.child.child.child.child.child.child.child.child.child.child.sibling.sibling.sibling.sibling.child.child.child.child.child.child.child.child.pendingProps.children.props.service.postRisk",
+          "kind": "function"
+        }
+      ],
+      "databaseAPI": "function"
+    }
+  ]
+}

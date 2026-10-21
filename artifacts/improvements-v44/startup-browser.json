@@ -1,0 +1,54 @@
+[
+  {
+    "mobile": false,
+    "coldHomepage": true,
+    "noCartPage": true,
+    "partialMutationRefresh": true,
+    "burstReads": 1,
+    "noCountPolling": true,
+    "noRefusalRetry": true,
+    "reads": 4,
+    "cartDocuments": 0
+  },
+  {
+    "mobile": false,
+    "freshEmptyCartThenMobileMutations": true,
+    "reads": 4,
+    "cartDocuments": 0
+  },
+  {
+    "mobile": false,
+    "emptyCartChangedReadRefusedVisible": true,
+    "warningSurvivesNavigation": true,
+    "laterAddRecovers": true,
+    "reads": 3
+  },
+  {
+    "mobile": true,
+    "coldHomepage": true,
+    "noCartPage": true,
+    "partialMutationRefresh": true,
+    "burstReads": 2,
+    "noCountPolling": true,
+    "noRefusalRetry": true,
+    "reads": 5,
+    "cartDocuments": 0
+  },
+  {
+    "mobile": true,
+    "freshEmptyCartThenMobileMutations": true,
+    "reads": 4,
+    "cartDocuments": 0
+  },
+  {
+    "mobile": true,
+    "emptyCartChangedReadRefusedVisible": true,
+    "warningSurvivesNavigation": true,
+    "laterAddRecovers": true,
+    "reads": 3
+  },
+  {
+    "coldRefusedNoNavigationRetry": true,
+    "reads": 1
+  }
+]

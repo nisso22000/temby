@@ -1,0 +1,34 @@
+[
+  {
+    "mobile": false,
+    "authenticated": false,
+    "reads": 2,
+    "verificationCookieRotated": true,
+    "discardReproduced": true,
+    "amount": "0 DZD"
+  },
+  {
+    "mobile": false,
+    "authenticated": true,
+    "reads": 2,
+    "verificationCookieRotated": true,
+    "discardReproduced": true,
+    "amount": "0 DZD"
+  },
+  {
+    "mobile": true,
+    "authenticated": false,
+    "reads": 2,
+    "verificationCookieRotated": true,
+    "discardReproduced": true,
+    "amount": "0 DZD"
+  },
+  {
+    "mobile": true,
+    "authenticated": true,
+    "reads": 2,
+    "verificationCookieRotated": true,
+    "discardReproduced": true,
+    "amount": "0 DZD"
+  }
+]

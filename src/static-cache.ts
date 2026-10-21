@@ -9,7 +9,7 @@ export class StaticCache {
     if(Object.entries(headers).some(([k,v])=>/^cache-control$/i.test(k)&&/no-cache|no-store|max-age=0/i.test(v)))return null;
     return JSON.stringify([url.href,headers.accept||'',headers['accept-language']||'']);
   }
-  get(key:string|null){
+  get(key:string|null):{until:number;storedAt:number;headers:Record<string,string|string[]>;body:Buffer}|null{
     if(!key)return null;const entry=this.entries.get(key);if(!entry)return null;
     if(entry.until<=this.now()){this.entries.delete(key);this.bytes-=entry.body.length;return null;}
     this.entries.delete(key);this.entries.set(key,entry);

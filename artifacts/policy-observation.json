@@ -1,0 +1,164 @@
+[
+  {
+    "time": "2026-10-15T20:38:48.637Z",
+    "host": "www.temu.com",
+    "method": "GET",
+    "status": 200,
+    "type": "text/html",
+    "bytes": 2889,
+    "cookiesSent": 1,
+    "virtualCookies": 1,
+    "setCookies": 1,
+    "outcome": "Verification response delivered unchanged to generic engine"
+  },
+  {
+    "time": "2026-10-15T20:38:48.880Z",
+    "host": "browser",
+    "method": "DIAGNOSTIC",
+    "status": 0,
+    "type": "runtime",
+    "bytes": 0,
+    "outcome": "config-loaded"
+  },
+  {
+    "time": "2026-10-15T20:38:48.948Z",
+    "host": "browser",
+    "method": "DIAGNOSTIC",
+    "status": 0,
+    "type": "runtime",
+    "bytes": 0,
+    "outcome": "document-ready"
+  },
+  {
+    "time": "2026-10-15T20:38:49.130Z",
+    "host": "static.kwcdn.com",
+    "method": "GET",
+    "status": 200,
+    "type": "text/javascript",
+    "bytes": 39351,
+    "cookiesSent": 0,
+    "virtualCookies": 0,
+    "setCookies": 0,
+    "outcome": "Rewriting engine relay"
+  },
+  {
+    "time": "2026-10-15T20:38:49.479Z",
+    "host": "www.temu.com",
+    "method": "GET",
+    "status": 200,
+    "type": "text/html",
+    "bytes": 2889,
+    "cookiesSent": 1,
+    "virtualCookies": 1,
+    "setCookies": 0,
+    "outcome": "Verification response delivered unchanged to generic engine"
+  },
+  {
+    "time": "2026-10-15T20:38:49.608Z",
+    "host": "www.temu.com",
+    "method": "GET",
+    "status": 200,
+    "type": "text/html",
+    "bytes": 2889,
+    "cookiesSent": 1,
+    "virtualCookies": 1,
+    "setCookies": 0,
+    "outcome": "Verification response delivered unchanged to generic engine"
+  },
+  {
+    "time": "2026-10-15T20:38:49.761Z",
+    "host": "browser",
+    "method": "DIAGNOSTIC",
+    "status": 0,
+    "type": "runtime",
+    "bytes": 0,
+    "outcome": "config-loaded"
+  },
+  {
+    "time": "2026-10-15T20:38:50.013Z",
+    "host": "browser",
+    "method": "DIAGNOSTIC",
+    "status": 0,
+    "type": "runtime",
+    "bytes": 0,
+    "outcome": "document-ready"
+  },
+  {
+    "time": "2026-10-15T20:38:50.081Z",
+    "host": "www.temu.com",
+    "method": "GET",
+    "status": 200,
+    "type": "text/html",
+    "bytes": 2889,
+    "cookiesSent": 1,
+    "virtualCookies": 1,
+    "setCookies": 0,
+    "outcome": "Verification response delivered unchanged to generic engine"
+  },
+  {
+    "time": "2026-10-15T20:38:50.229Z",
+    "host": "www.temu.com",
+    "method": "GET",
+    "status": 200,
+    "type": "text/html",
+    "bytes": 2889,
+    "cookiesSent": 1,
+    "virtualCookies": 1,
+    "setCookies": 0,
+    "outcome": "Verification response delivered unchanged to generic engine"
+  },
+  {
+    "time": "2026-10-15T20:38:50.503Z",
+    "host": "browser",
+    "method": "DIAGNOSTIC",
+    "status": 0,
+    "type": "runtime",
+    "bytes": 0,
+    "outcome": "config-loaded"
+  },
+  {
+    "time": "2026-10-15T20:38:51.037Z",
+    "host": "www.temu.com",
+    "method": "GET",
+    "status": 508,
+    "type": "",
+    "bytes": 0,
+    "outcome": "Local verification request budget reached"
+  },
+  {
+    "time": "2026-10-15T20:38:51.050Z",
+    "host": "browser",
+    "method": "DIAGNOSTIC",
+    "status": 0,
+    "type": "runtime",
+    "bytes": 0,
+    "outcome": "document-ready"
+  },
+  {
+    "time": "2026-10-15T20:38:51.088Z",
+    "host": "www.temu.com",
+    "method": "GET",
+    "status": 508,
+    "type": "",
+    "bytes": 0,
+    "outcome": "Local verification request budget reached"
+  },
+  {
+    "time": "2026-10-15T20:38:51.209Z",
+    "host": "browser",
+    "method": "DIAGNOSTIC",
+    "status": 0,
+    "type": "runtime",
+    "bytes": 0,
+    "outcome": "config-loaded"
+  },
+  {
+    "time": "2026-10-15T20:38:51.260Z",
+    "host": "browser",
+    "method": "DIAGNOSTIC",
+    "status": 0,
+    "type": "runtime",
+    "bytes": 0,
+    "outcome": "document-ready"
+  }
+]

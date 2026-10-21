@@ -1,0 +1,442 @@
+[
+  {
+    "version": "v23",
+    "type": "page",
+    "data": {
+      "round": "1",
+      "event": "sample",
+      "page": "home",
+      "responseMs": 1470,
+      "domMs": 3427,
+      "loadMs": null,
+      "elapsedMs": 12649,
+      "products": 0,
+      "images": 0,
+      "paint": []
+    }
+  },
+  {
+    "version": "v23",
+    "type": "page",
+    "data": {
+      "round": "1",
+      "event": "load",
+      "page": "home",
+      "responseMs": 1470,
+      "domMs": 3427,
+      "loadMs": 24654,
+      "elapsedMs": 24655,
+      "products": 0,
+      "images": 0,
+      "paint": []
+    }
+  },
+  {
+    "version": "v24",
+    "type": "page",
+    "data": {
+      "round": "1",
+      "event": "sample",
+      "page": "home",
+      "responseMs": 1525,
+      "domMs": 3213,
+      "loadMs": null,
+      "elapsedMs": 11999,
+      "products": 0,
+      "images": 0,
+      "paint": []
+    }
+  },
+  {
+    "version": "v23",
+    "type": "page",
+    "data": {
+      "round": "2",
+      "event": "sample",
+      "page": "home",
+      "responseMs": 2475,
+      "domMs": 3757,
+      "loadMs": null,
+      "elapsedMs": 13264,
+      "products": 0,
+      "images": 0,
+      "paint": []
+    }
+  },
+  {
+    "version": "v23",
+    "type": "page",
+    "data": {
+      "round": "2",
+      "event": "load",
+      "page": "home",
+      "responseMs": 2475,
+      "domMs": 3757,
+      "loadMs": 20968,
+      "elapsedMs": 20970,
+      "products": 0,
+      "images": 0,
+      "paint": []
+    }
+  },
+  {
+    "version": "v24",
+    "type": "page",
+    "data": {
+      "round": "1",
+      "event": "load",
+      "page": "home",
+      "responseMs": 1525,
+      "domMs": 3213,
+      "loadMs": 19320,
+      "elapsedMs": 19322,
+      "products": 0,
+      "images": 0,
+      "paint": []
+    }
+  },
+  {
+    "version": "v24",
+    "type": "page",
+    "data": {
+      "round": "2",
+      "event": "sample",
+      "page": "home",
+      "responseMs": 913,
+      "domMs": 1733,
+      "loadMs": null,
+      "elapsedMs": 11387,
+      "products": 0,
+      "images": 0,
+      "paint": []
+    }
+  },
+  {
+    "version": "v24",
+    "type": "page",
+    "data": {
+      "round": "2",
+      "event": "load",
+      "page": "home",
+      "responseMs": 913,
+      "domMs": 1733,
+      "loadMs": 19708,
+      "elapsedMs": 19710,
+      "products": 0,
+      "images": 0,
+      "paint": []
+    }
+  },
+  {
+    "version": "v23",
+    "type": "page",
+    "data": {
+      "round": "3",
+      "event": "sample",
+      "page": "home",
+      "responseMs": 2030,
+      "domMs": 2681,
+      "loadMs": null,
+      "elapsedMs": 12475,
+      "products": 0,
+      "images": 0,
+      "paint": []
+    }
+  },
+  {
+    "version": "v23",
+    "type": "page",
+    "data": {
+      "round": "3",
+      "event": "load",
+      "page": "home",
+      "responseMs": 2030,
+      "domMs": 2681,
+      "loadMs": 13700,
+      "elapsedMs": 13768,
+      "products": 0,
+      "images": 0,
+      "paint": []
+    }
+  },
+  {
+    "version": "v23",
+    "type": "page",
+    "data": {
+      "round": "3",
+      "event": "sample",
+      "page": "login",
+      "responseMs": 2253,
+      "domMs": 4470,
+      "loadMs": null,
+      "elapsedMs": 14591,
+      "products": 0,
+      "images": 24,
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 4444
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 4444
+        }
+      ]
+    }
+  },
+  {
+    "version": "v23",
+    "type": "page",
+    "data": {
+      "round": "3",
+      "event": "load",
+      "page": "login",
+      "responseMs": 2253,
+      "domMs": 4470,
+      "loadMs": 27015,
+      "elapsedMs": 33133,
+      "products": 0,
+      "images": 34,
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 4444
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 4444
+        }
+      ]
+    }
+  },
+  {
+    "version": "v24",
+    "type": "page",
+    "data": {
+      "round": "3",
+      "event": "load",
+      "page": "home",
+      "responseMs": 1115,
+      "domMs": 1509,
+      "loadMs": 10050,
+      "elapsedMs": 10058,
+      "products": 0,
+      "images": 0,
+      "paint": []
+    }
+  },
+  {
+    "version": "v24",
+    "type": "page",
+    "data": {
+      "round": "3",
+      "event": "sample",
+      "page": "login",
+      "responseMs": 1115,
+      "domMs": 1509,
+      "loadMs": 10050,
+      "elapsedMs": 12010,
+      "products": 0,
+      "images": 0,
+      "paint": []
+    }
+  },
+  {
+    "version": "v24",
+    "type": "page",
+    "data": {
+      "round": "3",
+      "event": "sample",
+      "page": "login",
+      "responseMs": 4226,
+      "domMs": 6478,
+      "loadMs": null,
+      "elapsedMs": 16391,
+      "products": 0,
+      "images": 0,
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 6440
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 6440
+        }
+      ]
+    }
+  },
+  {
+    "version": "v24",
+    "type": "page",
+    "data": {
+      "round": "3",
+      "event": "load",
+      "page": "login",
+      "responseMs": 4226,
+      "domMs": 6478,
+      "loadMs": 45115,
+      "elapsedMs": 45720,
+      "products": 0,
+      "images": 34,
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 6440
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 6440
+        }
+      ]
+    }
+  },
+  {
+    "version": "v23",
+    "type": "page",
+    "data": {
+      "round": "4",
+      "event": "load",
+      "page": "home",
+      "responseMs": 3541,
+      "domMs": 4784,
+      "loadMs": 12816,
+      "elapsedMs": 12847,
+      "products": 0,
+      "images": 0,
+      "paint": []
+    }
+  },
+  {
+    "version": "v23",
+    "type": "page",
+    "data": {
+      "round": "4",
+      "event": "sample",
+      "page": "home",
+      "responseMs": 3541,
+      "domMs": 4784,
+      "loadMs": 12816,
+      "elapsedMs": 14937,
+      "products": 0,
+      "images": 0,
+      "paint": []
+    }
+  },
+  {
+    "version": "v23",
+    "type": "page",
+    "data": {
+      "round": "4",
+      "event": "sample",
+      "page": "login",
+      "responseMs": 8321,
+      "domMs": 9678,
+      "loadMs": null,
+      "elapsedMs": 19102,
+      "products": 0,
+      "images": 0,
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 9596
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 9596
+        }
+      ]
+    }
+  },
+  {
+    "version": "v23",
+    "type": "page",
+    "data": {
+      "round": "4",
+      "event": "load",
+      "page": "login",
+      "responseMs": 8321,
+      "domMs": 9678,
+      "loadMs": 22588,
+      "elapsedMs": 22869,
+      "products": 0,
+      "images": 0,
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 9596
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 9596
+        }
+      ]
+    }
+  },
+  {
+    "version": "v23",
+    "type": "page",
+    "data": {
+      "round": "5",
+      "event": "load",
+      "page": "home",
+      "responseMs": 942,
+      "domMs": 1284,
+      "loadMs": 2674,
+      "elapsedMs": 2717,
+      "products": 0,
+      "images": 0,
+      "paint": []
+    }
+  },
+  {
+    "version": "v23",
+    "type": "page",
+    "data": {
+      "round": "5",
+      "event": "load",
+      "page": "login",
+      "responseMs": 3025,
+      "domMs": 3844,
+      "loadMs": 9671,
+      "elapsedMs": 9866,
+      "products": 0,
+      "images": 0,
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 3804
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 3804
+        }
+      ]
+    }
+  },
+  {
+    "version": "v23",
+    "type": "page",
+    "data": {
+      "round": "5",
+      "event": "sample",
+      "page": "login",
+      "responseMs": 3025,
+      "domMs": 3844,
+      "loadMs": 9671,
+      "elapsedMs": 13947,
+      "products": 0,
+      "images": 26,
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 3804
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 3804
+        }
+      ]
+    }
+  }
+]

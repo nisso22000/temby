@@ -22,6 +22,6 @@ test('confirmed search and verification escapes recover without referrer, with q
 });
 
 test('merchant host families permit dependencies without accepting lookalikes',()=>{
-  for(const host of ['eu.pftk.temu.com','new-assets.kwcdn.com','accounts.google.com','connect.facebook.net','appleid.cdn-apple.com'])assert.equal(targetAllowed(new URL('https://'+host)),true,host);
-  for(const host of ['temu.com.evil.test','nottemu.com','kwcdn.com.evil.test','accounts.google.com.evil.test','localhost'])assert.equal(targetAllowed(new URL('https://'+host)),false,host);
+  for(const host of ['eu.pftk.temu.com','new-assets.kwcdn.com'])assert.equal(targetAllowed(new URL('https://'+host)),true,host);
+  for(const host of ['accounts.google.com','connect.facebook.net','appleid.cdn-apple.com','temu.com.evil.test','nottemu.com','kwcdn.com.evil.test','accounts.google.com.evil.test','localhost'])assert.equal(targetAllowed(new URL('https://'+host)),false,host);
 });

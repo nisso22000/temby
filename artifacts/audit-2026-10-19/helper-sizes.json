@@ -1,0 +1,57 @@
+{
+  "files": [
+    {
+      "file": "node_modules/@titaniumnetwork-dev/ultraviolet/dist/uv.bundle.js",
+      "bytes": 378572
+    },
+    {
+      "file": "node_modules/@titaniumnetwork-dev/ultraviolet/dist/uv.client.js",
+      "bytes": 52545
+    },
+    {
+      "file": "node_modules/@titaniumnetwork-dev/ultraviolet/dist/uv.handler.js",
+      "bytes": 20043
+    },
+    {
+      "file": "public/uv-config.js",
+      "bytes": 5363
+    },
+    {
+      "file": "public/uv-transport.js",
+      "bytes": 4071
+    },
+    {
+      "file": "public/uv-network.js",
+      "bytes": 5218
+    },
+    {
+      "file": "public/uv-url.js",
+      "bytes": 2114
+    },
+    {
+      "file": "public/uv-navigation.js",
+      "bytes": 1696
+    },
+    {
+      "file": "public/companion-core.js",
+      "bytes": 3826
+    },
+    {
+      "file": "public/companion-cart.js",
+      "bytes": 18054
+    },
+    {
+      "file": "public/companion-icon.js",
+      "bytes": 320260
+    },
+    {
+      "file": "public/companion.js",
+      "bytes": 42388
+    },
+    {
+      "file": "public/uv-diagnostics.js",
+      "bytes": 928
+    }
+  ],
+  "totalBytes": 855078
+}

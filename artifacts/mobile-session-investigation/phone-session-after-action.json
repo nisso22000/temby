@@ -1,0 +1,1465 @@
+{
+  "capturedAt": "2026-10-21T14:29:11.589Z",
+  "scope": "Physical Samsung, read-only current tabs and passive network capture; no merchant interaction",
+  "tabs": [
+    {
+      "location": {
+        "host": "www.temu.com",
+        "route": "[resource]"
+      },
+      "network": [],
+      "page": {
+        "visibility": "visible",
+        "cartTraceAvailable": true,
+        "pageReaderPresent": false,
+        "companion": true,
+        "source": "response",
+        "issue": null,
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "emailFormVisible": false,
+        "humanVerificationVisible": true,
+        "navigationStartedAt": "2026-10-21T14:28:34.462Z",
+        "resources": [
+          {
+            "path": "/api/phantom/xg/pfb/[value]",
+            "startMs": 2003,
+            "durationMs": 485,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/api/phantom/xg/pfb/b",
+            "startMs": 2004,
+            "durationMs": 486,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/api/phantom/xg/pfb/[value]",
+            "startMs": 2011,
+            "durationMs": 481,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2019,
+            "durationMs": 478,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2024,
+            "durationMs": 493,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2027,
+            "durationMs": 523,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2031,
+            "durationMs": 519,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2042,
+            "durationMs": 521,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2044,
+            "durationMs": 521,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2047,
+            "durationMs": 528,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2049,
+            "durationMs": 545,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2053,
+            "durationMs": 571,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2056,
+            "durationMs": 576,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2059,
+            "durationMs": 586,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2062,
+            "durationMs": 583,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2065,
+            "durationMs": 581,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2068,
+            "durationMs": 600,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2070,
+            "durationMs": 664,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2073,
+            "durationMs": 671,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2076,
+            "durationMs": 693,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2078,
+            "durationMs": 691,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2111,
+            "durationMs": 630,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2118,
+            "durationMs": 649,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2124,
+            "durationMs": 678,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2126,
+            "durationMs": 684,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/api",
+            "startMs": 2310,
+            "durationMs": 500,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/api",
+            "startMs": 2366,
+            "durationMs": 470,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2469,
+            "durationMs": 369,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2512,
+            "durationMs": 369,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/api/phantom/vc_pre_ck",
+            "startMs": 2555,
+            "durationMs": 355,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/api/bg/tampa/web_device/record",
+            "startMs": 2598,
+            "durationMs": 359,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 2612,
+            "durationMs": 635,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/api",
+            "startMs": 2958,
+            "durationMs": 371,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/api/phantom/obtain_captcha",
+            "startMs": 2995,
+            "durationMs": 392,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/api",
+            "startMs": 3013,
+            "durationMs": 318,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/api/phantom/xg/pfb/[value]",
+            "startMs": 3359,
+            "durationMs": 131,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/api",
+            "startMs": 3394,
+            "durationMs": 80,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 3399,
+            "durationMs": 87,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 3404,
+            "durationMs": 94,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/api/[value]/sumer-log/key-use-data",
+            "startMs": 24590,
+            "durationMs": 218,
+            "status": 200,
+            "type": "beacon"
+          }
+        ]
+      },
+      "native": {
+        "databaseNames": [],
+        "databaseEnumerationTimedOut": false,
+        "workerRevision": "48",
+        "workerState": "activated"
+      },
+      "hasLocalSession": true,
+      "localDiagnostics": {
+        "counts": {
+          "upstream": 293,
+          "local": 3
+        },
+        "health": [
+          {
+            "host": "www.temu.com",
+            "route": "/api/poppy/[value]/search_suggest",
+            "status": 200,
+            "errorCode": 54001,
+            "outcome": "Rewriting engine relay",
+            "count": 2,
+            "lastSeen": "2026-10-21T14:28:33.638Z"
+          },
+          {
+            "host": "www.temu.com",
+            "route": "/api/poppy/[value]/search_activation",
+            "status": 429,
+            "errorCode": 40002,
+            "outcome": "Rewriting engine relay",
+            "count": 1,
+            "lastSeen": "2026-10-21T14:28:30.397Z"
+          },
+          {
+            "host": "www.temu.com",
+            "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+            "status": 403,
+            "errorCode": 3000000,
+            "outcome": "Rewriting engine relay",
+            "count": 1,
+            "lastSeen": "2026-10-21T14:26:51.157Z"
+          }
+        ],
+        "apiTimeline": [
+          {
+            "time": "2026-10-21T14:26:51.157Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 403,
+            "type": "application/json",
+            "bytes": 65,
+            "cookiesSent": 1,
+            "virtualCookies": 1,
+            "setCookies": 1,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+            "errorCode": 3000000,
+            "applicationFailed": true,
+            "cartObservation": "merchant-failure",
+            "elapsedMs": 79,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:26:52.788Z",
+            "host": "www.temu.com",
+            "method": "GET",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 29,
+            "cookiesSent": 7,
+            "virtualCookies": 7,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/server/_stm",
+            "elapsedMs": 83,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:26:53.065Z",
+            "host": "www.temu.com",
+            "method": "GET",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 37,
+            "cookiesSent": 9,
+            "virtualCookies": 9,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/adx/cm/ttc",
+            "errorCode": 1000000,
+            "elapsedMs": 92,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:26:53.201Z",
+            "host": "www.temu.com",
+            "method": "GET",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 65,
+            "cookiesSent": 9,
+            "virtualCookies": 9,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/phantom/xg/pfb/[value]",
+            "errorCode": 200,
+            "elapsedMs": 77,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:26:53.211Z",
+            "host": "www.temu.com",
+            "method": "GET",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 185,
+            "cookiesSent": 9,
+            "virtualCookies": 9,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/phantom/dm/wl/cg",
+            "errorCode": 1000000,
+            "elapsedMs": 88,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:26:53.222Z",
+            "host": "www.temu.com",
+            "method": "GET",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 161,
+            "cookiesSent": 9,
+            "virtualCookies": 9,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/phantom/xg/pfb/b",
+            "errorCode": 200,
+            "elapsedMs": 86,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:26:53.292Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 7148,
+            "cookiesSent": 9,
+            "virtualCookies": 9,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/phantom/xg/pfb/[value]",
+            "errorCode": 200,
+            "elapsedMs": 116,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:26:53.475Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 32498,
+            "cookiesSent": 9,
+            "virtualCookies": 9,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/alexa/homepage/goods_list",
+            "errorCode": 1000000,
+            "elapsedMs": 245,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:26:53.867Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 73,
+            "cookiesSent": 9,
+            "virtualCookies": 9,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/alexa/homepage/footer_info",
+            "errorCode": 1000000,
+            "elapsedMs": 74,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:26:53.876Z",
+            "host": "www.temu.com",
+            "method": "GET",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 8753,
+            "cookiesSent": 9,
+            "virtualCookies": 9,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/static/config/get_front_end_page_config",
+            "errorCode": 1000000,
+            "elapsedMs": 95,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:26:53.879Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 2449,
+            "cookiesSent": 9,
+            "virtualCookies": 9,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/bg-barbera-api/home/footer/[value]",
+            "errorCode": 1000000,
+            "elapsedMs": 91,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:26:53.898Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 17711,
+            "cookiesSent": 9,
+            "virtualCookies": 9,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+            "errorCode": 1000000,
+            "cartObservation": "schema-present",
+            "elapsedMs": 135,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:26:53.982Z",
+            "host": "www.temu.com",
+            "method": "GET",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 40,
+            "cookiesSent": 9,
+            "virtualCookies": 9,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/adx/cm/match-tag",
+            "elapsedMs": 99,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:26:54.236Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 71,
+            "cookiesSent": 9,
+            "virtualCookies": 9,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/bg-aquarius/popup/[value]/default",
+            "elapsedMs": 113,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:26:54.305Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 194,
+            "cookiesSent": 9,
+            "virtualCookies": 9,
+            "setCookies": 4,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/phantom/xg/pfb/[value]",
+            "errorCode": 200,
+            "elapsedMs": 102,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:26:54.998Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 2479,
+            "cookiesSent": 13,
+            "virtualCookies": 13,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+            "errorCode": 1000000,
+            "elapsedMs": 121,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:26:55.473Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 113,
+            "cookiesSent": 13,
+            "virtualCookies": 13,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/faas-abtest-server/firefly-api/exp-config",
+            "elapsedMs": 101,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:27:23.655Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 56,
+            "cookiesSent": 13,
+            "virtualCookies": 13,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/[value]/sumer-log/key-use-data",
+            "elapsedMs": 141,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:30.397Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 429,
+            "type": "application/json",
+            "bytes": 93,
+            "cookiesSent": 12,
+            "virtualCookies": 12,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/poppy/[value]/search_activation",
+            "errorCode": 40002,
+            "applicationFailed": true,
+            "elapsedMs": 270,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:33.193Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 155,
+            "cookiesSent": 12,
+            "virtualCookies": 12,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/poppy/[value]/search_suggest",
+            "errorCode": 54001,
+            "applicationFailed": true,
+            "elapsedMs": 169,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:33.638Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 155,
+            "cookiesSent": 12,
+            "virtualCookies": 12,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/poppy/[value]/search_suggest",
+            "errorCode": 54001,
+            "applicationFailed": true,
+            "elapsedMs": 177,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:33.739Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 56,
+            "cookiesSent": 12,
+            "virtualCookies": 12,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/[value]/sumer-log/key-use-data",
+            "elapsedMs": 109,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:34.145Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 17889,
+            "cookiesSent": 12,
+            "virtualCookies": 12,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+            "errorCode": 1000000,
+            "cartObservation": "schema-present",
+            "elapsedMs": 137,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:36.674Z",
+            "host": "www.temu.com",
+            "method": "GET",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 29,
+            "cookiesSent": 13,
+            "virtualCookies": 13,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/server/_stm",
+            "elapsedMs": 85,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:36.717Z",
+            "host": "www.temu.com",
+            "method": "GET",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 37,
+            "cookiesSent": 13,
+            "virtualCookies": 13,
+            "setCookies": 1,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/adx/cm/ttc",
+            "errorCode": 1000000,
+            "elapsedMs": 100,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:36.823Z",
+            "host": "www.temu.com",
+            "method": "GET",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 185,
+            "cookiesSent": 13,
+            "virtualCookies": 13,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/phantom/dm/wl/cg",
+            "errorCode": 1000000,
+            "elapsedMs": 81,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:36.839Z",
+            "host": "www.temu.com",
+            "method": "GET",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 97,
+            "cookiesSent": 13,
+            "virtualCookies": 13,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/phantom/xg/pfb/[value]",
+            "errorCode": 200,
+            "elapsedMs": 88,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:36.846Z",
+            "host": "www.temu.com",
+            "method": "GET",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 161,
+            "cookiesSent": 13,
+            "virtualCookies": 13,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/phantom/xg/pfb/b",
+            "errorCode": 200,
+            "elapsedMs": 85,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:36.863Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 7148,
+            "cookiesSent": 13,
+            "virtualCookies": 13,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/phantom/xg/pfb/[value]",
+            "errorCode": 200,
+            "elapsedMs": 86,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:37.287Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 89,
+            "cookiesSent": 15,
+            "virtualCookies": 15,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/phantom/vc_pre_ck",
+            "elapsedMs": 94,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:37.327Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 88,
+            "cookiesSent": 16,
+            "virtualCookies": 16,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/bg/tampa/web_device/record",
+            "errorCode": 1000000,
+            "elapsedMs": 118,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:37.761Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 134688,
+            "cookiesSent": 15,
+            "virtualCookies": 15,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/phantom/obtain_captcha",
+            "elapsedMs": 120,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:37.862Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 194,
+            "cookiesSent": 15,
+            "virtualCookies": 15,
+            "setCookies": 4,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/phantom/xg/pfb/[value]",
+            "errorCode": 200,
+            "elapsedMs": 107,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:59.166Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 56,
+            "cookiesSent": 15,
+            "virtualCookies": 15,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/[value]/sumer-log/key-use-data",
+            "elapsedMs": 143,
+            "outcome": "Rewriting engine relay"
+          }
+        ],
+        "recentApiEvents": [
+          {
+            "time": "2026-10-21T14:28:33.638Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 155,
+            "cookiesSent": 12,
+            "virtualCookies": 12,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/poppy/[value]/search_suggest",
+            "errorCode": 54001,
+            "applicationFailed": true,
+            "elapsedMs": 177,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:33.739Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 56,
+            "cookiesSent": 12,
+            "virtualCookies": 12,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/[value]/sumer-log/key-use-data",
+            "elapsedMs": 109,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:34.145Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 17889,
+            "cookiesSent": 12,
+            "virtualCookies": 12,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify_page",
+            "errorCode": 1000000,
+            "cartObservation": "schema-present",
+            "elapsedMs": 137,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:36.674Z",
+            "host": "www.temu.com",
+            "method": "GET",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 29,
+            "cookiesSent": 13,
+            "virtualCookies": 13,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/server/_stm",
+            "elapsedMs": 85,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:36.717Z",
+            "host": "www.temu.com",
+            "method": "GET",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 37,
+            "cookiesSent": 13,
+            "virtualCookies": 13,
+            "setCookies": 1,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/adx/cm/ttc",
+            "errorCode": 1000000,
+            "elapsedMs": 100,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:36.823Z",
+            "host": "www.temu.com",
+            "method": "GET",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 185,
+            "cookiesSent": 13,
+            "virtualCookies": 13,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/phantom/dm/wl/cg",
+            "errorCode": 1000000,
+            "elapsedMs": 81,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:36.839Z",
+            "host": "www.temu.com",
+            "method": "GET",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 97,
+            "cookiesSent": 13,
+            "virtualCookies": 13,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/phantom/xg/pfb/[value]",
+            "errorCode": 200,
+            "elapsedMs": 88,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:36.846Z",
+            "host": "www.temu.com",
+            "method": "GET",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 161,
+            "cookiesSent": 13,
+            "virtualCookies": 13,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/phantom/xg/pfb/b",
+            "errorCode": 200,
+            "elapsedMs": 85,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:36.863Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 7148,
+            "cookiesSent": 13,
+            "virtualCookies": 13,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/phantom/xg/pfb/[value]",
+            "errorCode": 200,
+            "elapsedMs": 86,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:37.287Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 89,
+            "cookiesSent": 15,
+            "virtualCookies": 15,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/phantom/vc_pre_ck",
+            "elapsedMs": 94,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:37.327Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 88,
+            "cookiesSent": 16,
+            "virtualCookies": 16,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/bg/tampa/web_device/record",
+            "errorCode": 1000000,
+            "elapsedMs": 118,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:37.761Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 134688,
+            "cookiesSent": 15,
+            "virtualCookies": 15,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/phantom/obtain_captcha",
+            "elapsedMs": 120,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:37.862Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 194,
+            "cookiesSent": 15,
+            "virtualCookies": 15,
+            "setCookies": 4,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/phantom/xg/pfb/[value]",
+            "errorCode": 200,
+            "elapsedMs": 107,
+            "outcome": "Rewriting engine relay"
+          },
+          {
+            "time": "2026-10-21T14:28:59.166Z",
+            "host": "www.temu.com",
+            "method": "POST",
+            "status": 200,
+            "type": "application/json",
+            "bytes": 56,
+            "cookiesSent": 15,
+            "virtualCookies": 15,
+            "setCookies": 0,
+            "destination": "empty",
+            "omittedHeaders": [],
+            "route": "/api/[value]/sumer-log/key-use-data",
+            "elapsedMs": 143,
+            "outcome": "Rewriting engine relay"
+          }
+        ]
+      }
+    },
+    {
+      "location": {
+        "host": "www.temu.com",
+        "route": "[resource]"
+      },
+      "network": [],
+      "page": {
+        "visibility": "hidden",
+        "cartTraceAvailable": true,
+        "pageReaderPresent": false,
+        "companion": true,
+        "source": "response",
+        "issue": null,
+        "cache": "{\"available\":false,\"stores\":[],\"records\":0,\"candidates\":0,\"scoped\":false,\"shapes\":[]}",
+        "emailFormVisible": false,
+        "humanVerificationVisible": false,
+        "navigationStartedAt": "2026-10-21T14:26:46.186Z",
+        "resources": [
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6824,
+            "durationMs": 2375,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6827,
+            "durationMs": 2400,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6830,
+            "durationMs": 2401,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6834,
+            "durationMs": 2450,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6837,
+            "durationMs": 2446,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6841,
+            "durationMs": 2446,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6845,
+            "durationMs": 2417,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6848,
+            "durationMs": 2453,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6852,
+            "durationMs": 2456,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6856,
+            "durationMs": 2473,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6859,
+            "durationMs": 2498,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6863,
+            "durationMs": 2503,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6867,
+            "durationMs": 2498,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6873,
+            "durationMs": 2502,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6877,
+            "durationMs": 2501,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6882,
+            "durationMs": 2517,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6887,
+            "durationMs": 2541,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6891,
+            "durationMs": 2545,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6895,
+            "durationMs": 2545,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6898,
+            "durationMs": 2548,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6909,
+            "durationMs": 2540,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6950,
+            "durationMs": 2520,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6955,
+            "durationMs": 2545,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6959,
+            "durationMs": 2550,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6963,
+            "durationMs": 2549,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6967,
+            "durationMs": 2548,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6972,
+            "durationMs": 2545,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6976,
+            "durationMs": 2568,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6979,
+            "durationMs": 2591,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 6983,
+            "durationMs": 2598,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/api",
+            "startMs": 7013,
+            "durationMs": 2573,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/api",
+            "startMs": 7031,
+            "durationMs": 2567,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 7214,
+            "durationMs": 2384,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/dz-en/api/bg-aquarius/popup/[value]/default",
+            "startMs": 7408,
+            "durationMs": 2307,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/api",
+            "startMs": 7792,
+            "durationMs": 1870,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/api",
+            "startMs": 7807,
+            "durationMs": 1865,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/api",
+            "startMs": 7831,
+            "durationMs": 1887,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/defined",
+            "startMs": 7862,
+            "durationMs": 1867,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/pmm/api/pmm/api",
+            "startMs": 9732,
+            "durationMs": 96,
+            "status": 200,
+            "type": "xmlhttprequest"
+          },
+          {
+            "path": "/dz-en/api/bg/bg-uranus-api/uranus_cart/user_cart_num",
+            "startMs": 9846,
+            "durationMs": 207,
+            "status": 200,
+            "type": "xmlhttprequest"
+          }
+        ]
+      },
+      "inspectionError": "Debugger timeout: Runtime.evaluate"
+    }
+  ]
+}

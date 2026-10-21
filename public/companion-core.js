@@ -50,7 +50,7 @@
   }
   function setupStep(readiness){return readiness.account?.status===1?(readiness.address?'review':'shipping'):'account';}
   function cartBlocker(snapshot){
-    if(snapshot?.invalid>0)return 'problem';
+    if((snapshot?.selectedInvalid??snapshot?.invalid)>0)return 'problem';
     if(snapshot?.minimum!=null&&snapshot.minor<snapshot.minimum)return 'minimum';
     return null;
   }

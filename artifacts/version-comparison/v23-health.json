@@ -1,0 +1,65 @@
+{
+  "failures": [
+    {
+      "host": "www.temu.com",
+      "route": "/api/passport/token/touch",
+      "status": 424,
+      "errorCode": 40001,
+      "outcome": "Rewriting engine relay",
+      "count": 8,
+      "lastSeen": "2026-10-18T06:50:48.739Z"
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/bg/bg-uranus-api/uranus_cart/cart_modify/pc_side_bar",
+      "status": 200,
+      "errorCode": 40002,
+      "outcome": "Rewriting engine relay",
+      "count": 4,
+      "lastSeen": "2026-10-18T06:50:39.337Z"
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/seo/get_common_biz_data",
+      "status": 403,
+      "errorCode": 40002,
+      "outcome": "Rewriting engine relay",
+      "count": 4,
+      "lastSeen": "2026-10-18T06:50:36.419Z"
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/poppy/[value]/search_activation",
+      "status": 429,
+      "errorCode": 40002,
+      "outcome": "Rewriting engine relay",
+      "count": 4,
+      "lastSeen": "2026-10-18T06:50:36.343Z"
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/poppy/[value]/title_bar_list",
+      "status": 403,
+      "errorCode": 40001,
+      "outcome": "Rewriting engine relay",
+      "count": 4,
+      "lastSeen": "2026-10-18T06:50:34.999Z"
+    },
+    {
+      "host": "www.temu.com",
+      "route": "/api/seo/get_page_seo_data",
+      "status": 403,
+      "errorCode": 40002,
+      "outcome": "Rewriting engine relay",
+      "count": 4,
+      "lastSeen": "2026-10-18T06:50:34.678Z"
+    },
+    {
+      "host": "cm.g.doubleclick.net",
+      "status": 403,
+      "outcome": "Destination outside allowlist",
+      "count": 1,
+      "lastSeen": "2026-10-18T06:27:26.994Z"
+    }
+  ]
+}

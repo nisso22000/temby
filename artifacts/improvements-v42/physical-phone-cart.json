@@ -1,0 +1,168 @@
+{
+  "startedAt": "2026-10-20T16:24:16.270Z",
+  "scope": "Authorized cart refresh, homepage, existing product and product reload; no login/challenge handling or cart mutations",
+  "snapshots": [
+    {
+      "path": "/shopping_cart.html",
+      "visibility": "visible",
+      "source": "unavailable",
+      "updating": "false",
+      "issue": null,
+      "amount": "— DZD",
+      "count": "",
+      "merchantNet": "",
+      "bubbleBottom": 1735,
+      "viewportHeight": 1747
+    },
+    {
+      "visibility": "visible",
+      "viewportHeight": 1747
+    },
+    {
+      "path": "/shopping_cart.html",
+      "visibility": "visible",
+      "source": "response",
+      "updating": "false",
+      "issue": null,
+      "amount": "122 308,73 DZD",
+      "count": "9 article(s) sélectionné(s)",
+      "merchantNet": "423,58 EUR → 116 484,5 DZD",
+      "bubbleBottom": 565.6666870117188,
+      "viewportHeight": 641
+    },
+    {
+      "path": "/",
+      "visibility": "visible",
+      "viewportHeight": 641
+    },
+    {
+      "path": "/",
+      "visibility": "visible",
+      "viewportHeight": 641
+    },
+    {
+      "path": "/",
+      "visibility": "visible",
+      "viewportHeight": 641
+    },
+    {
+      "path": "/",
+      "visibility": "visible",
+      "source": "response",
+      "updating": "false",
+      "issue": null,
+      "amount": "122 308,73 DZD",
+      "count": "9 article(s) sélectionné(s)",
+      "merchantNet": "423,58 EUR → 116 484,5 DZD",
+      "bubbleBottom": 565.6666870117188,
+      "viewportHeight": 641
+    },
+    {
+      "path": "/goods.html",
+      "visibility": "visible",
+      "viewportHeight": 641
+    },
+    {
+      "path": "/goods.html",
+      "visibility": "visible",
+      "viewportHeight": 641
+    },
+    {
+      "path": "/goods.html",
+      "visibility": "visible",
+      "viewportHeight": 641
+    },
+    {
+      "path": "/goods.html",
+      "visibility": "visible",
+      "source": "response",
+      "updating": "false",
+      "issue": null,
+      "amount": "122 308,73 DZD",
+      "count": "9 article(s) sélectionné(s)",
+      "merchantNet": "423,58 EUR → 116 484,5 DZD",
+      "bubbleBottom": 565.6666870117188,
+      "viewportHeight": 641
+    },
+    {
+      "path": "/goods.html",
+      "visibility": "visible",
+      "viewportHeight": 641
+    },
+    {
+      "path": "/goods.html",
+      "visibility": "visible",
+      "source": "response",
+      "updating": "false",
+      "issue": null,
+      "amount": "122 308,73 DZD",
+      "count": "9 article(s) sélectionné(s)",
+      "merchantNet": "423,58 EUR → 116 484,5 DZD",
+      "bubbleBottom": 565.6666870117188,
+      "viewportHeight": 641
+    }
+  ],
+  "workerErrors": [],
+  "before": {
+    "path": "/shopping_cart.html",
+    "visibility": "visible",
+    "source": "response",
+    "updating": "false",
+    "issue": null,
+    "amount": "122 308,73 DZD",
+    "count": "9 article(s) sélectionné(s)",
+    "merchantNet": "423,58 EUR → 116 484,5 DZD",
+    "bubbleBottom": 565.6666870117188,
+    "viewportHeight": 641
+  },
+  "localAsset": {
+    "error": "Failed to fetch"
+  },
+  "update": {
+    "active": true,
+    "state": "activated"
+  },
+  "refreshedAt": "2026-10-20T16:24:17.898Z",
+  "browsing": [
+    {
+      "label": "homepage",
+      "path": "/",
+      "visibility": "visible",
+      "source": "response",
+      "updating": "false",
+      "issue": null,
+      "amount": "122 308,73 DZD",
+      "count": "9 article(s) sélectionné(s)",
+      "merchantNet": "423,58 EUR → 116 484,5 DZD",
+      "bubbleBottom": 565.6666870117188,
+      "viewportHeight": 641
+    },
+    {
+      "label": "existing-product",
+      "path": "/goods.html",
+      "visibility": "visible",
+      "source": "response",
+      "updating": "false",
+      "issue": null,
+      "amount": "122 308,73 DZD",
+      "count": "9 article(s) sélectionné(s)",
+      "merchantNet": "423,58 EUR → 116 484,5 DZD",
+      "bubbleBottom": 565.6666870117188,
+      "viewportHeight": 641
+    },
+    {
+      "label": "product-reload",
+      "path": "/goods.html",
+      "visibility": "visible",
+      "source": "response",
+      "updating": "false",
+      "issue": null,
+      "amount": "122 308,73 DZD",
+      "count": "9 article(s) sélectionné(s)",
+      "merchantNet": "423,58 EUR → 116 484,5 DZD",
+      "bubbleBottom": 565.6666870117188,
+      "viewportHeight": 641
+    }
+  ],
+  "finishedAt": "2026-10-20T16:24:34.309Z"
+}
