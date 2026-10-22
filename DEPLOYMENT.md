@@ -116,6 +116,13 @@ required in production. Back them up in a password manager: changing the
 encryption key invalidates every stored browser session, intentionally logging
 those browsers out.
 
+The official Redis image initially starts with enough privilege to set the
+ownership of its mounted `/data` volume, then drops to its unprivileged `redis`
+user. Do not add `cap_drop: ALL` or `no-new-privileges` to this Redis service:
+those settings prevent that first-start ownership step and make Redis restart
+without ever becoming healthy. Redis remains unreachable from the Internet—it
+has no published port and exists only on Docker's internal backend network.
+
 After the first start, run the deployment smoke test during a quiet test window:
 
 ```bash
