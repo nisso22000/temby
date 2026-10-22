@@ -23,7 +23,40 @@ type StoredSession = {
   apiEvents?: Session['apiEvents'];
 };
 
-type ActiveSession = { id: string; createdAt: number; lockToken: string };
+// `initial` is the exact encrypted-record payload observed at request start.
+// It lets a short commit-time lock merge independent concurrent updates instead
+// of holding a lock while a merchant request is in flight.
+type ActiveSession = { id: string; createdAt: number; initial?: StoredSession };
+
+function cookieKey(cookie: any) { return [cookie.domain || '',cookie.path || '',cookie.key || ''].join('\u0000'); }
+function cookieMap(jar: SerializedCookieJar) { return new Map<string,any>((Array.isArray((jar as any).cookies)?(jar as any).cookies:[]).map((cookie:any)=>[cookieKey(cookie),cookie])); }
+function equal(value: unknown, other: unknown) { return JSON.stringify(value)===JSON.stringify(other); }
+function mergeJar(latest: SerializedCookieJar, before: SerializedCookieJar|undefined, after: SerializedCookieJar) {
+  if(!before)return after;
+  const base=cookieMap(before),local=cookieMap(after),merged=cookieMap(latest);
+  for(const key of new Set([...base.keys(),...local.keys()])) {
+    const was=base.get(key),now=local.get(key);
+    if(equal(was,now))continue;
+    if(now)merged.set(key,now);else merged.delete(key);
+  }
+  return {...latest,cookies:[...merged.values()]} as SerializedCookieJar;
+}
+function eventKey(event: unknown) { return JSON.stringify(event); }
+function additions<T>(before:T[]|undefined,after:T[]|undefined) {
+  const known=new Set((before||[]).map(eventKey));return (after||[]).filter(item=>!known.has(eventKey(item)));
+}
+function mergeEvents<T extends {time:string}>(latest:T[]|undefined,before:T[]|undefined,after:T[]|undefined,limit:number) {
+  const values=[...(latest||[])];const known=new Set(values.map(eventKey));
+  for(const item of additions(before,after))if(!known.has(eventKey(item))){values.push(item);known.add(eventKey(item));}
+  return values.sort((a,b)=>a.time.localeCompare(b.time)).slice(-limit);
+}
+function mergeMetrics(latest:Session['metrics'],before:Session['metrics'],after:Session['metrics']) {
+  const merged={...(latest||{})};
+  for(const [name,value] of Object.entries(after||{})){
+    const change=value-(before?.[name]||0);if(change>0)merged[name]=(merged[name]||0)+change;
+  }
+  return Object.keys(merged).length?merged:undefined;
+}
 
 export class RedisSessionManager implements SessionManager {
   private readonly client: RedisClientType;
@@ -85,9 +118,11 @@ export class RedisSessionManager implements SessionManager {
 
   private async acquireLock(id: string) {
     const token = randomBytes(24).toString('base64url');
-    const deadline = Date.now() + 25_000;
+    // This protects only the Redis read/merge/write critical section. It must
+    // never cover an upstream merchant request, which could take many seconds.
+    const deadline = Date.now() + 5_000;
     while (Date.now() < deadline) {
-      const acquired = await this.client.set(this.lockKey(id), token, { NX: true, PX: 35_000 });
+      const acquired = await this.client.set(this.lockKey(id), token, { NX: true, PX: 10_000 });
       if (acquired === 'OK') return token;
       await new Promise(resolve => setTimeout(resolve, 50));
     }
@@ -104,9 +139,8 @@ export class RedisSessionManager implements SessionManager {
   private async newSession(now: number, res: ServerResponse) {
     const id = randomBytes(32).toString('hex');
     await this.reserve(id, now);
-    const lockToken = await this.acquireLock(id);
     const session: Session = { jar: new CookieJar(), touched: now, events: [], failures: [] };
-    this.active.set(session, { id, createdAt: now, lockToken });
+    this.active.set(session, { id, createdAt: now });
     this.setCookie(res, id, this.options.idleTtlSeconds);
     return session;
   }
@@ -114,24 +148,20 @@ export class RedisSessionManager implements SessionManager {
   async get(req: IncomingMessage, res: ServerResponse): Promise<Session> {
     if (!this.ready()) throw new SessionStoreUnavailableError();
     const now = Date.now(); const id = this.cookie(req);
-    let lock: {id:string;token:string}|undefined;
     try {
       if (!id) return await this.newSession(now, res);
-      const lockToken = await this.acquireLock(id);
-      lock={id,token:lockToken};
       const raw = await this.client.get(this.sessionKey(id));
-      if (!raw) { await this.releaseLock(id, lockToken); lock=undefined; return await this.newSession(now, res); }
+      if (!raw) return await this.newSession(now, res);
       const stored = this.decrypt(raw); const remaining = stored.createdAt + this.options.absoluteTtlSeconds * 1000 - now;
       if (remaining <= 0) {
-        await this.client.del(this.sessionKey(id)); await this.client.zRem('temby:active-sessions', id); await this.releaseLock(id, lockToken); lock=undefined;
+        await this.client.del(this.sessionKey(id)); await this.client.zRem('temby:active-sessions', id);
         return await this.newSession(now, res);
       }
       const session: Session = { jar: CookieJar.deserializeSync(stored.jar), touched: now, events: stored.events || [], failures: stored.failures || [], metrics: stored.metrics, apiEvents: stored.apiEvents };
-      this.active.set(session, { id, createdAt: stored.createdAt, lockToken });
+      this.active.set(session, { id, createdAt: stored.createdAt, initial: stored });
       this.setCookie(res, id, Math.min(this.options.idleTtlSeconds, Math.max(1, Math.floor(remaining / 1000))));
       return session;
     } catch (error) {
-      if(lock) await this.releaseLock(lock.id,lock.token).catch(() => {});
       if (error instanceof SessionCapacityError || error instanceof SessionBusyError || error instanceof SessionStoreUnavailableError) throw error;
       throw new SessionStoreUnavailableError();
     }
@@ -140,12 +170,24 @@ export class RedisSessionManager implements SessionManager {
   async commit(session: Session) {
     const active = this.active.get(session);
     if (!active) return;
+    let lockToken: string|undefined;
     try {
       if (!this.ready()) throw new SessionStoreUnavailableError();
       const now = Date.now(); const remaining = active.createdAt + this.options.absoluteTtlSeconds * 1000 - now;
       if (remaining <= 0) { await this.client.del(this.sessionKey(active.id)); await this.client.zRem('temby:active-sessions', active.id); return; }
       const ttl = Math.min(this.options.idleTtlSeconds, Math.max(1, Math.floor(remaining / 1000)));
-      const stored: StoredSession = { version: 1, createdAt: active.createdAt, touched: session.touched, jar: await session.jar.serialize(), events: session.events, failures: session.failures, metrics: session.metrics, apiEvents: session.apiEvents };
+      lockToken=await this.acquireLock(active.id);
+      const currentRaw=await this.client.get(this.sessionKey(active.id));
+      const current=currentRaw?this.decrypt(currentRaw):active.initial;
+      const localJar=await session.jar.serialize();
+      const stored: StoredSession = {
+        version: 1, createdAt: active.createdAt, touched: Math.max(session.touched,current?.touched||0),
+        jar: mergeJar(current?.jar||localJar,active.initial?.jar,localJar),
+        events: mergeEvents(current?.events,active.initial?.events,session.events,100),
+        failures: mergeEvents(current?.failures,active.initial?.failures,session.failures,40),
+        metrics: mergeMetrics(current?.metrics,active.initial?.metrics,session.metrics),
+        apiEvents: mergeEvents(current?.apiEvents,active.initial?.apiEvents,session.apiEvents,100),
+      };
       await this.client.set(this.sessionKey(active.id), this.encrypt(stored), { EX: ttl });
       await this.client.zAdd('temby:active-sessions', [{ score: now, value: active.id }]);
     } catch (error) {
@@ -153,7 +195,7 @@ export class RedisSessionManager implements SessionManager {
       throw new SessionStoreUnavailableError();
     } finally {
       this.active.delete(session);
-      if (this.ready()) await this.releaseLock(active.id, active.lockToken).catch(() => {});
+      if (lockToken&&this.ready()) await this.releaseLock(active.id, lockToken).catch(() => {});
     }
   }
 
