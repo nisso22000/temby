@@ -80,7 +80,13 @@ export function createServers(port = 3000, merchantPort = 3001, transport: Trans
       const data=(await readFile(new URL(`../public/${file}`,import.meta.url),'utf8')).replaceAll('__MERCHANT_ORIGIN__',merchantOrigin);
       res.writeHead(200,{'content-type':file.endsWith('.js')?'text/javascript':file.endsWith('.css')?'text/css':'text/html; charset=utf-8','content-security-policy':`default-src 'self'; frame-src ${merchantOrigin}; script-src 'self'; style-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'`});
       res.end(data);
-    } catch { if (!res.headersSent) message(res,500,'Local request failed','The local diagnostic request could not be completed.'); else res.end(); }
+    } catch (error) {
+      // Keep logs useful without recording URLs, cookies, request bodies, or
+      // upstream response data. Detailed diagnostics remain session-scoped.
+      const details=error as {name?:unknown;code?:unknown};
+      console.error(JSON.stringify({time:new Date().toISOString(),level:'error',event:'request_failed',errorName:typeof details?.name==='string'?details.name:'UnknownError',errorCode:typeof details?.code==='string'?details.code:undefined}));
+      if (!res.headersSent) message(res,500,'Local request failed','The local diagnostic request could not be completed.'); else res.end();
+    }
   };
   const app=createServer(handle(false)); const merchant=createServer(handle(true));
   for (const server of [app,merchant]) { server.requestTimeout=30000; server.headersTimeout=10000; server.on('upgrade',(_,socket)=>socket.destroy()); }
