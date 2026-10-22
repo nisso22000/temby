@@ -35,7 +35,12 @@ for _ in {1..30}; do
   if curl --fail --silent --output /dev/null "$app_origin/healthz"; then break; fi
   sleep 1
 done
-state="$(curl --fail --silent --show-error --cookie "$cookies" "$merchant_origin/_state")"
+state=''
+for _ in {1..15}; do
+  if state="$(curl --fail --silent --cookie "$cookies" "$merchant_origin/_state" 2>/dev/null)"; then break; fi
+  state=''; sleep 1
+done
+test -n "$state" || { echo 'FAIL: session state endpoint did not recover after app restart.' >&2; exit 1; }
 printf '%s' "$state" | grep -q 'document-ready' || { echo 'FAIL: session did not survive the app restart.' >&2; exit 1; }
 printf '%s' "$state" | grep -q 'config-loaded' || { echo 'FAIL: concurrent session update was lost.' >&2; exit 1; }
 printf '%s' "$state" | grep -q 'page-leaving' || { echo 'FAIL: concurrent session update was lost.' >&2; exit 1; }
