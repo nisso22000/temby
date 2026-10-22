@@ -72,4 +72,15 @@ test('public origins are host-pinned and health checks do not create a session',
   } finally {app.closeAllConnections();merchant.closeAllConnections();app.close();merchant.close();}
 });
 
+test('merchant static assets do not consume session capacity',async()=>{
+  const {app,merchant}=createServers(3930,3931,undefined,{sessionCapacity:1});
+  app.listen(3930,'127.0.0.1');merchant.listen(3931,'127.0.0.1');await Promise.all([once(app,'listening'),once(merchant,'listening')]);
+  const origin='http://localhost:3931';
+  try {
+    assert.equal((await fetch(origin+'/uv/boot.js')).status,200);
+    assert.equal((await fetch(origin+'/uv/')).status,200);
+    assert.equal((await fetch(origin+'/uv/')).status,503);
+  } finally {app.closeAllConnections();merchant.closeAllConnections();app.close();merchant.close();}
+});
+
 test.after(async()=>{await dispatcher.close();});

@@ -4,16 +4,19 @@ import type { IncomingMessage, ServerResponse } from 'node:http';
 
 export interface Event { time: string; host: string; method: string; status: number; type: string; bytes: number; outcome: string; cookiesSent?: number; virtualCookies?: number; setCookies?: number; destination?: string; omittedHeaders?: string[]; route?:string; errorCode?:number; applicationFailed?:boolean; elapsedMs?:number;cartObservation?:string; }
 export interface Session { jar: CookieJar; touched: number; events: Event[]; failures:Event[];metrics?:Record<string,number>;apiEvents?:Event[]; }
+export class SessionCapacityError extends Error {
+  constructor(){super('SESSION_CAPACITY');this.name='SessionCapacityError';}
+}
 export class Sessions {
   private entries = new Map<string, Session>();
-  constructor(private ttl = 60 * 60 * 1000, private secureCookie = false) {}
+  constructor(private ttl = 60 * 60 * 1000, private secureCookie = false, private capacity = 100) {}
   get(req: IncomingMessage, res: ServerResponse): Session {
     const now = Date.now();
     for (const [id, s] of this.entries) if (now - s.touched > this.ttl) this.entries.delete(id);
     let id = /(?:^|;\s*)temby_sid=([a-f0-9]{64})(?:;|$)/.exec(req.headers.cookie || '')?.[1];
     let session = id ? this.entries.get(id) : undefined;
     if (!session) {
-      if (this.entries.size >= 100) throw new Error('SESSION_CAPACITY');
+      if (this.entries.size >= this.capacity) throw new SessionCapacityError();
       id = randomBytes(32).toString('hex');
       session = { jar: new CookieJar(), touched: now, events: [], failures:[] };
       this.entries.set(id, session);

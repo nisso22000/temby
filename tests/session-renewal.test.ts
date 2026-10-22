@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import type { IncomingMessage,ServerResponse } from 'node:http';
-import { Sessions } from '../src/sessions.js';
+import { SessionCapacityError, Sessions } from '../src/sessions.js';
 
 test('active sessions renew the same browser cookie rather than expiring at creation time',()=>{
   const sessions=new Sessions(1800000);let header='';
@@ -16,4 +16,10 @@ test('active sessions renew the same browser cookie rather than expiring at crea
 test('default session cookie expires after one hour idle',()=>{
  let header='';new Sessions().get({headers:{}} as any,{setHeader(_name:string,value:string){header=value;}} as any);
  assert.match(header,/Max-Age=3600/);
+});
+
+test('session capacity is bounded with a typed error',()=>{
+ const sessions=new Sessions(undefined,false,1);const response={setHeader(){}} as any;
+ sessions.get({headers:{}} as any,response);
+ assert.throws(()=>sessions.get({headers:{}} as any,response),SessionCapacityError);
 });

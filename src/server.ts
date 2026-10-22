@@ -1,6 +1,6 @@
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { readFile } from 'node:fs/promises';
-import { Sessions, record } from './sessions.js';
+import { Sessions, SessionCapacityError, record } from './sessions.js';
 import { message, readBody } from './http.js';
 import { upstream, type Transport } from './transport.js';
 import { engineAsset, engineRelay } from './engine.js';
@@ -9,9 +9,9 @@ import { forwardCspReport } from './reports.js';
 import { companionMail } from './companion-mail.js';
 import {NetworkFilter,type FilterMode} from './network-filter.js';
 
-export interface ServerOptions { ownedFixtures?:boolean; filterMode?:FilterMode; directAssets?:boolean; appOrigin?:string; merchantOrigin?:string; secureCookies?:boolean; }
+export interface ServerOptions { ownedFixtures?:boolean; filterMode?:FilterMode; directAssets?:boolean; appOrigin?:string; merchantOrigin?:string; secureCookies?:boolean; sessionCapacity?:number; }
 export function createServers(port = 3000, merchantPort = 3001, transport: Transport = upstream, options:ServerOptions={}) {
-  const sessions = new Sessions(undefined,options.secureCookies===true);
+  const sessions = new Sessions(undefined,options.secureCookies===true,options.sessionCapacity);
   const filter=new NetworkFilter(options.filterMode||'off');
   const appOrigin = options.appOrigin || `http://localhost:${port}`; const merchantOrigin = options.merchantOrigin || `http://localhost:${merchantPort}`;
   const appHost = new URL(appOrigin).host; const merchantHost = new URL(merchantOrigin).host;
@@ -33,6 +33,10 @@ export function createServers(port = 3000, merchantPort = 3001, transport: Trans
       // The launcher only redirects into the merchant origin. Do not consume a
       // session slot or set an unused cookie before actual browsing begins.
       if (!merchant && url.pathname==='/' && ['GET','HEAD'].includes(req.method||'')) {res.writeHead(302,{location:merchantOrigin+'/uv/'});res.end();return;}
+      // Assets have no per-user server state. Serving them without allocating
+      // a session prevents scanners and parallel asset loads from exhausting
+      // the bounded merchant-session store.
+      if (merchant && url.pathname!=='/uv/' && await engineAsset(url.pathname,res,req,{directAssets:options.directAssets===true,blockTelemetry:options.filterMode==='balanced'})) return;
       const s = sessions.get(req,res);
       if (merchant) {
         if(url.pathname==='/_companion/mail')return await companionMail(req,res,s,merchantOrigin);
@@ -84,7 +88,9 @@ export function createServers(port = 3000, merchantPort = 3001, transport: Trans
       // Keep logs useful without recording URLs, cookies, request bodies, or
       // upstream response data. Detailed diagnostics remain session-scoped.
       const details=error as {name?:unknown;code?:unknown};
-      console.error(JSON.stringify({time:new Date().toISOString(),level:'error',event:'request_failed',errorName:typeof details?.name==='string'?details.name:'UnknownError',errorCode:typeof details?.code==='string'?details.code:undefined}));
+      const capacity=error instanceof SessionCapacityError;
+      console.error(JSON.stringify({time:new Date().toISOString(),level:'error',event:capacity?'session_capacity_reached':'request_failed',errorName:typeof details?.name==='string'?details.name:'UnknownError',errorCode:typeof details?.code==='string'?details.code:undefined}));
+      if(capacity)return message(res,503,'Temporarily busy','This service has reached its active-session limit. Please try again later.');
       if (!res.headersSent) message(res,500,'Local request failed','The local diagnostic request could not be completed.'); else res.end();
     }
   };
