@@ -28,11 +28,16 @@ services:
         reservations:
           cpus: "0.25"
           memory: 256M
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
     networks:
       - private
 
   caddy:
     image: caddy:2.10.2-alpine
+    env_file: .env
     restart: unless-stopped
     depends_on:
       temby:
@@ -54,10 +59,6 @@ services:
         limits:
           cpus: "0.75"
           memory: 512M
-    security_opt:
-      - no-new-privileges:true
-    cap_drop:
-      - ALL
     networks:
       - private
 
