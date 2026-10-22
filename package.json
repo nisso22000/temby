@@ -16,6 +16,7 @@
     "@titaniumnetwork-dev/ultraviolet": "3.2.10",
     "ipaddr.js": "^2.5.0",
     "parse5": "^8.0.1",
+    "redis": "6.3.0",
     "tough-cookie": "^6.0.2",
     "undici": "^8.12.2"
   },

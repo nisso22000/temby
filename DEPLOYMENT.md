@@ -87,6 +87,7 @@ docker compose up -d --build --wait
 docker compose ps
 docker compose logs --tail=100 caddy
 docker compose logs --tail=100 temby
+docker compose logs --tail=100 redis
 docker compose exec -T temby node -e "require('node:http').get('http://127.0.0.1:3000/healthz',{headers:{host:'temudz.store'}},r=>{r.pipe(process.stdout);process.exitCode=r.statusCode===200?0:1}).on('error',e=>{console.error(e);process.exit(1)})"
 ```
 
@@ -98,6 +99,34 @@ Browse
 the intentional origin separation. Never publish 3000 or 3001 in `ports:` and
 never put `.env` in Git. Docker's `local` logging driver rotates each container
 at 10 MB with five retained files.
+
+Generate two new local-only secrets before the first Redis-backed start. Do not
+paste their output into chat, a terminal recording, or Git:
+
+```bash
+umask 077
+printf '\nREDIS_PASSWORD=%s\nSESSION_ENCRYPTION_KEY=%s\n' "$(openssl rand -base64 32)" "$(openssl rand -base64 32)" >> .env
+chmod 600 .env
+```
+
+`REDIS_PASSWORD` prevents another container from casually connecting to Redis.
+`SESSION_ENCRYPTION_KEY` encrypts each stored session record using AES-256-GCM,
+so Redis's disk volume does not contain a readable Temu cookie jar. Both are
+required in production. Back them up in a password manager: changing the
+encryption key invalidates every stored browser session, intentionally logging
+those browsers out.
+
+After the first start, run the deployment smoke test during a quiet test window:
+
+```bash
+chmod 0755 scripts/verify-session-persistence.sh
+scripts/verify-session-persistence.sh
+```
+
+It briefly restarts the Node container. It checks that static assets do not make
+sessions, a harmless session event persists through that restart, and the Redis
+value is encrypted rather than readable text. It neither signs in to Temu nor
+tries to solve or avoid a puzzle.
 
 ## Updates and rollback
 
@@ -118,10 +147,10 @@ scripts/rollback.sh <known-good-commit>
 ```
 
 Rollback refuses local source changes and does not delete volumes, so Caddy's
-certificate state remains intact. Inspect a failure with `docker compose ps`
-and `docker compose logs --tail=200 temby caddy`.
+certificate state and Redis sessions remain intact. Inspect a failure with
+`docker compose ps` and `docker compose logs --tail=200 temby caddy redis`.
 
-## Sessions: intended behavior and current limitations
+## Sessions: intended behavior and Redis implementation
 
 Sessions are **browser-session level**, not product level. The merchant
 subdomain sets an opaque, HttpOnly, `SameSite=Strict` `temby_sid`; its server
@@ -137,12 +166,23 @@ merchant account or guest-cart identity where available. A product page can
 display a cart observation, but it must never become the source of identity or
 be shared merely because two users view the same product.
 
-The current server session store is memory-only, has a one-hour sliding idle
-expiry, and caps at **100 sessions**. A deploy, restart, eviction, or capacity
-event loses the upstream cookie jar and may require the user to log in again.
-This is not sufficient for a high-traffic launch. Do not represent this as a
-Black Friday-ready session tier until capacity/load tests and a deliberately
-designed resilient session strategy have passed.
+Production uses Redis as the source of truth. The application never stores the
+jar in its own memory between requests; it encrypts the record before writing it
+to Redis. A session has a seven-day sliding idle expiry and a 30-day absolute
+maximum lifetime by default. Every real request takes a short lock for that one
+browser session, so two parallel requests cannot overwrite the same cookie jar.
+Static engine files are deliberately served before session lookup, so browser
+asset bursts cannot consume a session slot. The active-session ceiling is 2,500,
+which is admission protection—not evidence that this single VPS can serve 2,500
+active users. Load testing is still required.
+
+Restarting the **app container** should preserve an active browser's session,
+because Redis stays running with its own persistent volume. A full VPS failure,
+Redis-volume loss, or encryption-key rotation will still end sessions. One VPS
+is therefore not high availability; it is a sensible first production test
+topology. The same Redis protocol permits additional app containers later, but
+we should not add replicas on this four-vCPU host before measured load data says
+they help. More replicas share the same CPU/RAM and can increase upstream load.
 
 The intended production session model is: one random server-side session per
 browser, opaque cookie only, isolated cookie jar/storage per user, short idle
@@ -160,7 +200,7 @@ discard in-memory sessions by restarting, and investigate before reopening.
 - [ ] HTTPS certificates are issued and `/healthz` works through the public hostname.
 - [ ] `.env` is mode 600, excluded from Git, and contains no committed secret.
 - [ ] A separate browser profile confirms no account/cart state crosses sessions.
-- [ ] A restart test confirms the documented re-authentication behavior.
+- [ ] `scripts/verify-session-persistence.sh` passes, including the app-restart test.
 - [ ] You have tested `scripts/rollback.sh` against a known-good commit.
 - [ ] You accept the unresolved merchant login/puzzle compatibility risks in `README.md`.
 

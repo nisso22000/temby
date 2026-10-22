@@ -33,7 +33,45 @@ services:
     cap_drop:
       - ALL
     networks:
-      - private
+      - edge
+      - backend
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  redis:
+    image: redis:7.4.2-alpine
+    env_file: .env
+    restart: unless-stopped
+    command: ["sh", "-c", "exec redis-server --appendonly yes --appendfsync everysec --maxmemory 1gb --maxmemory-policy noeviction --requirepass \"$$REDIS_PASSWORD\""]
+    expose:
+      - "6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli --no-auth-warning -a \"$$REDIS_PASSWORD\" ping | grep -q PONG"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "5"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.75"
+          memory: 1536M
+        reservations:
+          memory: 256M
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    networks:
+      - backend
 
   caddy:
     image: caddy:2.10.2-alpine
@@ -60,13 +98,14 @@ services:
           cpus: "0.75"
           memory: 512M
     networks:
-      - private
+      - edge
 
 networks:
-  private:
-    # Ports are not published for temby; this shared network must retain egress
-    # for Temu HTTPS traffic and Caddy's ACME certificate requests.
+  edge:
+  backend:
+    internal: true
 
 volumes:
   caddy_data:
   caddy_config:
+  redis_data:

@@ -1,6 +1,7 @@
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { readFile } from 'node:fs/promises';
-import { Sessions, SessionCapacityError, record } from './sessions.js';
+import { Sessions, SessionBusyError, SessionCapacityError, SessionStoreUnavailableError, record } from './sessions.js';
+import type { SessionManager } from './session-manager.js';
 import { message, readBody } from './http.js';
 import { upstream, type Transport } from './transport.js';
 import { engineAsset, engineRelay } from './engine.js';
@@ -9,9 +10,9 @@ import { forwardCspReport } from './reports.js';
 import { companionMail } from './companion-mail.js';
 import {NetworkFilter,type FilterMode} from './network-filter.js';
 
-export interface ServerOptions { ownedFixtures?:boolean; filterMode?:FilterMode; directAssets?:boolean; appOrigin?:string; merchantOrigin?:string; secureCookies?:boolean; sessionCapacity?:number; }
+export interface ServerOptions { ownedFixtures?:boolean; filterMode?:FilterMode; directAssets?:boolean; appOrigin?:string; merchantOrigin?:string; secureCookies?:boolean; sessionCapacity?:number; sessions?:SessionManager; }
 export function createServers(port = 3000, merchantPort = 3001, transport: Transport = upstream, options:ServerOptions={}) {
-  const sessions = new Sessions(undefined,options.secureCookies===true,options.sessionCapacity);
+  const sessions: SessionManager = options.sessions || new Sessions(undefined,options.secureCookies===true,options.sessionCapacity);
   const filter=new NetworkFilter(options.filterMode||'off');
   const appOrigin = options.appOrigin || `http://localhost:${port}`; const merchantOrigin = options.merchantOrigin || `http://localhost:${merchantPort}`;
   const appHost = new URL(appOrigin).host; const merchantHost = new URL(merchantOrigin).host;
@@ -25,11 +26,12 @@ export function createServers(port = 3000, merchantPort = 3001, transport: Trans
   }
   const handle = (merchant: boolean) => async (req: IncomingMessage, res: ServerResponse) => {
     if (!guard(req,res,merchant?merchantPort:port)) return;
+    let session;
     try {
       const url=new URL(req.url || '/',appOrigin);
       // Deliberately cookie-free: this is the only endpoint intended for the
       // reverse proxy/container health check.
-      if (!merchant && url.pathname==='/healthz') {res.writeHead(200,{'content-type':'application/json','cache-control':'no-store'});res.end('{"status":"ok"}');return;}
+      if (!merchant && url.pathname==='/healthz') {if(!sessions.ready?.()){res.writeHead(503,{'content-type':'application/json','cache-control':'no-store'});res.end('{"status":"degraded"}');return;}res.writeHead(200,{'content-type':'application/json','cache-control':'no-store'});res.end('{"status":"ok"}');return;}
       // The launcher only redirects into the merchant origin. Do not consume a
       // session slot or set an unused cookie before actual browsing begins.
       if (!merchant && url.pathname==='/' && ['GET','HEAD'].includes(req.method||'')) {res.writeHead(302,{location:merchantOrigin+'/uv/'});res.end();return;}
@@ -37,7 +39,7 @@ export function createServers(port = 3000, merchantPort = 3001, transport: Trans
       // a session prevents scanners and parallel asset loads from exhausting
       // the bounded merchant-session store.
       if (merchant && url.pathname!=='/uv/' && await engineAsset(url.pathname,res,req,{directAssets:options.directAssets===true,blockTelemetry:options.filterMode==='balanced'})) return;
-      const s = sessions.get(req,res);
+      const s = session = await sessions.get(req,res);
       if (merchant) {
         if(url.pathname==='/_companion/mail')return await companionMail(req,res,s,merchantOrigin);
         if (await engineAsset(url.pathname,res,req,{directAssets:options.directAssets===true,blockTelemetry:options.filterMode==='balanced'})) return;
@@ -89,9 +91,19 @@ export function createServers(port = 3000, merchantPort = 3001, transport: Trans
       // upstream response data. Detailed diagnostics remain session-scoped.
       const details=error as {name?:unknown;code?:unknown};
       const capacity=error instanceof SessionCapacityError;
-      console.error(JSON.stringify({time:new Date().toISOString(),level:'error',event:capacity?'session_capacity_reached':'request_failed',errorName:typeof details?.name==='string'?details.name:'UnknownError',errorCode:typeof details?.code==='string'?details.code:undefined}));
+      const unavailable=error instanceof SessionStoreUnavailableError;
+      const busy=error instanceof SessionBusyError;
+      console.error(JSON.stringify({time:new Date().toISOString(),level:'error',event:capacity?'session_capacity_reached':unavailable?'session_store_unavailable':busy?'session_busy':'request_failed',errorName:typeof details?.name==='string'?details.name:'UnknownError',errorCode:typeof details?.code==='string'?details.code:undefined}));
       if(capacity)return message(res,503,'Temporarily busy','This service has reached its active-session limit. Please try again later.');
+      if(unavailable)return message(res,503,'Temporarily unavailable','The session service is temporarily unavailable. Please try again shortly.');
+      if(busy)return message(res,503,'Please retry','Another request from this browser is still being processed. Please try again shortly.');
       if (!res.headersSent) message(res,500,'Local request failed','The local diagnostic request could not be completed.'); else res.end();
+    } finally {
+      if(session) try { await sessions.commit?.(session); }
+      catch (error) {
+        const details=error as {name?:unknown;code?:unknown};
+        console.error(JSON.stringify({time:new Date().toISOString(),level:'error',event:'session_commit_failed',errorName:typeof details?.name==='string'?details.name:'UnknownError',errorCode:typeof details?.code==='string'?details.code:undefined}));
+      }
     }
   };
   const app=createServer(handle(false)); const merchant=createServer(handle(true));

@@ -7,6 +7,12 @@ export interface Session { jar: CookieJar; touched: number; events: Event[]; fai
 export class SessionCapacityError extends Error {
   constructor(){super('SESSION_CAPACITY');this.name='SessionCapacityError';}
 }
+export class SessionStoreUnavailableError extends Error {
+  constructor(){super('SESSION_STORE_UNAVAILABLE');this.name='SessionStoreUnavailableError';}
+}
+export class SessionBusyError extends Error {
+  constructor(){super('SESSION_BUSY');this.name='SessionBusyError';}
+}
 export class Sessions {
   private entries = new Map<string, Session>();
   constructor(private ttl = 60 * 60 * 1000, private secureCookie = false, private capacity = 100) {}
@@ -35,6 +41,8 @@ export class Sessions {
     }
     return [...groups.values()].sort((a,b)=>b.lastSeen.localeCompare(a.lastSeen)).slice(0,100);
   }
+  async commit(_session: Session) {}
+  ready() { return true; }
 }
 export function record(s: Session, event: Omit<Event, 'time'>) {
   const source=/^Coalesced/.test(event.outcome)?'coalesced':/^Public cache/.test(event.outcome)?'cache':/^Merchant cooldown/.test(event.outcome)?'cooldown':/^Optional telemetry/.test(event.outcome)?'blocked':/^Client canceled/.test(event.outcome)?'canceled':event.outcome==='Rewriting engine relay'||event.outcome==='Binary static stream'?'upstream':event.method==='DIAGNOSTIC'?'browser':'local';
