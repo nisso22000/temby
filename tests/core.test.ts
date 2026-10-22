@@ -46,7 +46,9 @@ test('active server isolates sessions, enforces local boundaries and removes ret
   const appURL='http://localhost:3910',store='http://localhost:3911';
   try{
     const first=await fetch(appURL,{redirect:'manual'});const second=await fetch(appURL,{redirect:'manual'});
-    const sid=first.headers.get('set-cookie')!.split(';')[0];const sid2=second.headers.get('set-cookie')!.split(';')[0];assert.notEqual(sid,sid2);assert.match(first.headers.get('set-cookie')!,/HttpOnly; SameSite=Strict/);
+    assert.equal(first.headers.get('set-cookie'),null);assert.equal(second.headers.get('set-cookie'),null);
+    const diagnosticOne=await fetch(appURL+'/api/state');const diagnosticTwo=await fetch(appURL+'/api/state');
+    const sid=diagnosticOne.headers.get('set-cookie')!.split(';')[0];const sid2=diagnosticTwo.headers.get('set-cookie')!.split(';')[0];assert.notEqual(sid,sid2);assert.match(diagnosticOne.headers.get('set-cookie')!,/HttpOnly; SameSite=Strict/);
     for(const path of ['/engine/','/engine/sw.js','/plain-launch/','/plain-sw.js','/_p/www.temu.com/','/_fixture/checkout','/service/old'])assert.equal((await fetch(store+path,{redirect:'manual'})).status,404,path);
     assert.equal(calls,0,'retired routes never contact a merchant');
     const fixture=await fetch(store+'/_relay',{method:'POST',headers:{origin:store,'content-type':'application/json'},body:JSON.stringify({url:'https://fixture.temby.invalid/api/cart',method:'GET'})});assert.equal((await fixture.json()).status,403);assert.equal(calls,0,'test fixtures are disabled in the default server');
@@ -57,11 +59,13 @@ test('active server isolates sessions, enforces local boundaries and removes ret
 });
 
 test('public origins are host-pinned and health checks do not create a session',async()=>{
-  const {app,merchant}=createServers(3920,3921,undefined,{appOrigin:'https://temudz.store',merchantOrigin:'https://merchant.temudz.store'});
+  const {app,merchant}=createServers(3920,3921,undefined,{appOrigin:'https://temudz.store',merchantOrigin:'https://merchant.temudz.store',secureCookies:true});
   app.listen(3920,'127.0.0.1');merchant.listen(3921,'127.0.0.1');await Promise.all([once(app,'listening'),once(merchant,'listening')]);
   try {
     const health=await fetch('http://127.0.0.1:3920/healthz',{headers:{host:'temudz.store'}});
     assert.equal(health.status,200);assert.equal(health.headers.get('set-cookie'),null);
+    const publicSession=await fetch('http://127.0.0.1:3920/api/state',{headers:{host:'temudz.store'}});
+    assert.match(publicSession.headers.get('set-cookie')!,/; Secure$/);
     assert.equal((await fetch('http://127.0.0.1:3920/healthz',{headers:{host:'localhost:3920'}})).status,200);
     const rejected=await new Promise<number|undefined>((resolve,reject)=>get('http://127.0.0.1:3920/healthz',{headers:{host:'attacker.test'}},r=>{r.resume();resolve(r.statusCode);}).on('error',reject));
     assert.equal(rejected,403);

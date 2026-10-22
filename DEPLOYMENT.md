@@ -87,10 +87,13 @@ docker compose up -d --build --wait
 docker compose ps
 docker compose logs --tail=100 caddy
 docker compose logs --tail=100 temby
-curl -fsS -H 'Host: temudz.store' http://127.0.0.1:3000/healthz
+docker compose exec -T temby node -e "require('node:http').get('http://127.0.0.1:3000/healthz',{headers:{host:'temudz.store'}},r=>{r.pipe(process.stdout);process.exitCode=r.statusCode===200?0:1}).on('error',e=>{console.error(e);process.exit(1)})"
 ```
 
-The expected health response is `{"status":"ok"}`. Browse
+The expected health response is `{"status":"ok"}`. The host itself cannot
+connect to `127.0.0.1:3000`: that port exists only inside the Docker network by
+design. Once Caddy is running, externally test `https://temudz.store/healthz`.
+Browse
 `https://temudz.store/`; Caddy redirects into the merchant subdomain as part of
 the intentional origin separation. Never publish 3000 or 3001 in `ports:` and
 never put `.env` in Git. Docker's `local` logging driver rotates each container

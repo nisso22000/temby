@@ -6,7 +6,7 @@ export interface Event { time: string; host: string; method: string; status: num
 export interface Session { jar: CookieJar; touched: number; events: Event[]; failures:Event[];metrics?:Record<string,number>;apiEvents?:Event[]; }
 export class Sessions {
   private entries = new Map<string, Session>();
-  constructor(private ttl = 60 * 60 * 1000) {}
+  constructor(private ttl = 60 * 60 * 1000, private secureCookie = false) {}
   get(req: IncomingMessage, res: ServerResponse): Session {
     const now = Date.now();
     for (const [id, s] of this.entries) if (now - s.touched > this.ttl) this.entries.delete(id);
@@ -20,7 +20,7 @@ export class Sessions {
     }
     // Keep the browser cookie lifetime aligned with the sliding server TTL.
     // Previously active browsing lost its cookie 30 minutes after creation.
-    res.setHeader('Set-Cookie', `temby_sid=${id}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${Math.ceil(this.ttl / 1000)}`);
+    res.setHeader('Set-Cookie', `temby_sid=${id}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${Math.ceil(this.ttl / 1000)}${this.secureCookie ? '; Secure' : ''}`);
     session.touched = now; return session;
   }
   health(selected?:Session){

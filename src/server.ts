@@ -9,9 +9,9 @@ import { forwardCspReport } from './reports.js';
 import { companionMail } from './companion-mail.js';
 import {NetworkFilter,type FilterMode} from './network-filter.js';
 
-export interface ServerOptions { ownedFixtures?:boolean; filterMode?:FilterMode; directAssets?:boolean; appOrigin?:string; merchantOrigin?:string; }
+export interface ServerOptions { ownedFixtures?:boolean; filterMode?:FilterMode; directAssets?:boolean; appOrigin?:string; merchantOrigin?:string; secureCookies?:boolean; }
 export function createServers(port = 3000, merchantPort = 3001, transport: Transport = upstream, options:ServerOptions={}) {
-  const sessions = new Sessions();
+  const sessions = new Sessions(undefined,options.secureCookies===true);
   const filter=new NetworkFilter(options.filterMode||'off');
   const appOrigin = options.appOrigin || `http://localhost:${port}`; const merchantOrigin = options.merchantOrigin || `http://localhost:${merchantPort}`;
   const appHost = new URL(appOrigin).host; const merchantHost = new URL(merchantOrigin).host;
@@ -30,6 +30,9 @@ export function createServers(port = 3000, merchantPort = 3001, transport: Trans
       // Deliberately cookie-free: this is the only endpoint intended for the
       // reverse proxy/container health check.
       if (!merchant && url.pathname==='/healthz') {res.writeHead(200,{'content-type':'application/json','cache-control':'no-store'});res.end('{"status":"ok"}');return;}
+      // The launcher only redirects into the merchant origin. Do not consume a
+      // session slot or set an unused cookie before actual browsing begins.
+      if (!merchant && url.pathname==='/' && ['GET','HEAD'].includes(req.method||'')) {res.writeHead(302,{location:merchantOrigin+'/uv/'});res.end();return;}
       const s = sessions.get(req,res);
       if (merchant) {
         if(url.pathname==='/_companion/mail')return await companionMail(req,res,s,merchantOrigin);
@@ -66,7 +69,6 @@ export function createServers(port = 3000, merchantPort = 3001, transport: Trans
         res.writeHead(404,{'content-type':'text/plain'});res.end('No local proxy resource at this path.');return;
       }
       if (req.method!=='GET' && req.method!=='HEAD') { res.writeHead(405); res.end(); return; }
-      if(url.pathname==='/'){res.writeHead(302,{location:merchantOrigin+'/uv/'});res.end();return;}
       if(url.pathname==='/api/health'){res.writeHead(200,{'content-type':'application/json'});res.end(JSON.stringify({failures:sessions.health(s)}));return;}
       if(url.pathname==='/api/metrics'){res.writeHead(200,{'content-type':'application/json'});res.end(JSON.stringify({counts:s.metrics||{}}));return;}
       if (url.pathname==='/api/state') {

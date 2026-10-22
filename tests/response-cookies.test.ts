@@ -29,7 +29,7 @@ test('UV cookie expiry/deletion is authoritative while server HttpOnly and legac
   const {app,merchant}=createServers(3960,3961,transport);app.listen(3960,'127.0.0.1');merchant.listen(3961,'127.0.0.1');await Promise.all([once(app,'listening'),once(merchant,'listening')]);
   const origin='http://localhost:3961';
   try{
-    const entry=await fetch('http://localhost:3960/',{redirect:'manual'});const cookie=entry.headers.get('set-cookie')!.split(';')[0];
+    const entry=await fetch(origin+'/_state');const cookie=entry.headers.get('set-cookie')!.split(';')[0];
     const relay=async(path:string,virtualCookie='',engine:string|undefined='ultraviolet')=>{
       const response=await fetch(origin+'/_relay',{method:'POST',headers:{origin,cookie,'content-type':'application/json'},body:JSON.stringify({url:'https://www.temu.com/'+path,method:'GET',engine,headers:{cookie:virtualCookie}})});
       const wire=await response.json();return JSON.parse(Buffer.from(wire.body,'base64').toString()).received as string;
