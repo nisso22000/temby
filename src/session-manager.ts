@@ -157,7 +157,10 @@ export class RedisSessionManager implements SessionManager {
         await this.client.del(this.sessionKey(id)); await this.client.zRem('temby:active-sessions', id);
         return await this.newSession(now, res);
       }
-      const session: Session = { jar: CookieJar.deserializeSync(stored.jar), touched: now, events: stored.events || [], failures: stored.failures || [], metrics: stored.metrics, apiEvents: stored.apiEvents };
+      // Keep the optimistic-merge baseline immutable. `record()` appends to
+      // these arrays, so sharing them with `active.initial` would make a new
+      // event look as though it already existed at request start.
+      const session: Session = { jar: CookieJar.deserializeSync(stored.jar), touched: now, events: [...(stored.events || [])], failures: [...(stored.failures || [])], metrics: stored.metrics?{...stored.metrics}:undefined, apiEvents: stored.apiEvents?[...stored.apiEvents]:undefined };
       this.active.set(session, { id, createdAt: stored.createdAt, initial: stored });
       this.setCookie(res, id, Math.min(this.options.idleTtlSeconds, Math.max(1, Math.floor(remaining / 1000))));
       return session;
