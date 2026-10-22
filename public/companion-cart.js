@@ -244,10 +244,13 @@
     stop.refresh=()=>{void scan();};return stop;
   }
   const snapshotURL=value=>{try{return /\/cart_modify(?:_page)?(?:\/|$)/.test(new URL(value).pathname);}catch{return false;}};
-  const responseURL=value=>{try{const url=new URL(value);return url.protocol==='https:'&&!url.username&&!url.password&&(!url.port||url.port==='443')&&/(^|\.)temu\.com$/.test(url.hostname)&&url.pathname.startsWith('/api/')&&(/\/cart_modify(?:\/|$)/.test(url.pathname)||/\/uranus_cart\/[a-z_-]+(?:\/|$)/i.test(url.pathname));}catch{return false;}};
+  // Mobile requests can carry the storefront locale, e.g. /dz/api/… .
+  // Normalize only that leading locale; keep the merchant/origin checks intact.
+  const apiPath=value=>new URL(value).pathname.replace(/^\/[a-z]{2}(?:-[a-z]{2})?\/(?=api\/)/i,'/');
+  const responseURL=value=>{try{const url=new URL(value),path=apiPath(value);return url.protocol==='https:'&&!url.username&&!url.password&&(!url.port||url.port==='443')&&/(^|\.)temu\.com$/.test(url.hostname)&&path.startsWith('/api/')&&(/\/cart_modify(?:\/|$)/.test(path)||/\/uranus_cart\/[a-z_-]+(?:\/|$)/i.test(path));}catch{return false;}};
   // These mobile SDK endpoints change the cart without cart_modify_type.
   // Counts and tracking endpoints deliberately do not trigger a full read.
-  const mutationURL=value=>responseURL(value)&&/^\/api\/bg\/bg-uranus-api\/uranus_cart\/(?:single\/operate_cart|batch\/add_cart|remove_and_add)\/?$/.test(new URL(value).pathname);
+  const mutationURL=value=>responseURL(value)&&/^\/api\/bg\/bg-uranus-api\/uranus_cart\/(?:single\/operate_cart|batch\/add_cart|remove_and_add)\/?$/.test(apiPath(value));
   const countURL=value=>responseURL(value)&&/\/uranus_cart\/user_cart_num\/?$/.test(new URL(value).pathname);
   function countFacts(value){
     if(value?.success!==true||!value.result||typeof value.result!=='object')return null;
@@ -277,7 +280,7 @@
     if(mutationURL(url))return true;
     if(!responseURL(url))return false;
     if(Number.isSafeInteger(operation)&&snapshotURL(url))return operation!==1;
-    const path=new URL(url).pathname;
+    const path=apiPath(url);
     return operationInfo?.success===true&&path.startsWith('/api/bg/bg-uranus-api/uranus_cart/')
       &&!/\/(?:cart_modify_page|user_cart_num|tracking_data)\/?$/.test(path);
   }

@@ -1,3 +1,4 @@
+import {parseFragment} from 'parse5';
 import {randomBytes} from 'node:crypto';
 import type {IncomingMessage,ServerResponse} from 'node:http';
 import type {Session} from './sessions.js';
@@ -16,6 +17,13 @@ async function request(path:string,fetcher:MailFetch){
   const chunks:Uint8Array[]=[];let size=0;
   try{for(;;){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>256*1024)throw Error('MAIL_SIZE');chunks.push(value);}}finally{await reader.cancel();}
   return JSON.parse(Buffer.concat(chunks).toString('utf8'));
+}
+function mailText(body:{text?:unknown;html?:unknown}|undefined){
+  if(typeof body?.text==='string'&&body.text.trim())return body.text.slice(0,128000);
+  if(typeof body?.html!=='string')return '';
+  const root=parseFragment(body.html.slice(0,200000));
+  const read=(node:any):string=>['script','style','head'].includes(node.tagName)?'':node.nodeName==='#text'?node.value:node.tagName==='br'?'\n':(node.childNodes||[]).map(read).join('')+(/^(?:p|div|tr|h[1-6])$/.test(node.tagName||'')?'\n':'');
+  return read(root).replace(/[ \t]+/g,' ').replace(/\n[ \t]+/g,'\n').replace(/\n{3,}/g,'\n\n').trim().slice(0,128000);
 }
 // Global sequential queue respects Catchmail's per-IP anonymous limit.
 let pending:Promise<unknown>=Promise.resolve();
@@ -44,7 +52,7 @@ export async function companionMail(req:IncomingMessage,res:ServerResponse,sessi
       if(typeof item.id!=='string'||item.id.length>200)throw Error('MAIL_FORMAT');
       const detail=await queued('message/'+encodeURIComponent(item.id)+'?mailbox='+mailbox,fetcher);
       // Never render remote email HTML or execute links from an OTP email.
-      messages.push({from:String(detail.from||'').slice(0,300),subject:String(detail.subject||'').slice(0,500),text:typeof detail.body?.text==='string'?detail.body.text.slice(0,12000):'This email has no plain-text body. Read it on Catchmail directly.'});
+      messages.push({id:item.id,from:String(detail.from||'').slice(0,300),subject:String(detail.subject||'').slice(0,500),text:mailText(detail.body)});
     }
     reply(200,{address:entry.address,messages});
   }catch{reply(502,{error:'Catchmail could not be reached or returned an unsupported response. Try again later.'});}

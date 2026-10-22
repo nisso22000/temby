@@ -191,7 +191,9 @@ async function readCurrentCart(source,changedAt=0,clientRead=false){
           const result=await readCartInClient(requester);
           if(result.available){
             const observed=(lastCartPublishedSequence.get(merchant.origin+'|'+(scope||''))||0)>publishedBefore;
-            if(!result.accepted||!observed){
+            // The SDK may return a wrapper, or throw after its network reply.
+            // Only the worker's validated, published snapshot confirms a read.
+            if(!observed){
               if(result.interrupted&&flight.source.id!==requester.id&&flight.changedAt>startedAt)continue;
               const issue={reason:'client-error',status:0,time:startedAt,changedAt:flight.requiredAfter};
               if(scope)await cartState?.problem(merchant.origin,scope,issue);

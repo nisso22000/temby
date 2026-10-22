@@ -56,4 +56,16 @@ test('active server isolates sessions, enforces local boundaries and removes ret
   }finally{app.closeAllConnections();merchant.closeAllConnections();app.close();merchant.close();}
 });
 
+test('public origins are host-pinned and health checks do not create a session',async()=>{
+  const {app,merchant}=createServers(3920,3921,undefined,{appOrigin:'https://temudz.store',merchantOrigin:'https://merchant.temudz.store'});
+  app.listen(3920,'127.0.0.1');merchant.listen(3921,'127.0.0.1');await Promise.all([once(app,'listening'),once(merchant,'listening')]);
+  try {
+    const health=await fetch('http://127.0.0.1:3920/healthz',{headers:{host:'temudz.store'}});
+    assert.equal(health.status,200);assert.equal(health.headers.get('set-cookie'),null);
+    assert.equal((await fetch('http://127.0.0.1:3920/healthz',{headers:{host:'localhost:3920'}})).status,200);
+    const rejected=await new Promise<number|undefined>((resolve,reject)=>get('http://127.0.0.1:3920/healthz',{headers:{host:'attacker.test'}},r=>{r.resume();resolve(r.statusCode);}).on('error',reject));
+    assert.equal(rejected,403);
+  } finally {app.closeAllConnections();merchant.closeAllConnections();app.close();merchant.close();}
+});
+
 test.after(async()=>{await dispatcher.close();});

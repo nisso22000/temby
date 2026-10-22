@@ -10,12 +10,12 @@ test('successful mobile mutation acknowledgements request fresh facts without an
   const context={self,UVServiceWorker:Engine,location:{origin},__uv$config:{},importScripts(){},URL,Response,TextDecoder,encodeURIComponent,decodeURIComponent};
   for(const file of ['uv-request.js','companion-cart.js','uv-sw.js'])vm.runInNewContext(await readFile(new URL('../public/'+file,import.meta.url),'utf8'),context);
   const base='https://www.temu.com/api/bg/bg-uranus-api/uranus_cart/';
-  for(const endpoint of ['single/operate_cart','batch/add_cart','remove_and_add'])await self.__tembyObserveCartResponse(base+endpoint,Response.json({success:true,result:{cart_operate_info:{success:true}}}),1,Date.now(),null,null);
-  assert.equal(notices.length,3);assert.ok(notices.every(n=>Number.isSafeInteger(n.tembyCartNeedsRead?.time)));
+  for(const prefix of [base,base.replace('/api/','/dz/api/')])for(const endpoint of ['single/operate_cart','batch/add_cart','remove_and_add'])await self.__tembyObserveCartResponse(prefix+endpoint,Response.json({success:true,result:{cart_operate_info:{success:true}}}),1,Date.now(),null,null);
+  assert.equal(notices.length,6);assert.ok(notices.every(n=>Number.isSafeInteger(n.tembyCartNeedsRead?.time)));
   await self.__tembyObserveCartResponse(base+'single/operate_cart',Response.json({success:false,error_code:40001}),2,Date.now(),null,null);
   await self.__tembyObserveCartResponse(base+'tracking_data',Response.json({success:true,result:{}}),3,Date.now(),null,null);
   await self.__tembyObserveCartResponse(base+'user_cart_num',Response.json({success:true,result:{count:1}}),4,Date.now(),null,null);
-  assert.equal(notices.length,3,'refusals, telemetry and counts cannot cause reads');
+  assert.equal(notices.length,6,'refusals, telemetry and counts cannot cause reads');
 });
 
 test('validated cart response follows browsing pages but not another account or logout',async()=>{

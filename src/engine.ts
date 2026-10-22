@@ -72,7 +72,9 @@ export async function engineRelay(req:IncomingMessage,res:ServerResponse,s:Sessi
   if(!['GET','HEAD','POST','PUT','PATCH','DELETE','OPTIONS'].includes(method))return denied(res,'Method denied');
   if(url.origin==='https://fixture.temby.invalid'){
     if(!ownedFixtures)return denied(res,'Owned test fixtures are disabled on this server');
-    record(s,{host:url.hostname,method,status:200,type:'owned-fixture',bytes:0,outcome:'Owned fixture '+url.pathname});const {engineFixture}=await import('../test-support/owned-fixtures.js');return engineFixture(url,method,input,res,wire);
+    // Kept dynamic so test-only fixtures are never part of the production image.
+    const fixtureModule='../test-support/owned-fixtures.js';
+    record(s,{host:url.hostname,method,status:200,type:'owned-fixture',bytes:0,outcome:'Owned fixture '+url.pathname});const {engineFixture}=await import(fixtureModule);return engineFixture(url,method,input,res,wire);
   }
   if(!targetAllowed(url)) {record(s,{host:url.hostname.slice(0,253),method,status:403,type:'',bytes:0,outcome:'Destination outside allowlist'});return denied(res,'The local proxy blocked host '+url.hostname+'. Only Temu and its CDN are permitted; third-party sign-in is unavailable.');}
   const destination=['document','iframe','script','style','image','font','empty','worker','sharedworker','serviceworker','audio','video','track','object'].includes(input.destination)?input.destination:'unknown';

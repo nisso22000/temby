@@ -6,6 +6,20 @@ const scope:any={self:{},URL};
 vm.runInNewContext(await readFile(new URL('../public/companion-cart.js',import.meta.url),'utf8'),scope);
 const {normalize,select}=scope.self.__tembyCart;
 const now=1792333154238;
+test('localized mobile routes retain cart observation, edit and count classification',()=>{
+ const api=scope.self.__tembyCart;
+ for(const prefix of ['/api/','/dz/api/','/dz-en/api/']){
+  const base='https://www.temu.com'+prefix+'bg/bg-uranus-api/uranus_cart/';
+  for(const path of ['cart_modify','cart_modify_page','single/operate_cart','batch/add_cart','user_cart_num'])assert.equal(api.responseURL(base+path),true,base+path);
+  assert.equal(api.mutationURL(base+'single/operate_cart'),true);
+  assert.equal(api.countURL(base+'user_cart_num'),true);
+  assert.equal(api.mutationAcknowledged(base+'batch/delete_cart',{success:true,result:{cart_operate_info:{success:true}}},null),true);
+  assert.equal(api.mutationAcknowledged(base+'cart_modify',{success:true},3),true);
+  assert.equal(api.mutationAcknowledged(base+'cart_modify_page',{success:true},1),false);
+ }
+ for(const path of ['/other/api/','/dz/other/api/','/dz/api_extra/'])assert.equal(api.responseURL('https://www.temu.com'+path+'bg/bg-uranus-api/uranus_cart/cart_modify'),false);
+ assert.equal(api.responseURL('https://www.temu.com.evil.invalid/dz/api/bg/bg-uranus-api/uranus_cart/cart_modify'),false);
+});
 test('mobile mutation routes are recognized without treating counts or tracking as changes',()=>{
  const api=scope.self.__tembyCart,base='https://www.temu.com/api/bg/bg-uranus-api/uranus_cart/';
  for(const path of ['single/operate_cart','batch/add_cart','remove_and_add'])assert.equal(api.mutationURL(base+path),true,path);

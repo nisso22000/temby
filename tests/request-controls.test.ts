@@ -34,7 +34,7 @@ test('concurrency bounds origins and total work, cancels queued work and release
 
 test('explicit optional rules match host boundaries and paths without blocking documents',()=>{
  const filter=new NetworkFilter('balanced');
- for(const url of ['https://eu.pftk.temu.com/report','https://eu.thtk.temu.com/report','https://www.temu.com/api/adx/cm/ttc'])assert.equal(filter.blocked(new URL(url),'empty'),true,url);
+ for(const url of ['https://eu.pftk.temu.com/report','https://eu.thtk.temu.com/report','https://www.temu.com/api/adx/cm/ttc','https://adtk-eu.temu.com/c/ad'])assert.equal(filter.blocked(new URL(url),'empty'),true,url);
  for(const url of ['https://www.temu.com/api/cart','https://static.kwcdn.com/app.js','https://pftk.temu.com.evil.test/'])assert.equal(filter.blocked(new URL(url),'empty'),false,url);
  assert.equal(filter.blocked(new URL('https://eu.pftk.temu.com/'),'document'),false);
  assert.equal(new NetworkFilter('off').blocked(new URL('https://eu.pftk.temu.com/'),'empty'),false);

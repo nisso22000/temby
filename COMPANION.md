@@ -1,4 +1,14 @@
-# Current cart read path — v48, 21 October 2026
+# Current cart read path — v49, 22 October 2026
+
+The mobile HAR captures exposed a routing gap: Temu sent cart responses under `/dz/api/`, while the observer required `/api/`. The observer now accepts a leading two-letter storefront locale (optionally followed by a two-letter language), preserving HTTPS, merchant-host, credential and port checks. Full responses, mutation acknowledgements and count signals all use the same route classification. No prices are inferred from counts.
+
+The console capture also showed a validated cart publication followed by an SDK client-error report. The worker now uses its own validated publication to confirm the read, even if the page SDK returns a wrapper or throws after the response. An SDK acknowledgement without a worker publication still fails and does not issue a fallback request.
+
+When the companion has a cart update warning on `shopping_cart.html`, its recovery action now says to refresh the page, performs one user-requested document reload, and reopens the panel. The message directs the customer to follow any Temu login/verification instructions. It does not infer why Temu refused the request or initiate authentication. Existing invalid-item review on the cart page dismisses the companion to expose the merchant controls.
+
+Validation: 103 automated tests and TypeScript pass. `scripts/verify-cart-client.mjs` passes in isolated headless desktop and Pixel 7 contexts, including `/dz/api/` adds and counts, localized full cart replies, SDK wrappers and post-response errors, refusal without fallback, and failed-cart reload recovery. Results: `artifacts/improvements-v49/merchant-client-browser.json`. These fixtures make no live Temu requests. Physical Samsung verification and the cause of Temu's suspicious-activity/session refusals remain unresolved.
+
+## Earlier v48 behavior
 
 Desktop Temu often fetches a full cart for its sidebar. Mobile Temu often fetches only the number of items for its cart bubble. That number has no trustworthy price. TEMBY now uses a full, validated Temu cart API response as its only live price source on both layouts. A mobile count response is compared with the selected SKU quantities in TEMBY's last confirmed full response. If they differ, it requests the full cart through the page's Temu client. A successful full add/delete response already contains the answer and updates directly; an acknowledgement without the cart requests the full response. The saved account-scoped database is a copy of the last validated response, never an independent price calculation.
 

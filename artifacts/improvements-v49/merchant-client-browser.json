@@ -1,0 +1,40 @@
+[
+  {
+    "mobile": false,
+    "localizedMutations": false,
+    "delayedSDKStartup": true,
+    "fullSDKRead": true,
+    "addAndRemoveThroughZero": true,
+    "bubbleChangeRevalidated": true,
+    "fullDeleteResponseDirect": true,
+    "overlappingReadDoesNotLoseEdit": true,
+    "wrappedAndThrownSDKReply": true,
+    "cartPageReloadRecovery": true,
+    "noUnsignedReads": true,
+    "noRefusalRetry": true,
+    "clientErrorReleased": true,
+    "stalledClientDeadline": true,
+    "navigationReleased": true,
+    "recovery": true,
+    "reads": 15
+  },
+  {
+    "mobile": true,
+    "localizedMutations": true,
+    "delayedSDKStartup": true,
+    "fullSDKRead": true,
+    "addAndRemoveThroughZero": true,
+    "bubbleChangeRevalidated": true,
+    "fullDeleteResponseDirect": true,
+    "overlappingReadDoesNotLoseEdit": true,
+    "wrappedAndThrownSDKReply": true,
+    "cartPageReloadRecovery": true,
+    "noUnsignedReads": true,
+    "noRefusalRetry": true,
+    "clientErrorReleased": true,
+    "navigationReleased": true,
+    "recovery": true,
+    "returningTabRevalidated": true,
+    "reads": 15
+  }
+]

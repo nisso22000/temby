@@ -1,5 +1,7 @@
 @echo off
 cd /d "%~dp0"
+set "TEMBY_FILTER_MODE=balanced"
+set "TEMBY_DIRECT_ASSETS=1"
 where node >nul 2>nul
 if errorlevel 1 (
   echo Install Node.js 22.19 or newer, then run this file again.

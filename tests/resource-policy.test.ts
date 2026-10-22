@@ -8,7 +8,7 @@ const resource=(url='https://static.kwcdn.com/public.css',destination='style',in
 test('explicit optional worker and server filters agree on boundaries and disabled defaults',()=>{
  const self:any={fetch:async()=>new Response('unused'),__tembyResourceOptions:{blockTelemetry:false}};
  vm.runInNewContext(code,{self,URL,Request,Headers,Date});
- const urls=['https://eu.pftk.temu.com/report','https://pftk.temu.com/','https://eu.thtk.temu.com/report','https://www.temu.com/api/adx/event','https://www.temu.com/api/adx','https://www.temu.com/api/adx_extra/event','https://pftk.temu.com.evil.test/','https://www.temu.com/api/passport/token/touch','https://static.kwcdn.com/app.js','http://pftk.temu.com/'];
+ const urls=['https://eu.pftk.temu.com/report','https://pftk.temu.com/','https://eu.thtk.temu.com/report','https://www.temu.com/api/adx/event','https://www.temu.com/api/adx','https://adtk-eu.temu.com/c/ad','https://adtk-eu.temu.com/c/not-ad','https://www.temu.com/api/adx_extra/event','https://pftk.temu.com.evil.test/','https://www.temu.com/api/passport/token/touch','https://static.kwcdn.com/app.js','http://pftk.temu.com/'];
  for(const enabled of [false,true]){
   self.__tembyResourceOptions.blockTelemetry=enabled;
   const server=new NetworkFilter(enabled?'balanced':'off');

@@ -26,3 +26,11 @@ test('test inboxes are session-bound and never accept arbitrary mailbox input',a
   assert.ok(urls[0].includes(encodeURIComponent(a.body.address)));
   assert.equal((await call(first,'GET')).status,429);
 });
+
+test('HTML-only verification mail is exposed as inert complete text',async()=>{
+ const session={} as Session,origin='http://localhost:3001';
+ const call=async(method:string,fetcher:any)=>{let status=0,body:any;await companionMail({method,headers:{origin,'x-temby-companion':'1'}} as any,{writeHead(code:number){status=code;},end(value:string){body=JSON.parse(value);}} as any,session,origin,fetcher);return {status,body};};
+ await call('POST',null);
+ const response=await call('GET',async(url:string)=>Response.json(url.includes('/message/')?{from:'Temu',subject:'Verification',body:{html:'<style>hidden style</style><div>Your Temu verification code:</div><p>123456</p><script>unsafe()</script><p>Complete message &amp; details.</p>'}}:{messages:[{id:'owned-mail'}]}));
+ assert.equal(response.status,200);const message=response.body.messages[0];assert.equal(message.id,'owned-mail');assert.match(message.text,/123456/);assert.match(message.text,/Complete message & details/);assert.doesNotMatch(message.text,/unsafe|hidden style|<script>/);
+});

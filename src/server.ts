@@ -9,12 +9,15 @@ import { forwardCspReport } from './reports.js';
 import { companionMail } from './companion-mail.js';
 import {NetworkFilter,type FilterMode} from './network-filter.js';
 
-export function createServers(port = 3000, merchantPort = 3001, transport: Transport = upstream, options:{ownedFixtures?:boolean;filterMode?:FilterMode;directAssets?:boolean}={}) {
+export interface ServerOptions { ownedFixtures?:boolean; filterMode?:FilterMode; directAssets?:boolean; appOrigin?:string; merchantOrigin?:string; }
+export function createServers(port = 3000, merchantPort = 3001, transport: Transport = upstream, options:ServerOptions={}) {
   const sessions = new Sessions();
   const filter=new NetworkFilter(options.filterMode||'off');
-  const appOrigin = `http://localhost:${port}`; const merchantOrigin = `http://localhost:${merchantPort}`;
+  const appOrigin = options.appOrigin || `http://localhost:${port}`; const merchantOrigin = options.merchantOrigin || `http://localhost:${merchantPort}`;
+  const appHost = new URL(appOrigin).host; const merchantHost = new URL(merchantOrigin).host;
   function guard(req: IncomingMessage, res: ServerResponse, expected: number) {
-    if (![`localhost:${expected}`,`127.0.0.1:${expected}`].includes(req.headers.host || '')) { res.writeHead(403); res.end('Invalid host'); return false; }
+    const allowedHosts=expected===port?[appHost,`localhost:${expected}`,`127.0.0.1:${expected}`]:[merchantHost,`localhost:${expected}`,`127.0.0.1:${expected}`];
+    if (!allowedHosts.includes(req.headers.host || '')) { res.writeHead(403); res.end('Invalid host'); return false; }
     res.setHeader('Cache-Control','no-store');
     if (req.headers['sec-fetch-site'] === 'cross-site') { res.writeHead(403); res.end('Cross-site requests blocked'); return false; }
     if (!['GET','HEAD'].includes(req.method || '') && ![appOrigin,merchantOrigin].includes(req.headers.origin || '')) { res.writeHead(403); res.end('Origin required'); return false; }
@@ -23,7 +26,11 @@ export function createServers(port = 3000, merchantPort = 3001, transport: Trans
   const handle = (merchant: boolean) => async (req: IncomingMessage, res: ServerResponse) => {
     if (!guard(req,res,merchant?merchantPort:port)) return;
     try {
-      const s = sessions.get(req,res); const url=new URL(req.url || '/',appOrigin);
+      const url=new URL(req.url || '/',appOrigin);
+      // Deliberately cookie-free: this is the only endpoint intended for the
+      // reverse proxy/container health check.
+      if (!merchant && url.pathname==='/healthz') {res.writeHead(200,{'content-type':'application/json','cache-control':'no-store'});res.end('{"status":"ok"}');return;}
+      const s = sessions.get(req,res);
       if (merchant) {
         if(url.pathname==='/_companion/mail')return await companionMail(req,res,s,merchantOrigin);
         if (await engineAsset(url.pathname,res,req,{directAssets:options.directAssets===true,blockTelemetry:options.filterMode==='balanced'})) return;

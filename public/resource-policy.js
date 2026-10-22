@@ -36,7 +36,7 @@
   };
   self.__tembyBlockedTelemetry=request=>{
     if(self.__tembyResourceOptions?.blockTelemetry!==true||['document','iframe'].includes(request.destination))return false;
-    try{const url=new URL(request.url);return url.protocol==='https:'&&(/(^|\.)(?:pftk|thtk)\.temu\.com$/.test(url.hostname)||/(^|\.)temu\.com$/.test(url.hostname)&&url.pathname.startsWith('/api/adx/'));}catch{return false;}
+    try{const url=new URL(request.url);return url.protocol==='https:'&&(/(^|\.)(?:pftk|thtk)\.temu\.com$/.test(url.hostname)||/(^|\.)temu\.com$/.test(url.hostname)&&url.pathname.startsWith('/api/adx/')||url.hostname==='adtk-eu.temu.com'&&url.pathname==='/c/ad');}catch{return false;}
   };
   self.__tembyDirectCandidate=(request,target=request.url,integrity=request.integrity)=>{
     if(self.__tembyResourceOptions?.directAssets!==true||!['GET','HEAD'].includes(request.method))return false;

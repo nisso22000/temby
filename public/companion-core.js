@@ -62,5 +62,15 @@
     }
     throw Error('Password generation unavailable');
   }
-  self.__tembyCompanionCore={money,quote,consensus,normalize,paymentFee,cartState,cartBlocker,setupStep,password};
+  function emailOtp(message){
+    const subject=normalize(message?.subject||''),text=normalize(message?.text||'');
+    if(!/temu/i.test(String(message?.from||'')+' '+subject+' '+text))return null;
+    const candidates=value=>[...new Set((value.match(/(?<![\d])\d{4,8}(?![\d])/g)||[]))];
+    const context=/verif|one[ -]?time|security|confirmation|تأكيد|تحقق|رمز|\botp\b/i;
+    if(context.test(subject)){const values=candidates(subject);if(values.length===1)return values[0];}
+    const lines=text.split(/\n/),codes=[];
+    for(let i=0;i<lines.length;i++)if(context.test(lines[i])){const local=candidates(lines.slice(Math.max(0,i-1),i+3).join(' '));if(local.length===1)codes.push(local[0]);}
+    const unique=[...new Set(codes)];return unique.length===1?unique[0]:null;
+  }
+  self.__tembyCompanionCore={emailOtp,money,quote,consensus,normalize,paymentFee,cartState,cartBlocker,setupStep,password};
 })();

@@ -68,3 +68,13 @@ test('unselected unavailable lines do not block the otherwise valid cart',()=>{
  assert.equal(block({minor:2699,minimum:2000,invalid:1,selectedInvalid:0,unselectedInvalid:1}),null);
  assert.equal(block({minor:2699,minimum:2000,invalid:1,selectedInvalid:1}),'problem');
 });
+
+test('OTP extraction requires Temu verification context and refuses ambiguous codes',()=>{
+ const extract=context.self.__tembyCompanionCore.emailOtp;
+ assert.equal(extract({from:'Temu <notify@temu.com>',subject:'Your verification code is 123456',text:''}),'123456');
+ assert.equal(extract({from:'Temu',subject:'Verify',text:'Your verification code:\n654321\nExpires shortly.'}),'654321');
+ assert.equal(extract({from:'Temu',subject:'رمز التأكيد ١٢٣٤٥٦',text:''}),'123456');
+ assert.equal(extract({from:'Other',subject:'Verification code 123456',text:''}),null);
+ assert.equal(extract({from:'Temu',subject:'Order 123456',text:'Order total 1234'}),null);
+ assert.equal(extract({from:'Temu',subject:'Verification 123456 or 654321',text:''}),null);
+});

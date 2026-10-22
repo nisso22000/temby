@@ -1,0 +1,59 @@
+{
+  email {$ACME_EMAIL}
+  # Keep operational logs useful without recording cookies, query strings, or bodies.
+  log {
+    output stdout
+    format json
+    level INFO
+  }
+  servers {
+    timeouts {
+      read_body 30s
+      read_header 10s
+      idle 60s
+    }
+  }
+}
+
+(common) {
+  encode zstd gzip
+  header {
+    -Server
+    X-Content-Type-Options nosniff
+    Referrer-Policy strict-origin-when-cross-origin
+    Permissions-Policy "geolocation=(), camera=(), microphone=()"
+  }
+  request_body {
+    max_size 1MB
+  }
+}
+
+temudz.store {
+  import common
+  reverse_proxy temby:3000 {
+    transport http {
+      dial_timeout 5s
+      response_header_timeout 30s
+      read_timeout 60s
+      write_timeout 60s
+      keepalive 30s
+      keepalive_idle_conns 16
+      versions 1.1
+    }
+  }
+}
+
+merchant.temudz.store {
+  import common
+  reverse_proxy temby:3001 {
+    transport http {
+      dial_timeout 5s
+      response_header_timeout 30s
+      read_timeout 60s
+      write_timeout 60s
+      keepalive 30s
+      keepalive_idle_conns 16
+      versions 1.1
+    }
+  }
+}
