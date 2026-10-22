@@ -4,7 +4,9 @@ set -Eeuo pipefail
 cd "$(dirname "$(readlink -f "$0")")/.."
 test -f .env || { echo 'Missing .env.' >&2; exit 1; }
 merchant_origin="$(awk -F= '$1=="PUBLIC_MERCHANT_ORIGIN" {print substr($0,index($0,"=")+1); exit}' .env)"
+app_origin="$(awk -F= '$1=="PUBLIC_APP_ORIGIN" {print substr($0,index($0,"=")+1); exit}' .env)"
 test -n "$merchant_origin" || { echo 'PUBLIC_MERCHANT_ORIGIN is missing from .env.' >&2; exit 1; }
+test -n "$app_origin" || { echo 'PUBLIC_APP_ORIGIN is missing from .env.' >&2; exit 1; }
 cookies="$(mktemp)"; headers="$(mktemp)"
 trap 'rm -f "$cookies" "$headers"' EXIT
 
@@ -23,7 +25,7 @@ curl --fail --silent --show-error --cookie "$cookies" --cookie-jar "$cookies" \
   --data '{"phase":"document-ready"}' --output /dev/null "$merchant_origin/_runtime"
 docker compose restart temby >/dev/null
 for _ in {1..30}; do
-  if curl --fail --silent --show-error --output /dev/null "${merchant_origin/merchant./}/healthz"; then break; fi
+  if curl --fail --silent --output /dev/null "$app_origin/healthz"; then break; fi
   sleep 1
 done
 state="$(curl --fail --silent --show-error --cookie "$cookies" "$merchant_origin/_state")"

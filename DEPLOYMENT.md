@@ -46,6 +46,9 @@ printf '%s\n' "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyring
 apt update
 apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 systemctl enable --now docker
+# Redis persistence and Caddy HTTP/3 both need sensible UDP/memory kernel limits.
+printf 'vm.overcommit_memory = 1\nnet.core.rmem_max = 7500000\n' > /etc/sysctl.d/99-temby.conf
+sysctl --system
 ufw allow OpenSSH
 ufw allow 80/tcp
 ufw allow 443/tcp

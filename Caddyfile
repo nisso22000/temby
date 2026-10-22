@@ -3,7 +3,13 @@
   # Keep operational logs useful without recording cookies, query strings, or bodies.
   log {
     output stdout
-    format json
+    format filter {
+      wrap json
+      fields {
+        request>headers delete
+        request>uri delete
+      }
+    }
     level INFO
   }
   servers {
