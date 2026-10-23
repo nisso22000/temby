@@ -7,9 +7,7 @@
     "dev": "tsx src/main.ts",
     "start": "tsx src/main.ts",
     "test": "tsx --test tests/*.test.ts",
-    "typecheck": "tsc --noEmit",
-    "load:session": "node scripts/load-session.mjs",
-    "dev:fixture": "tsx src/main.ts"
+    "typecheck": "tsc --noEmit"
   },
   "engines": {
     "node": ">=22.19.0"
