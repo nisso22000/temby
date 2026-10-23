@@ -4,8 +4,7 @@ import { browser } from 'k6/browser';
 import { check } from 'k6';
 
 const base = __ENV.TEMBY_TEST_BASE_URL || 'http://127.0.0.1:3001';
-const parsed = new URL(base);
-if (!['127.0.0.1', 'localhost'].includes(parsed.hostname)) throw new Error('Browser fixture test accepts only localhost.');
+if (!/^http:\/\/(?:127\.0\.0\.1|localhost):\d+$/.test(base)) throw new Error('Browser fixture test accepts only localhost.');
 if (__ENV.TEMBY_FIXTURE_CONFIRM !== 'OWNED_FIXTURE_ONLY') throw new Error('Set TEMBY_FIXTURE_CONFIRM=OWNED_FIXTURE_ONLY.');
 
 export const options = {

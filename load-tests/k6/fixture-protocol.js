@@ -4,8 +4,7 @@ import http from 'k6/http';
 import { check, sleep } from 'k6';
 
 const base = __ENV.TEMBY_TEST_BASE_URL || 'http://127.0.0.1:3001';
-const parsed = new URL(base);
-if (!['127.0.0.1', 'localhost'].includes(parsed.hostname)) {
+if (!/^http:\/\/(?:127\.0\.0\.1|localhost):\d+$/.test(base)) {
   throw new Error('This fixture test accepts only localhost. Do not point it at Temu or a public service.');
 }
 if (__ENV.TEMBY_FIXTURE_CONFIRM !== 'OWNED_FIXTURE_ONLY') {
