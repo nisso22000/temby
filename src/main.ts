@@ -19,7 +19,7 @@ if(production&&ownedFixtures)throw new Error('TEMBY_OWNED_FIXTURES is forbidden 
 const appOrigin=process.env.PUBLIC_APP_ORIGIN;
 const merchantOrigin=process.env.PUBLIC_MERCHANT_ORIGIN;
 if(production&&(!appOrigin||!merchantOrigin))throw new Error('PUBLIC_APP_ORIGIN and PUBLIC_MERCHANT_ORIGIN are required in production');
-for(const value of [appOrigin,merchantOrigin])if(value){const url=new URL(value);if(url.protocol!=='https:'||url.pathname!=='/'||url.search||url.hash)throw new Error('Public origins must be bare HTTPS origins');}
+for(const value of [appOrigin,merchantOrigin])if(value){const url=new URL(value);if((url.protocol!=='https:'&&!(ownedFixtures&&!production&&url.protocol==='http:'&&['127.0.0.1','localhost'].includes(url.hostname)))||url.pathname!=='/'||url.search||url.hash)throw new Error('Public origins must be bare HTTPS origins (or localhost HTTP for the owned fixture)');}
 if(appOrigin&&merchantOrigin&&appOrigin===merchantOrigin)throw new Error('Public origins must be distinct');
 if(production&&!process.env.REDIS_PASSWORD)throw new Error('REDIS_PASSWORD is required in production');
 const log=(event:string,fields:Record<string,unknown>={})=>console.log(JSON.stringify({time:new Date().toISOString(),level:'info',event,...fields}));
