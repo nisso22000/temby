@@ -8,7 +8,8 @@
     "start": "tsx src/main.ts",
     "test": "tsx --test tests/*.test.ts",
     "typecheck": "tsc --noEmit",
-    "load:session": "node scripts/load-session.mjs"
+    "load:session": "node scripts/load-session.mjs",
+    "dev:fixture": "tsx src/main.ts"
   },
   "engines": {
     "node": ">=22.19.0"
