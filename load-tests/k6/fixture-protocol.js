@@ -12,6 +12,7 @@ if (__ENV.TEMBY_FIXTURE_CONFIRM !== 'OWNED_FIXTURE_ONLY') {
 }
 const relay = `${base.replace(/\/$/, '')}/_relay`;
 const fixture = 'https://fixture.temby.invalid';
+let sessionCookie = '';
 
 export const options = {
   scenarios: {
@@ -34,13 +35,16 @@ export const options = {
 };
 
 function relayGet(path, destination) {
-  return http.post(relay, JSON.stringify({
+  const response = http.post(relay, JSON.stringify({
     url: `${fixture}${path}`,
     method: 'GET',
     destination,
     engine: 'ultraviolet',
     headers: { accept: '*/*' },
-  }), { headers: { 'content-type': 'application/json', origin: base }, tags: { endpoint: path, destination } });
+  }), { headers: { 'content-type': 'application/json', origin: base, ...(sessionCookie ? { cookie: sessionCookie } : {}) }, tags: { endpoint: path, destination } });
+  const issued = response.cookies?.temby_sid?.[0]?.value;
+  if (issued) sessionCookie = `temby_sid=${issued}`;
+  return response;
 }
 
 export default function () {
