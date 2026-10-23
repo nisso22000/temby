@@ -1,0 +1,3 @@
+FROM temby-temby:latest
+COPY test-support/owned-fixtures.js /app/test-support/owned-fixtures.js
+ENV NODE_ENV=development
